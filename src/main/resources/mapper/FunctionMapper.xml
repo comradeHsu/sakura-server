@@ -90,4 +90,21 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getFunctionByUser" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    f.module_name, f.module_route
+    from department_function df
+    inner JOIN function f
+    on df.function_id = f.id
+    where df.department_id = (select department_id from employee where id = #{employeeId})
+    and df.deleted = false and f.deleted = false
+  </select>
+
+  <select id="getAllFunction" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT
+    module_name,module_route
+    from function
+    where deleted = false
+  </select>
 </mapper>

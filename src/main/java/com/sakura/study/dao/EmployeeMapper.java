@@ -21,4 +21,11 @@ public interface EmployeeMapper {
      * @return
      */
     Employee findByUsername(String username);
+
+    /**
+     * 根据id删除管理员
+     * @param id
+     * @return
+     */
+    int deletedById(Integer id);
 }

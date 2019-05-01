@@ -22,4 +22,11 @@ public class ResponseResult {
         responseResult.setData(data);
         return responseResult;
     }
+
+    public static ResponseResult success(String message, Object data){
+        ResponseResult responseResult = new ResponseResult();
+        responseResult.setMessage(message);
+        responseResult.setData(data);
+        return responseResult;
+    }
 }

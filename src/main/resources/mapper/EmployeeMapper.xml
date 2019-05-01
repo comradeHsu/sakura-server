@@ -131,6 +131,12 @@
     select
     <include refid="Base_Column_List" />
     from employee
-    where username = #{username} and deleted = false
+    where username = #{username} and deleted = false limit 1
   </select>
+
+  <update id="deletedById" parameterType="java.lang.Integer">
+    update employee
+    set deleted = true
+    where id = #{id}
+  </update>
 </mapper>
