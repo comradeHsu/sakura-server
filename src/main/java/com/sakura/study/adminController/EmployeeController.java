@@ -47,15 +47,16 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/info",method = RequestMethod.GET)
     public ResponseResult getEmployeeInfo(@RequestHeader("Token")String token){
-        EmployeeDto employee = (EmployeeDto) RedisUtil.get(token);
+        Employee employee = (Employee) RedisUtil.get(token);
         Assert.notNull(employee,"用户信息不存在");
         List<Function> functions;
         if(employee.getDepartmentId() == 0)
             functions = employeeService.getAllFunction();
         else
             functions = employeeService.getFunctionByUser(employee.getId());
-        employee.setFunctions(functions);
-        return ResponseResult.success(employee);
+        EmployeeDto dto = new EmployeeDto(employee);
+        dto.setFunctions(functions);
+        return ResponseResult.success(dto);
     }
 
     /**
