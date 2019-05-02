@@ -29,4 +29,11 @@ public class ResponseResult {
         responseResult.setData(data);
         return responseResult;
     }
+
+    public static ResponseResult pageResult(Object data,int dataCount){
+        ResponseResult responseResult = new ResponseResult();
+        responseResult.setData(data);
+        responseResult.setDataCount(dataCount);
+        return responseResult;
+    }
 }

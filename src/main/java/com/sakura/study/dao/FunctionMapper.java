@@ -29,4 +29,11 @@ public interface FunctionMapper {
      * @return
      */
     List<Function> getAllFunction();
+
+    /**
+     * 根据部门获取权限
+     * @param departmentId
+     * @return
+     */
+    List<Function> getFunctionByDepartment(Integer departmentId);
 }

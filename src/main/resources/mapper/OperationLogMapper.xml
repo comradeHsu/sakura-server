@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.study.dao.OperationLogMapper">
+  <resultMap id="BaseResultMap" type="com.sakura.study.model.OperationLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
+    <result column="operation" jdbcType="INTEGER" property="operation" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, employee_id, operation, content, create_time, deleted
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from operation_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from operation_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sakura.study.model.OperationLog">
+    insert into operation_log (id, employee_id, operation, 
+      content, create_time, deleted
+      )
+    values (#{id,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{operation,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sakura.study.model.OperationLog">
+    insert into operation_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="operation != null">
+        operation,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="operation != null">
+        #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sakura.study.model.OperationLog">
+    update operation_log
+    <set>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="operation != null">
+        operation = #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sakura.study.model.OperationLog">
+    update operation_log
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      operation = #{operation,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getPageLogs" resultType="com.sakura.study.dto.OperationLogDto">
+    select
+    o.id, o.employee_id, o.operation, o.content, o.create_time,
+    e.username
+    from operation_log o
+    inner join employee e
+    on o.employee_id = e.id
+    <where>
+      <if test="employeeId != null">
+        and o.employee_id = #{employeeId}
+      </if>
+      <if test="true">
+        and o.deleted = false
+      </if>
+    </where>
+    order by o.id desc
+    limit #{start},#{pageCount}
+  </select>
+
+  <select id="getLogsCount" resultType="java.lang.Integer">
+    select
+    count(*)
+    from operation_log o
+    <where>
+      <if test="employeeId != null">
+        and o.employee_id = #{employeeId}
+      </if>
+      <if test="true">
+        and o.deleted = false
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -8,6 +8,18 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="deleted" property="deleted" jdbcType="BIT" />
   </resultMap>
+
+  <resultMap id="DtoMap" type="com.sakura.study.dto.DepartmentDto" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="employeeCount" property="employeeCount" jdbcType="INTEGER" />
+    <collection property="functions" javaType="com.sakura.study.model.Function" column="id"
+                select="com.sakura.study.dao.FunctionMapper.getFunctionByDepartment"/>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     id, department, description, create_time, deleted
   </sql>
@@ -90,4 +102,48 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="findByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from department
+    where department = #{department} and deleted = false limit 1
+  </select>
+
+  <select id="getDepartmentEmployeeCount" resultType="java.lang.Integer">
+    select
+    count(*)
+    from employee
+    where department_id = #{id} and deleted = false
+  </select>
+
+  <update id="deleteById" parameterType="java.lang.Integer" >
+    update department
+    set
+    deleted = true
+    where id = #{id}
+  </update>
+
+  <select id="getPageDepartment" resultMap="DtoMap">
+    select
+    <include refid="Base_Column_List" />,
+    (select count(*) from employee e where e.department_id = id and e.deleted = false) as employeeCount
+    from department
+    where deleted = false limit #{start},#{pageCount}
+  </select>
+
+  <select id="getDepartmentCount" resultType="java.lang.Integer">
+    select
+    count(*)
+    from department
+    where deleted = false
+  </select>
+
+  <select id="getAllDepartment" resultMap="BaseResultMap">
+    select
+    id,department
+    from department
+    where deleted = false
+  </select>
 </mapper>

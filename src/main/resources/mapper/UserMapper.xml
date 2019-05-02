@@ -138,4 +138,19 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="getPageUser" resultType="com.sakura.study.model.User">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where deleted = false limit #{start},#{pageCount}
+  </select>
+
+  <select id="getPageUserCount" resultType="java.lang.Integer">
+    select
+    COUNT(*)
+    from user
+    where deleted = false
+  </select>
 </mapper>

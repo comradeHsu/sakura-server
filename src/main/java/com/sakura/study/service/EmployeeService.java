@@ -1,8 +1,10 @@
 package com.sakura.study.service;
 
 import com.sakura.study.dto.ChangePassword;
+import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.Employee;
 import com.sakura.study.model.Function;
+import com.sakura.study.utils.ResponseResult;
 
 import java.util.List;
 
@@ -54,4 +56,12 @@ public interface EmployeeService {
      * @param data
      */
     void editPwd(ChangePassword data,String token);
+
+    /**
+     * 管理员列表
+     * @param id
+     * @param page
+     * @return
+     */
+    ResponseResult getPageEmployee(Integer id, PageRequest page);
 }

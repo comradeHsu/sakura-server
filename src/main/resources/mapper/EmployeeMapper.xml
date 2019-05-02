@@ -139,4 +139,18 @@
     set deleted = true
     where id = #{id}
   </update>
+
+  <select id="getPageEmployee" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from employee
+    where id != #{id} and deleted = false limit #{satrt},#{pageCount}
+  </select>
+
+  <select id="getPageEmployeeCount" resultType="java.lang.Integer">
+    select
+    count(*)
+    from employee
+    where id != #{id} and deleted = false
+  </select>
 </mapper>

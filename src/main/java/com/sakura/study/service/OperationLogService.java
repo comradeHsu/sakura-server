@@ -3,11 +3,12 @@ package com.sakura.study.service;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.utils.ResponseResult;
 
-public interface UserService {
+public interface OperationLogService {
     /**
-     * 获取分页的用户列表
+     * 分页操作日志
      * @param page
+     * @param employeeId
      * @return
      */
-    ResponseResult getPageUsers(PageRequest page);
+    ResponseResult getPageLogs(PageRequest page,Integer employeeId);
 }

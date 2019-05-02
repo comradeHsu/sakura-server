@@ -3,12 +3,14 @@ package com.sakura.study.service.impl;
 import com.sakura.study.dao.EmployeeMapper;
 import com.sakura.study.dao.FunctionMapper;
 import com.sakura.study.dto.ChangePassword;
+import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.Employee;
 import com.sakura.study.model.Function;
 import com.sakura.study.service.EmployeeService;
 import com.sakura.study.utils.BusinessException;
 import com.sakura.study.utils.MD5Util;
 import com.sakura.study.utils.RedisUtil;
+import com.sakura.study.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if(record == null)
             throw new BusinessException(404,"用户不存在");
         if(!MD5Util.md5Encode(employee.getPassword()).equals(record.getPassword()))
-            throw new BusinessException(404,"用户名或密码错误");
+            throw new BusinessException(400,"用户名或密码错误");
         return record;
     }
 
@@ -106,6 +108,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         self.setPassword(MD5Util.md5Encode(data.getNewPassword()));
         employeeMapper.updateByPrimaryKeySelective(self);
         RedisUtil.set(token,self,60*30L);
+    }
+
+    /**
+     * 管理员列表
+     *
+     * @param id
+     * @param page
+     * @return
+     */
+    @Override
+    public ResponseResult getPageEmployee(Integer id, PageRequest page) {
+        List<Employee> employees = employeeMapper.getPageEmployee(id,page.getPage(),page.getPageCount());
+        int dataCount = employeeMapper.getPageEmployeeCount(id);
+        return ResponseResult.pageResult(employees,dataCount);
     }
 
     /**

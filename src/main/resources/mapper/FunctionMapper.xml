@@ -107,4 +107,14 @@
     from function
     where deleted = false
   </select>
+
+  <select id="getFunctionByDepartment" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    f.id,f.module_name, f.module_route
+    from department_function df
+    inner JOIN function f
+    on df.function_id = f.id
+    where df.department_id = #{departmentId}
+    and df.deleted = false and f.deleted = false
+  </select>
 </mapper>
