@@ -16,7 +16,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="deleted" property="deleted" jdbcType="BIT" />
     <result column="employeeCount" property="employeeCount" jdbcType="INTEGER" />
-    <collection property="functions" javaType="com.sakura.study.model.Function" column="id"
+    <collection property="functions" javaType="java.util.ArrayList" column="id" ofType="com.sakura.study.model.Function"
                 select="com.sakura.study.dao.FunctionMapper.getFunctionByDepartment"/>
   </resultMap>
 
@@ -127,10 +127,10 @@
 
   <select id="getPageDepartment" resultMap="DtoMap">
     select
-    <include refid="Base_Column_List" />,
-    (select count(*) from employee e where e.department_id = id and e.deleted = false) as employeeCount
-    from department
-    where deleted = false limit #{start},#{pageCount}
+      d.id, d.department, d.description, d.create_time,
+    (select count(*) from employee e where e.department_id = d.id and e.deleted = false) as employeeCount
+    from department d
+    where d.deleted = false limit #{start},#{pageCount}
   </select>
 
   <select id="getDepartmentCount" resultType="java.lang.Integer">

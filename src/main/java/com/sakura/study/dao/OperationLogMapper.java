@@ -2,7 +2,7 @@ package com.sakura.study.dao;
 
 import com.sakura.study.dto.OperationLogDto;
 import com.sakura.study.model.OperationLog;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

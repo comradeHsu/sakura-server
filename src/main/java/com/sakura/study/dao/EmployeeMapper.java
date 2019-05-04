@@ -1,7 +1,8 @@
 package com.sakura.study.dao;
 
+import com.sakura.study.dto.EmployeePageRequest;
 import com.sakura.study.model.Employee;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -34,17 +35,16 @@ public interface EmployeeMapper {
 
     /**
      * 获取工作人员列表
-     * @param id
-     * @param start
-     * @param pageCount
+     * @param page
      * @return
      */
-    List<Employee> getPageEmployee(@Param("id") Integer id,@Param("start")Integer start,@Param("pageCount")Integer pageCount);
+    List<Employee> getPageEmployee(EmployeePageRequest page);
 
     /**
      * 获取工作人员数量
      * @param id
+     * @param departmentId
      * @return
      */
-    int getPageEmployeeCount(Integer id);
+    int getPageEmployeeCount(@Param("id") Integer id,@Param("departmentId")Integer departmentId);
 }

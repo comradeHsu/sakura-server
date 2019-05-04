@@ -1,7 +1,7 @@
 package com.sakura.study.dao;
 
 import com.sakura.study.model.University;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -34,4 +34,11 @@ public interface UniversityMapper {
      * @return
      */
     int getPageSchoolsCount(String schoolName);
+
+    /**
+     * 查找是否有重复名字
+     * @param schoolName
+     * @return
+     */
+    University findBySchoolName(String schoolName);
 }

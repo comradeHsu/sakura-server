@@ -17,6 +17,8 @@ public class EmployeeDto extends Employee{
 
     private List<String> roles = Lists.newArrayList("admin");
 
+    private String department;
+
     public EmployeeDto(Employee employee){
         BeanUtils.copyProperties(employee,this);
     }

@@ -140,11 +140,18 @@
     where id = #{id}
   </update>
 
-  <select id="getPageEmployee" resultMap="BaseResultMap">
+  <select id="getPageEmployee" resultType="com.sakura.study.dto.EmployeeDto" parameterType="com.sakura.study.dto.EmployeePageRequest">
     select
-    <include refid="Base_Column_List" />
-    from employee
-    where id != #{id} and deleted = false limit #{satrt},#{pageCount}
+    e.id, e.department_id departmentId, e.username, e.phone_number phoneNumber, e.real_name realName, e.create_time createTime, d.department
+    from employee e
+    inner join department d
+    on d.id = e.department_id
+    where e.id != #{selfId} and e.deleted = false
+    <if test="departmentId != null">
+      and e.department_id = #{departmentId}
+    </if>
+    order by e.id desc
+    limit #{skip},#{pageCount}
   </select>
 
   <select id="getPageEmployeeCount" resultType="java.lang.Integer">
@@ -152,5 +159,8 @@
     count(*)
     from employee
     where id != #{id} and deleted = false
+    <if test="departmentId != null">
+      and department_id = #{departmentId}
+    </if>
   </select>
 </mapper>

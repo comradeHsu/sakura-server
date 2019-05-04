@@ -1,6 +1,7 @@
 package com.sakura.study.service;
 
 import com.sakura.study.dto.PageRequest;
+import com.sakura.study.model.University;
 import com.sakura.study.utils.ResponseResult;
 
 public interface UniversityService {
@@ -11,4 +12,33 @@ public interface UniversityService {
      * @return
      */
     ResponseResult getPageSchools(PageRequest page,String schoolName);
+
+    /**
+     * 添加学校
+     * @param token
+     * @param university
+     */
+    void addUniversity(String token, University university);
+
+    /**
+     * 修改学校信息
+     * @param token
+     * @param university
+     * @param id
+     */
+    void editUniversity(String token, University university,Integer id);
+
+    /**
+     * 删除学校信息
+     * @param token
+     * @param id
+     */
+    void deleteUniversity(String token,Integer id);
+
+    /**
+     * 查找学校
+     * @param id
+     * @return
+     */
+    University getUniversityById(Integer id);
 }

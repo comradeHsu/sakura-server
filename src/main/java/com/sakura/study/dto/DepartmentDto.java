@@ -5,6 +5,7 @@ import com.sakura.study.model.Function;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -13,6 +14,6 @@ public class DepartmentDto extends Department{
 
     private int employeeCount;
 
-    private List<Function> functions;
+    private List<Function> functions = Collections.emptyList();
 
 }

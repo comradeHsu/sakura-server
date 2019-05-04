@@ -1,6 +1,7 @@
 package com.sakura.study.service;
 
 import com.sakura.study.dto.ChangePassword;
+import com.sakura.study.dto.EmployeePageRequest;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.Employee;
 import com.sakura.study.model.Function;
@@ -63,5 +64,5 @@ public interface EmployeeService {
      * @param page
      * @return
      */
-    ResponseResult getPageEmployee(Integer id, PageRequest page);
+    ResponseResult getPageEmployee(Integer id, EmployeePageRequest page);
 }

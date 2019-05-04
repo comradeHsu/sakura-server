@@ -182,4 +182,12 @@
       and school_name like concat('%',#{schoolName},'%')
     </if>
   </select>
+
+  <select id="findBySchoolName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from university
+    where deleted = FALSE
+    and school_name = #{schoolName} limit 1
+  </select>
 </mapper>

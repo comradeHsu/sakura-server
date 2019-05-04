@@ -22,7 +22,7 @@ public class UniversityController {
      */
     @RequestMapping(value = "/universities",method = RequestMethod.GET)
     public ResponseResult getUniversities(PageRequest page,String schoolName){
-        if(schoolName.trim().isEmpty()){
+        if(schoolName != null && schoolName.trim().isEmpty()){
             schoolName = null;
         }
         return universityService.getPageSchools(page,schoolName);
@@ -36,6 +36,33 @@ public class UniversityController {
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public ResponseResult add(@RequestHeader("Token")String token, @RequestBody University university){
-        return null;
+        universityService.addUniversity(token,university);
+        return ResponseResult.success("添加成功",null);
+    }
+
+    /**
+     * 修改学校信息
+     * @param token
+     * @param university
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    public ResponseResult add(@RequestHeader("Token") String token, @RequestBody University university,
+                              @PathVariable("id") Integer id){
+        universityService.editUniversity(token,university,id);
+        return ResponseResult.success("修改成功",null);
+    }
+
+    /**
+     * 删除学校信息
+     * @param token
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    public ResponseResult delete(@RequestHeader("Token") String token, @PathVariable("id") Integer id){
+        universityService.deleteUniversity(token,id);
+        return ResponseResult.success("删除成功",null);
     }
 }

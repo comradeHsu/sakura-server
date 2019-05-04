@@ -103,4 +103,29 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="getPageMajors" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from major
+    where university_id = #{universityId} and deleted = FALSE
+    order by id DESC
+    limit #{start},#{pageCount}
+  </select>
+
+  <select id="getPageMajorsCount" resultType="java.lang.Integer">
+    select
+    count(*)
+    from major
+    where university_id = #{universityId} and deleted = FALSE
+  </select>
+
+  <select id="findByUniversityIdAndName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from major
+    where university_id = #{universityId} and deleted = FALSE
+    and major_name = #{majorName} limit 1
+  </select>
 </mapper>

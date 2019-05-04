@@ -103,7 +103,7 @@
 
   <select id="getAllFunction" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT
-    module_name,module_route
+    id,module_name,module_route
     from function
     where deleted = false
   </select>

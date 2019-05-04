@@ -3,6 +3,7 @@ package com.sakura.study.service.impl;
 import com.sakura.study.dao.EmployeeMapper;
 import com.sakura.study.dao.FunctionMapper;
 import com.sakura.study.dto.ChangePassword;
+import com.sakura.study.dto.EmployeePageRequest;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.Employee;
 import com.sakura.study.model.Function;
@@ -118,9 +119,10 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return
      */
     @Override
-    public ResponseResult getPageEmployee(Integer id, PageRequest page) {
-        List<Employee> employees = employeeMapper.getPageEmployee(id,page.getPage(),page.getPageCount());
-        int dataCount = employeeMapper.getPageEmployeeCount(id);
+    public ResponseResult getPageEmployee(Integer id, EmployeePageRequest page) {
+        page.setSelfId(id);
+        List<Employee> employees = employeeMapper.getPageEmployee(page);
+        int dataCount = employeeMapper.getPageEmployeeCount(id,page.getDepartmentId());
         return ResponseResult.pageResult(employees,dataCount);
     }
 

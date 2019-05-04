@@ -2,6 +2,7 @@ package com.sakura.study.adminController;
 
 import com.sakura.study.dto.ChangePassword;
 import com.sakura.study.dto.EmployeeDto;
+import com.sakura.study.dto.EmployeePageRequest;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.Employee;
 import com.sakura.study.model.Function;
@@ -118,7 +119,7 @@ public class EmployeeController {
      * @return
      */
     @RequestMapping(value = "/employees",method = RequestMethod.GET)
-    public ResponseResult getPageEmployees(@RequestHeader("Token") String token, PageRequest page){
+    public ResponseResult getPageEmployees(@RequestHeader("Token") String token, EmployeePageRequest page){
         Employee employee = (Employee) RedisUtil.get(token);
         return employeeService.getPageEmployee(employee.getId(),page);
     }

@@ -11,8 +11,14 @@ public class PageRequest {
 
     private int pageCount = 10;
 
+    private int skip;
+
     public int getSkip(){
         return (this.page - 1) * this.pageCount;
+    }
+
+    public PageRequest(){
+        this.skip = getSkip();
     }
 
 }
