@@ -9,6 +9,7 @@ import com.sakura.study.model.Function;
 import com.sakura.study.service.EmployeeService;
 import com.sakura.study.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -121,6 +122,9 @@ public class EmployeeController {
     @RequestMapping(value = "/employees",method = RequestMethod.GET)
     public ResponseResult getPageEmployees(@RequestHeader("Token") String token, EmployeePageRequest page){
         Employee employee = (Employee) RedisUtil.get(token);
+        if(StringUtils.isEmpty(page.getRealName())){
+            page.setRealName(null);
+        }
         return employeeService.getPageEmployee(employee.getId(),page);
     }
 

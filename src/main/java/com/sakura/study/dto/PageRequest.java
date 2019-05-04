@@ -13,12 +13,12 @@ public class PageRequest {
 
     private int skip;
 
-    public int getSkip(){
+    public int initSkip(){
         return (this.page - 1) * this.pageCount;
     }
 
     public PageRequest(){
-        this.skip = getSkip();
+        this.skip = initSkip();
     }
 
 }

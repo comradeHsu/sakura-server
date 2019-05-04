@@ -122,7 +122,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ResponseResult getPageEmployee(Integer id, EmployeePageRequest page) {
         page.setSelfId(id);
         List<Employee> employees = employeeMapper.getPageEmployee(page);
-        int dataCount = employeeMapper.getPageEmployeeCount(id,page.getDepartmentId());
+        int dataCount = employeeMapper.getPageEmployeeCount(page);
         return ResponseResult.pageResult(employees,dataCount);
     }
 

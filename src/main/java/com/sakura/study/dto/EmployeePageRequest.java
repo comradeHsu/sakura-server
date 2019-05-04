@@ -11,4 +11,6 @@ public class EmployeePageRequest extends PageRequest{
 
     private Integer selfId;
 
+    private String realName;
+
 }

@@ -150,17 +150,23 @@
     <if test="departmentId != null">
       and e.department_id = #{departmentId}
     </if>
+    <if test="realName != null">
+      and e.real_name like concat('%',#{realName},'%')
+    </if>
     order by e.id desc
     limit #{skip},#{pageCount}
   </select>
 
-  <select id="getPageEmployeeCount" resultType="java.lang.Integer">
+  <select id="getPageEmployeeCount" parameterType="com.sakura.study.dto.EmployeePageRequest" resultType="java.lang.Integer">
     select
     count(*)
     from employee
-    where id != #{id} and deleted = false
+    where id != #{selfId} and deleted = false
     <if test="departmentId != null">
       and department_id = #{departmentId}
+    </if>
+    <if test="realName != null">
+      and real_name like concat('%',#{realName},'%')
     </if>
   </select>
 </mapper>

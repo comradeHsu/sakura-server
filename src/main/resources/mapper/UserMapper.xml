@@ -37,7 +37,7 @@
       #{icon,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.sakura.study.model.User">
+  <insert id="insertSelective" parameterType="com.sakura.study.model.User" useGeneratedKeys="true" keyProperty="id">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -152,11 +152,18 @@
   </update>
 
 
-  <select id="getPageUser" resultType="com.sakura.study.model.User">
+  <select id="getPageUser" resultType="com.sakura.study.dto.UserDto">
     select
-    <include refid="Base_Column_List" />
-    from user
-    where deleted = false limit #{start},#{pageCount}
+      u.id, u.parent_id, u.username, u.phone_number, u.age, u.icon, u.real_name, u.create_time,
+      p.username as parentUsername
+    from user u
+      LEFT JOIN user p
+      ON p.id = u.parent_id
+    where u.deleted = false
+    <if test="realName != null">
+      and u.real_name like concat('%',#{realName},'%')
+    </if>
+    limit #{start},#{pageCount}
   </select>
 
   <select id="getPageUserCount" resultType="java.lang.Integer">
@@ -164,5 +171,24 @@
     COUNT(*)
     from user
     where deleted = false
+    <if test="realName != null">
+      and real_name like concat('%',#{realName},'%')
+    </if>
   </select>
+
+  <select id="getParents" resultType="com.sakura.study.model.User">
+    select
+    u.id, u.parent_id, u.username
+    from user u
+    where u.deleted = false and u.parent_id = 0
+    <if test="username != null">
+      and u.username like concat('%',#{username},'%')
+    </if>
+  </select>
+
+  <update id="resetParentId" parameterType="java.lang.Integer">
+    update user
+    set parent_id = 0
+    where parent_id = #{parentId}
+  </update>
 </mapper>

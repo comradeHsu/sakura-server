@@ -33,12 +33,12 @@ public interface UniversityMapper {
      * @param schoolName
      * @return
      */
-    int getPageSchoolsCount(String schoolName);
+    int getPageSchoolsCount(@Param("schoolName")String schoolName);
 
     /**
      * 查找是否有重复名字
      * @param schoolName
      * @return
      */
-    University findBySchoolName(String schoolName);
+    University findBySchoolName(@Param("schoolName")String schoolName);
 }

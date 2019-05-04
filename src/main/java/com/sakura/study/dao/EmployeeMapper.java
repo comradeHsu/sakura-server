@@ -42,9 +42,8 @@ public interface EmployeeMapper {
 
     /**
      * 获取工作人员数量
-     * @param id
-     * @param departmentId
+     * @param page
      * @return
      */
-    int getPageEmployeeCount(@Param("id") Integer id,@Param("departmentId")Integer departmentId);
+    int getPageEmployeeCount(EmployeePageRequest page);
 }
