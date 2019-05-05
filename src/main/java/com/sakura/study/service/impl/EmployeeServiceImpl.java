@@ -62,6 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void add(Employee employee,String token) {
         Employee record = employeeMapper.findByUsername(employee.getUsername());
         if(record != null) throw new BusinessException(400,"用户名已存在");
+        employee.setPassword(MD5Util.md5Encode(employee.getPassword()));
         employeeMapper.insertSelective(employee);
     }
 
@@ -78,6 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee byUsername = employeeMapper.findByUsername(employee.getUsername());
         if(byUsername != null && !Objects.equals(byUsername.getId(), id)) throw new BusinessException(400,"用户名已存在");
         employee.setId(id);
+        employee.setPassword(null);
         employeeMapper.updateByPrimaryKeySelective(employee);
     }
 

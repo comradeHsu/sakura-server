@@ -5,6 +5,7 @@ import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.User;
 import com.sakura.study.service.UserService;
 import com.sakura.study.utils.BusinessException;
+import com.sakura.study.utils.MD5Util;
 import com.sakura.study.utils.ResponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User add(String token, User user) {
         getParentByParentId(user);
+        user.setPassword(MD5Util.md5Encode(user.getPassword()));
         userMapper.insertSelective(user);
         return user;
     }
