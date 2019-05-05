@@ -1,6 +1,9 @@
 package com.sakura.study.dao;
 
+import com.sakura.study.dto.FinancePageRequest;
 import com.sakura.study.model.Finance;
+
+import java.util.List;
 
 public interface FinanceMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,18 @@ public interface FinanceMapper {
     int updateByPrimaryKeySelective(Finance record);
 
     int updateByPrimaryKey(Finance record);
+
+    /**
+     * 获取分页的财务信息
+     * @param request
+     * @return
+     */
+    List<Finance> getFinances(FinancePageRequest request);
+
+    /**
+     * 获取数量
+     * @param request
+     * @return
+     */
+    int getFinancesCount(FinancePageRequest request);
 }

@@ -32,7 +32,7 @@
       #{amount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{tradingTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.sakura.study.model.Finance" >
+  <insert id="insertSelective" parameterType="com.sakura.study.model.Finance" useGeneratedKeys="true" keyProperty="id">
     insert into finance
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -125,4 +125,27 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="getFinances" resultMap="BaseResultMap" parameterType="com.sakura.study.dto.FinancePageRequest" >
+    select
+    <include refid="Base_Column_List" />
+    from finance
+    where deleted = false
+    <if test="type != null">
+      and type = #{type}
+    </if>
+    order by id desc
+    limit #{skip},#{pageCount}
+  </select>
+
+  <select id="getFinancesCount" resultType="java.lang.Integer" parameterType="com.sakura.study.dto.FinancePageRequest" >
+    select
+    count(*)
+    from finance
+    where deleted = false
+    <if test="type != null">
+      and type = #{type}
+    </if>
+  </select>
 </mapper>

@@ -1,157 +1,181 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sakura.study.dao.UniversityMapper" >
-  <resultMap id="BaseResultMap" type="com.sakura.study.model.University" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="school_name" property="schoolName" jdbcType="VARCHAR" />
-    <result column="english_name" property="englishName" jdbcType="VARCHAR" />
-    <result column="school_icon" property="schoolIcon" jdbcType="VARCHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="website" property="website" jdbcType="VARCHAR" />
-    <result column="world_ranking" property="worldRanking" jdbcType="INTEGER" />
-    <result column="national_ranking" property="nationalRanking" jdbcType="INTEGER" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="deleted" property="deleted" jdbcType="BIT" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.study.dao.UniversityMapper">
+  <resultMap id="BaseResultMap" type="com.sakura.study.model.University">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="school_name" jdbcType="VARCHAR" property="schoolName" />
+    <result column="english_name" jdbcType="VARCHAR" property="englishName" />
+    <result column="school_icon" jdbcType="VARCHAR" property="schoolIcon" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="website" jdbcType="VARCHAR" property="website" />
+    <result column="world_ranking" jdbcType="INTEGER" property="worldRanking" />
+    <result column="national_ranking" jdbcType="INTEGER" property="nationalRanking" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, school_name, english_name, school_icon, address, website, world_ranking, national_ranking, 
-    description, create_time, deleted
+  <sql id="Base_Column_List">
+    id, school_name, english_name, school_icon, province, city, address, website, world_ranking, 
+    national_ranking, description, create_time, deleted
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from university
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from university
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.sakura.study.model.University" >
+  <insert id="insert" parameterType="com.sakura.study.model.University">
     insert into university (id, school_name, english_name, 
-      school_icon, address, website, 
-      world_ranking, national_ranking, description, 
-      create_time, deleted)
+      school_icon, province, city, 
+      address, website, world_ranking, 
+      national_ranking, description, create_time, 
+      deleted)
     values (#{id,jdbcType=INTEGER}, #{schoolName,jdbcType=VARCHAR}, #{englishName,jdbcType=VARCHAR}, 
-      #{schoolIcon,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
-      #{worldRanking,jdbcType=INTEGER}, #{nationalRanking,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
+      #{schoolIcon,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, #{worldRanking,jdbcType=INTEGER}, 
+      #{nationalRanking,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.sakura.study.model.University" >
+  <insert id="insertSelective" parameterType="com.sakura.study.model.University">
     insert into university
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="schoolName != null" >
+      <if test="schoolName != null">
         school_name,
       </if>
-      <if test="englishName != null" >
+      <if test="englishName != null">
         english_name,
       </if>
-      <if test="schoolIcon != null" >
+      <if test="schoolIcon != null">
         school_icon,
       </if>
-      <if test="address != null" >
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="address != null">
         address,
       </if>
-      <if test="website != null" >
+      <if test="website != null">
         website,
       </if>
-      <if test="worldRanking != null" >
+      <if test="worldRanking != null">
         world_ranking,
       </if>
-      <if test="nationalRanking != null" >
+      <if test="nationalRanking != null">
         national_ranking,
       </if>
-      <if test="description != null" >
+      <if test="description != null">
         description,
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time,
       </if>
-      <if test="deleted != null" >
+      <if test="deleted != null">
         deleted,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="schoolName != null" >
+      <if test="schoolName != null">
         #{schoolName,jdbcType=VARCHAR},
       </if>
-      <if test="englishName != null" >
+      <if test="englishName != null">
         #{englishName,jdbcType=VARCHAR},
       </if>
-      <if test="schoolIcon != null" >
+      <if test="schoolIcon != null">
         #{schoolIcon,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="website != null" >
+      <if test="website != null">
         #{website,jdbcType=VARCHAR},
       </if>
-      <if test="worldRanking != null" >
+      <if test="worldRanking != null">
         #{worldRanking,jdbcType=INTEGER},
       </if>
-      <if test="nationalRanking != null" >
+      <if test="nationalRanking != null">
         #{nationalRanking,jdbcType=INTEGER},
       </if>
-      <if test="description != null" >
+      <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="deleted != null" >
+      <if test="deleted != null">
         #{deleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sakura.study.model.University" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.sakura.study.model.University">
     update university
-    <set >
-      <if test="schoolName != null" >
+    <set>
+      <if test="schoolName != null">
         school_name = #{schoolName,jdbcType=VARCHAR},
       </if>
-      <if test="englishName != null" >
+      <if test="englishName != null">
         english_name = #{englishName,jdbcType=VARCHAR},
       </if>
-      <if test="schoolIcon != null" >
+      <if test="schoolIcon != null">
         school_icon = #{schoolIcon,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="website != null" >
+      <if test="website != null">
         website = #{website,jdbcType=VARCHAR},
       </if>
-      <if test="worldRanking != null" >
+      <if test="worldRanking != null">
         world_ranking = #{worldRanking,jdbcType=INTEGER},
       </if>
-      <if test="nationalRanking != null" >
+      <if test="nationalRanking != null">
         national_ranking = #{nationalRanking,jdbcType=INTEGER},
       </if>
-      <if test="description != null" >
+      <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="deleted != null" >
+      <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.sakura.study.model.University" >
+  <update id="updateByPrimaryKey" parameterType="com.sakura.study.model.University">
     update university
     set school_name = #{schoolName,jdbcType=VARCHAR},
       english_name = #{englishName,jdbcType=VARCHAR},
       school_icon = #{schoolIcon,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       website = #{website,jdbcType=VARCHAR},
       world_ranking = #{worldRanking,jdbcType=INTEGER},

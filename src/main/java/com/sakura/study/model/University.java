@@ -16,6 +16,10 @@ public class University {
 
     private String schoolIcon;
 
+    private String province;
+
+    private String city;
+
     private String address;
 
     private String website;
@@ -29,5 +33,4 @@ public class University {
     private Date createTime;
 
     private Boolean deleted;
-
 }
