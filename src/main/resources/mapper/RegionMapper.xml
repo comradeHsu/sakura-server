@@ -4,11 +4,10 @@
   <resultMap id="BaseResultMap" type="com.sakura.study.model.Region" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="parent_id" property="parentId" jdbcType="INTEGER" />
-    <result column="japenese" property="japenese" jdbcType="VARCHAR" />
-    <result column="chinese" property="chinese" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, parent_id, japenese, chinese
+    id, parent_id, address
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -21,10 +20,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.sakura.study.model.Region" >
-    insert into region (id, parent_id, japenese, 
-      chinese)
-    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{japenese,jdbcType=VARCHAR}, 
-      #{chinese,jdbcType=VARCHAR})
+    insert into region (id, parent_id, address
+      )
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.sakura.study.model.Region" >
     insert into region
@@ -35,11 +34,8 @@
       <if test="parentId != null" >
         parent_id,
       </if>
-      <if test="japenese != null" >
-        japenese,
-      </if>
-      <if test="chinese != null" >
-        chinese,
+      <if test="address != null" >
+        address,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -49,11 +45,8 @@
       <if test="parentId != null" >
         #{parentId,jdbcType=INTEGER},
       </if>
-      <if test="japenese != null" >
-        #{japenese,jdbcType=VARCHAR},
-      </if>
-      <if test="chinese != null" >
-        #{chinese,jdbcType=VARCHAR},
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -63,11 +56,8 @@
       <if test="parentId != null" >
         parent_id = #{parentId,jdbcType=INTEGER},
       </if>
-      <if test="japenese != null" >
-        japenese = #{japenese,jdbcType=VARCHAR},
-      </if>
-      <if test="chinese != null" >
-        chinese = #{chinese,jdbcType=VARCHAR},
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -75,8 +65,22 @@
   <update id="updateByPrimaryKey" parameterType="com.sakura.study.model.Region" >
     update region
     set parent_id = #{parentId,jdbcType=INTEGER},
-      japenese = #{japenese,jdbcType=VARCHAR},
-      chinese = #{chinese,jdbcType=VARCHAR}
+      address = #{address,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="getParentRegion" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from region
+    where parent_id = 0
+  </select>
+
+  <select id="getSubRegion" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from region
+    where parent_id = #{parentId}
+  </select>
 </mapper>

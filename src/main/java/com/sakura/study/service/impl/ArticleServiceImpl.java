@@ -1,6 +1,7 @@
 package com.sakura.study.service.impl;
 
 import com.sakura.study.dao.ArticleMapper;
+import com.sakura.study.dto.ArticleDto;
 import com.sakura.study.dto.ArticlePageRequest;
 import com.sakura.study.model.Article;
 import com.sakura.study.model.Employee;
@@ -28,7 +29,7 @@ public class ArticleServiceImpl implements ArticleService{
      */
     @Override
     public ResponseResult getArticles(ArticlePageRequest pageRequest) {
-        List<Article> data = articleMapper.getArticles(pageRequest);
+        List<ArticleDto> data = articleMapper.getArticles(pageRequest);
         int dataCount = articleMapper.getArticlesCount(pageRequest);
         return ResponseResult.pageResult(data,dataCount);
     }

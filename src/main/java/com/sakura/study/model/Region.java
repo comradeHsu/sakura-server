@@ -5,9 +5,7 @@ public class Region {
 
     private Integer parentId;
 
-    private String japenese;
-
-    private String chinese;
+    private String address;
 
     public Integer getId() {
         return id;
@@ -25,19 +23,11 @@ public class Region {
         this.parentId = parentId;
     }
 
-    public String getJapenese() {
-        return japenese;
+    public String getAddress() {
+        return address;
     }
 
-    public void setJapenese(String japenese) {
-        this.japenese = japenese == null ? null : japenese.trim();
-    }
-
-    public String getChinese() {
-        return chinese;
-    }
-
-    public void setChinese(String chinese) {
-        this.chinese = chinese == null ? null : chinese.trim();
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 }

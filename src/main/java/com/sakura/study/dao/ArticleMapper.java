@@ -1,5 +1,6 @@
 package com.sakura.study.dao;
 
+import com.sakura.study.dto.ArticleDto;
 import com.sakura.study.dto.ArticlePageRequest;
 import com.sakura.study.model.Article;
 
@@ -23,7 +24,7 @@ public interface ArticleMapper {
      * @param page
      * @return
      */
-    List<Article> getArticles(ArticlePageRequest page);
+    List<ArticleDto> getArticles(ArticlePageRequest page);
 
     /**
      * 获取文章数量

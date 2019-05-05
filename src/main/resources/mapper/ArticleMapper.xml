@@ -163,10 +163,11 @@
   </update>
 
 
-  <select id="getArticles" resultMap="BaseResultMap" parameterType="com.sakura.study.dto.ArticlePageRequest" >
+  <select id="getArticles" resultType="com.sakura.study.dto.ArticleDto" parameterType="com.sakura.study.dto.ArticlePageRequest" >
     select
       id, title, picture, content, status, read_count, create_time, create_by, update_time,
-      update_by
+      update_by,(SELECT real_name from employee where id = create_by) as createUser,
+    (SELECT real_name from employee where id = update_by) as updateUser
     from article
     where deleted = FALSE
     <if test="title != null">
