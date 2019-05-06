@@ -42,4 +42,12 @@ public interface ArticleService {
      * @return
      */
     String operation(String token,Integer id, Integer status);
+
+    /**
+     * api
+     * 获取文章详情
+     * @param id
+     * @return
+     */
+    Article getById(Integer id);
 }

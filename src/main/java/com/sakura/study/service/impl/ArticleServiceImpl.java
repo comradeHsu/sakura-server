@@ -97,6 +97,22 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     /**
+     * api
+     * 获取文章详情
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Article getById(Integer id) {
+        Article article = getArticleById(id);
+        if(article.getStatus() == 0) throw new BusinessException(404,"此资讯不存在");
+        article.setReadCount(article.getReadCount()+1);
+        articleMapper.updateByPrimaryKeySelective(article);
+        return article;
+    }
+
+    /**
      * 没有则抛出异常
      * @param id
      */
