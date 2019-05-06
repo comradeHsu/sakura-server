@@ -1,4 +1,4 @@
-package com.sakura.study.apiController;
+package com.sakura.study.controller.apiController;
 
 import com.google.common.cache.LoadingCache;
 import com.sakura.study.dto.UserDto;

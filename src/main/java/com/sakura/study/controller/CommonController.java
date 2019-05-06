@@ -1,7 +1,8 @@
-package com.sakura.study.adminController;
+package com.sakura.study.controller;
 
 import com.sakura.study.model.Region;
 import com.sakura.study.service.RegionService;
+import com.sakura.study.utils.Qiniu;
 import com.sakura.study.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/region")
-public class RegionController {
+public class CommonController {
 
     @Autowired
     RegionService regionService;
@@ -22,7 +22,7 @@ public class RegionController {
      * 获取父级地区地址
      * @return
      */
-    @RequestMapping(value = "/parentRegions",method = RequestMethod.GET)
+    @RequestMapping(value = "/region/parentRegions",method = RequestMethod.GET)
     public ResponseResult parentRegions(){
         return ResponseResult.success(regionService.getParentRegion());
     }
@@ -32,9 +32,19 @@ public class RegionController {
      * @param parentId
      * @return
      */
-    @RequestMapping(value = "/parent/{parentId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/region/parent/{parentId}",method = RequestMethod.GET)
     public ResponseResult getSubRegions(@PathVariable("parentId") Integer parentId){
         List<Region> regions = regionService.getSubRegion(parentId);
         return ResponseResult.success(regions);
+    }
+
+    /**
+     * 获取七牛上传token
+     * @return
+     */
+    @RequestMapping(value = "/qiniu/token",method = RequestMethod.GET)
+    public ResponseResult getQiniuToken(){
+        String token = Qiniu.getUploadToken();
+        return ResponseResult.success(token);
     }
 }

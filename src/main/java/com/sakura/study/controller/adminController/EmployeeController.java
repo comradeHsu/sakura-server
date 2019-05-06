@@ -1,10 +1,9 @@
-package com.sakura.study.adminController;
+package com.sakura.study.controller.adminController;
 
 import com.google.common.cache.LoadingCache;
 import com.sakura.study.dto.ChangePassword;
 import com.sakura.study.dto.EmployeeDto;
 import com.sakura.study.dto.EmployeePageRequest;
-import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.Employee;
 import com.sakura.study.model.Function;
 import com.sakura.study.service.EmployeeService;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @RestController

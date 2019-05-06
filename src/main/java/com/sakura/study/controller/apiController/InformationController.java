@@ -1,4 +1,4 @@
-package com.sakura.study.apiController;
+package com.sakura.study.controller.apiController;
 
 import com.sakura.study.dto.ArticlePageRequest;
 import com.sakura.study.model.Article;

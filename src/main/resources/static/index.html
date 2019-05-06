@@ -573,14 +573,6 @@
                         </div>
                     </div>
                     <div class="line-area">
-                        <div class="input-area size-small">
-                            <input type="tel" placeholder="请输入验证码" id="reg_code" name="reg_code">
-                            <i>√</i>
-                            <em>!<span>验证码错误！<font></font></span></em>
-                        </div>
-                        <input type="button" value="获取验证码" class="btn-getyzm" >
-                    </div>
-                    <div class="line-area">
                         <div class="input-area">
                             <input type="password" placeholder="请输入6-16位密码" id="reg_pwd" name="reg_pwd">
                             <i>√</i>
@@ -768,14 +760,19 @@
     //用户登出
     function qc_logout()
     {
-        var sendurl = '/Member/logout.html';
+        let token = sessionStorage.getItem("token");
+        var sendurl = '/api/user/session';
         $.ajax({
             url:sendurl,
-            data:{rdm:Math.random()},
-            type:'POST',
+            type:'delete',
             dataType:'json',
+            headers:{
+                'Token':token
+            },
             success:function(data){
+                sessionStorage.clear();
                 window.location.href = window.location.href;
+                window.location.reload();
             }
         });
     }
@@ -811,31 +808,35 @@
         if(!check_tel(tel,'reg_tel')){
             return false;
         }
-        //4位数字验证码格式判断
-        var code = $("#reg_code").val();
-        if(!check_code(code)){
-            return false;
-        }
-        //密码长度判断
+//        //4位数字验证码格式判断
+//        var code = $("#reg_code").val();
+//        if(!check_code(code)){
+//            return false;
+//        }
+//        //密码长度判断
         var pwd = $("#reg_pwd").val();
-        if(!check_pwd(pwd,'reg_pwd')){
-            return false;
-        }
-        var sendurl = '/Member/register.html';
+//        if(!check_pwd(pwd,'reg_pwd')){
+//            return false;
+//        }
+        var sendurl = '/api/user';
         $.ajax({
             url:sendurl,
-            data:{areacode:areacode,tel:tel,code:code,pwd:pwd},
+            data:JSON.stringify({username:tel,password:pwd}),
             type:'POST',
             dataType:'json',
+            headers:{
+                'Content-Type':'application/json'
+            },
             success:function(data){
-                if(data.code == -1){
-                    setClass($("#reg_tel"),1,data.msg);
-                }else if(data.code == -2){
-                    setClass($("#reg_code"),1,data.msg);
-                }else if(data.code == -3){
-                    setClass($("#reg_pwd"),1,data.msg);
+                if(data.code !== 200){
+//                    setClass($("#reg_tel"),1,data.msg);
+//                }else if(data.code == -2){
+//                    setClass($("#reg_code"),1,data.msg);
+//                }else if(data.code == -3){
+//                    setClass($("#reg_pwd"),1,data.msg);
+                    alert(data.message)
                 }else{
-                    alert(data.msg);
+                    alert(data.message);
                     window.location.href = window.location.href;
                 }
             }

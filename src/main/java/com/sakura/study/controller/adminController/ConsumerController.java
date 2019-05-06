@@ -1,4 +1,4 @@
-package com.sakura.study.adminController;
+package com.sakura.study.controller.adminController;
 
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.User;

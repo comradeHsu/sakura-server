@@ -1,4 +1,4 @@
-package com.sakura.study.apiController;
+package com.sakura.study.controller.apiController;
 
 import com.sakura.study.dto.UniversityPageRequest;
 import com.sakura.study.service.UniversityService;
