@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <meta name="baidu-site-verification" content="PEXYbtCmf4" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <title>首页-樱花教育</title>
+    <!--共通css-->
+    <link rel="stylesheet" href="skin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="skin/css/common-pc.css?v2">
+    <style type="text/css">
+    	.snow-canvas {
+			display: block;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			position: fixed;
+			pointer-events: none;
+			z-index: 10;
+		}
+    </style>
+</head>
+<body>
+<!--头部 start-->
+<div class="container-fluid jiemo-futurejap-header">
+    <div class="row">
+        <!--国家选择 登录注册 start-->
+        <div class="container-fluid jiemo-futurejap-header-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-xs-12 col-sm-12 left">
+                        <img class="hidden-lg hidden-md" src="skin/images/icon-logo-gray.png" alt="灰LOGO">
+                        <span>全国咨询热线&ensp;120、110、119</span>
+                    </div>
+                    <div class="col-md-6 col-xs-6 center">
+                        <!--PC端显示 start-->
+                        <div class="pc-show hidden-xs hidden-md hidden-sm">
+                            <a  href="#">北京</a>
+                            <a  href="#">上海</a>
+                            <a  href="#">广州</a>
+                            <a  href="#">沈阳</a>
+                            <a  href="#">大连</a>
+                            <a  href="#">东京</a>
+                        </div>
+                        <!--PC端显示 end-->
+                        <!--手机端显示 start-->
+                        <div class="btn-group hidden-lg">
+                            <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>大连</font> <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+
+                                <li><a href="#">北京</a></li>
+                                <li><a href="#">上海</a></li>
+                                <li><a href="#">广州</a></li>
+                                <li><a href="#">沈阳</a></li>
+                                <li><a href="#">大连</a></li>
+                                <li><a href="#">东京</a></li>
+                            </ul>
+                        </div>
+                        <!--手机端显示 end-->
+                    </div>
+                    <div class="col-md-3 col-xs-6 right">
+
+                        <!--未登录 start-->
+                            <div id="noLogin"><!--隐藏时增加jm-hidden类-->
+                                <a href="javascript:;" onclick="user_login()">登录</a>
+                                <span>|</span>
+                                <a href="javascript:;" onclick="user_reg()">注册</a>
+                            </div>
+                            <!--未登录 end-->
+                            <div id="login">
+                                <span id="username"></span>
+                                <span>|</span>
+                                <a href="javascript:;" onclick="qc_logout()">退出</a>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--国家选择 登录注册 end-->
+        <!--第一行导航 start-->
+<!--         <div class="container-fluid jiemo-futurejap-header-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 hidden-xs hidden-sm">
+                <img class="img-logo1" src="/Public/Home/images/icon-logo.png" alt="大logo" onclick="window.location='http://www.qianchengriben.com'" onmouseover="this.src='/Public/Home/images/icon-logo-active.png'" onmouseleave="this.src='/Public/Home/images/icon-logo.png'" style="cursor: pointer">
+                <img class="img-logo2" src="/Public/Home/images/icon-logo-s.png" alt="小logo" onclick="window.location='http://www.qianchengriben.com'" onmouseover="this.src='/Public/Home/images/icon-logo-s-active.png'" onmouseleave="this.src='/Public/Home/images/icon-logo-s.png'" style="cursor: pointer">
+            </div>
+        </div>
+    </div>
+</div> -->
+        <!--第一行导航 end-->
+        <!--第二行导航 start-->
+        <div class="container-fluid jiemo-futurejap-header-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-xs-3" data-nav="1">
+                        <a href="#">留学方案</a>
+                    </div>
+                    <div class="col-md-3 col-xs-3" data-nav="2">
+                        <a href="#">院校库</a>
+                    </div>
+                    <div class="col-md-3" data-nav="3">
+                        <a href="#">新闻资讯</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#">关于我们</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--第二行导航 end-->
+<!--二级导航暂时删除-->
+    </div>
+</div>
+<!--头部 end-->
+<!--当前页面css-->
+<link rel="stylesheet" href="skin/css/video-js.css">
+<link rel="stylesheet" href="skin/css/jiemo-futurejap-index.css">
+<!--banner start-->
+<!--<div class="container-fluid jiemo-futurejap-banner">-->
+    <!--<div class="container">-->
+        <!--<div class="col-md-12">-->
+            <!--<div class="col-md-6">-->
+                <!--<video id="jiemo-futurejap_video_1" class="video-js vjs-default-skin vjs-fluid" controls preload="none"   poster="/Public/Home/images/img-sucai-1.1.jpg">-->
+                    <!--<source src="/Public/static/Common/video/qcrb_index.mp4" type="video/mp4">-->
+                <!--</video>-->
+                <!--&lt;!&ndash;<img src="skin/images/img-sucai-1.jpg" alt="banner">&ndash;&gt;-->
+            <!--</div>-->
+            <!--<div class="col-md-6">-->
+                <!--<h2>責任を持って、未来へ</h2>-->
+                <!--<span>值得您信賴的日本讀研申請專家</span>-->
+                <!--<em>十年经验积累</em>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--banner end-->
+
+<!--介绍 start-->
+<div class="container-fluid jiemo-futurejap-text">
+    <div class="container">
+        <div class="col-md-4">
+            <img src="skin/images/icon-sp-1.png" alt="图标1">
+            <h3>全面背景提升</h3>
+            <p>
+                留学外语强化，外文专业书籍，日本导师论文，期刊论文发表，名校短期交流，海外名师讲坛，艺术作品辅导。<br>樱花教育给大家的不仅是几套文书和一纸offer，而是一次全面的学习和提升。
+            </p>
+        </div>
+        <div class="col-md-4">
+            <img src="skin/images/icon-sp-2.png" alt="图标2">
+            <h3>超强申请实力</h3>
+            <p>
+                十年申请经验带来最权威的信息最全面的数据。<br>全海归申请团队带来最专业的文书指导和最完整的院系覆盖。<br>国内领先的客户服务系统和云申请系统带来最周到的服务和最完美的体验。
+            </p>
+        </div>
+        <div class="col-md-4">
+            <img src="skin/images/icon-sp-3.png" alt="图标3">
+            <h3>海外生活保障</h3>
+            <p>
+                行前辅导，前辈连线，驻日实体公司，权威进学课程。协助您走进樱花烂漫的校园仅仅是一个开始，让您拥有一个美好充实的留学生活是我们的愿望。樱花教育除了强大的申请能力，还为您的海外学习和生活提供周到全面的服务与保障。
+            </p>
+        </div>
+    </div>
+</div>
+<!--介绍 end-->
+<!--功能链接 start-->
+<div class="container-fluid jiemo-futurejap-function">
+    <div class="container">
+        <div class="col-md-4 col-xs-6">
+            <a href="#">
+                <img src="skin/images/icon-sp-4.png" alt="图标4">
+                <h3>留学方案</h3>
+            </a>
+        </div>
+        <div class="col-md-4 col-xs-6">
+            <a href="#">
+                <img src="skin/images/icon-sp-5.png" alt="图标5">
+                <h3>申请流程</h3>
+            </a>
+        </div>
+        <div class="col-md-4 col-xs-6">
+            <a href="#">
+                <img src="skin/images/icon-sp-6.png" alt="图标6">
+                <h3>服务体系</h3>
+            </a>
+        </div>
+        <div class="col-md-4 col-xs-6">
+            <a href="javascript:customer();">
+                <img src="skin/images/icon-sp-7.png" alt="图标7">
+                <h3>客户中心</h3>
+            </a>
+        </div>
+        <div class="col-md-4 col-xs-6">
+            <a href="#">
+                <img src="skin/images/icon-sp-8.png" alt="图标8">
+                <h3>樱之国活动</h3>
+            </a>
+        </div>
+        <div class="col-md-4 col-xs-6">
+            <a href="#">
+                <img src="skin/images/icon-sp-9.png" alt="图标9">
+                <h3>樱之国团队</h3>
+            </a>
+        </div>
+    </div>
+</div>
+<!--功能链接 end-->
+<!--方案展示 start-->
+<div class="container-fluid jiemo-futurejap-case">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-xs-4 current" data-current="1">
+                <h4><a href="#">研究生</a></h4>
+            </div>
+            <div class="col-md-2 col-xs-4" data-current="2">
+                <h4><a href="#">英文项目</a></h4>
+            </div>
+            <div class="col-md-2 col-xs-4" data-current="3">
+                <h4><a href="#">语言学校</a></h4>
+            </div>
+            <div class="col-md-2 col-xs-4" data-current="4">
+                <h4><a href="#">别科</a></h4>
+            </div>
+            <div class="col-md-2 col-xs-4" data-current="5">
+                <h4><a href="#">本科</a></h4>
+            </div>
+            <div class="col-md-2 col-xs-4" data-current="6">
+                <h4><a href="#">DIY</a></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="tab-content current" data-tab="1">
+                <a href="#"><img src="skin/images/img-sucai-2.jpg" alt="研究生背景图"></a>
+                <div class="tab-tip">
+                    <h5>日本国立大学大学院&ensp;研究生申请专区</h5>
+                    <div class="text">
+                        日本高水准的教育体制闻名遐迩，在世界各权威大学排行榜单中，日本大学综合实力一直遥遥领先，位居亚洲第一、世界第三。作为日本高等教育最重要组成部分的国立大学，不仅拥有着庞大的优质教育资源，在学术研究水平以及教学环境建设方面均处于顶尖地位。
+                        <a href="#">阅读全部<img src="skin/images/icon-arrow-r.png" alt="右箭头"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" data-tab="2">
+                <a href="#"><img src="skin/images/index_g30.png" alt="英文项目背景图"></a>
+                <div class="tab-tip">
+                    <h5>英文项目申请专区</h5>
+                    <div class="text">
+                        日本的诸多名校会为海外同学开设全英授课课程。绝大部分全英授课课程可以直接申请到修士。跳过语言学校和研究生阶段。形式上类似申请欧美等其他国家。
+                        G30：G30是2016年之前，由日本政府扶持的13所名校的英文课程的统称。2016年，日本政府取消针对这13所院校的特别扶持，转而将经费更全面的投入到各个学校。因此，虽然G30的名称官方已不再适用，但实质上，日本学校的英文课程是更加丰富和多样了。
+                        <a href="#">阅读全部<img src="skin/images/icon-arrow-r.png" alt="右箭头"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" data-tab="3">
+                <a href="#"><img src="skin/images/index_yuyan.png" alt="语言学校背景图"></a>
+                <div class="tab-tip">
+                    <h5>语言学校申请专区</h5>
+                    <div class="text">
+                        日本语言学校是日本为了教育外国籍学生日语而设置的各种语言学校之合称。不同于一般正规教育系统的学校，日本语学校通常不会授予文凭，因此学生就读这些学校，主要的目的都是作为进入日本专门学校、大学或大学院（研究所）的先修教育课程，或其他如求职等用途。在各种统筹管理日本语学校的单位中，日本语教育振兴协会是最重要的一个。
+                        <a href="#">阅读全部<img src="skin/images/icon-arrow-r.png" alt="右箭头"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" data-tab="4">
+                <a href="#"><img src="skin/images/index_bieke.png" alt="别科背景图"></a>
+                <div class="tab-tip">
+                    <h5>别科申请专区</h5>
+                    <div class="text">
+                        别科，是指设立在大学内的特别学习科，可以理解为大学内的专门针对外国人的日本语学习科。进入别科的学生和日本学生一起在大学校园内共同学习、生活，可以更深入地了解日本文化。目前，在日本的别科共有48所，全部设立在私立大学之中。
+                        <a href="#">阅读全部<img src="skin/images/icon-arrow-r.png" alt="右箭头"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" data-tab="5">
+                <a href="#"><img src="skin/images/index_benke.png" alt="本科背景图"></a>
+                <div class="tab-tip">
+                    <h5>本科申请专区</h5>
+                    <div class="text">
+                        通常升入日本大学学习本科课程，需要通过日本针对外国人留学生设立的类似高考的日本留学生考试。而日本留学生考试中，日语比重至少一半（总分占一半），且在中国大陆地区并没有设置考场。使得国内绝大部分缺乏日语基础的同学只能选择语言学校赴日后参加考试这一条路。
+                        <a href="#">阅读全部<img src="skin/images/icon-arrow-r.png" alt="右箭头"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" data-tab="6">
+                <a href="#"><img src="skin/images/index_diy.png" alt="DIY背景图"></a>
+                <div class="tab-tip">
+                    <h5>DIY专区</h5>
+                    <div class="text">
+                        无论是研究生，英文课程，还是本科的申请。想自己一试身手的同学，也都可以在樱花教育得到最大程度的协助。
+                        <a href="#">阅读全部<img src="skin/images/icon-arrow-r.png" alt="右箭头"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--方案展示 end-->
+<!--推荐活动 start-->
+<!--<div class="container-fluid jiemo-futurejap-topactivity">-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-3">-->
+                <!--<img src="skin/images/5c920d98e6170.jpg" alt="活动素材图1">-->
+                <!--<div class="act-tip">-->
+                    <!--<h5>2019樱花教育名校游学</h5>-->
+                    <!--<div class="text">-->
+                        <!--<h6>体验日本的全新之旅不得错过哦~</h6>-->
+                        <!--<span>时间：2019-04-01—2019-08-31</span>-->
+                        <!--<a rel="nofollow" href="#">活动报名<i>&#10140</i></a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div><div class="col-md-3">-->
+                <!--<img src="skin/images/5c459cb8276d9.jpg" alt="活动素材图1">-->
+                <!--<div class="act-tip">-->
+                    <!--<h5>日本留学超级集训营</h5>-->
+                    <!--<div class="text">-->
+                        <!--<h6>日本留学硬核8大项目，带你深扒最真实的留学申请</h6>-->
+                        <!--<span>时间：2019-01-01—2019-12-31</span>-->
+                        <!--<a rel="nofollow" href="#">活动报名<i>&#10140</i></a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div><div class="col-md-3">-->
+                <!--<img src="skin/images/5b14e34b5699b.jpg" alt="活动素材图1">-->
+                <!--<div class="act-tip">-->
+                    <!--<h5>3堂课攻克【经济•经营学】申请难关~好胆你就来！</h5>-->
+                    <!--<div class="text">-->
+                        <!--<h6>关于赴日申请你只需准备39%，剩下的61%我帮你补上！</h6>-->
+                        <!--<span>时间：2018-06-01—2019-06-13</span>-->
+                        <!--<a rel="nofollow" href="#">活动报名<i>&#10140</i></a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div><div class="col-md-3">-->
+                <!--<img src="skin/images/5abcac3b78b39.jpg" alt="活动素材图1">-->
+                <!--<div class="act-tip">-->
+                    <!--<h5>不会日语也能去日本留学，真的么？</h5>-->
+                    <!--<div class="text">-->
+                        <!--<h6>日本SGU英文项目了解一下~</h6>-->
+                        <!--<span>时间：2018-06-01—2019-12-31</span>-->
+                        <!--<a rel="nofollow" href="#">活动报名<i>&#10140</i></a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>    </div>-->
+<!--</div>-->
+<!--推荐活动 end-->
+<!--活动列表 start-->
+<div class="container-fluid jiemo-futurejap-activity">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>近期活动</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="skin/images/5c459cb8276d9.jpg" alt="近期活动图">
+                    </div>
+                    <div class="col-md-6">
+                        <h4>日本留学超级集训营</h4>
+                        <span>日本留学硬核8大项目，带你深扒最真实的留学申请</span>
+                        <p>2019-01-01&nbsp;—&nbsp;2019-12-31</p>
+                        <div class="jm-cb"></div>
+                        <a rel="nofollow" href="#">活动报名<i>&#10140</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>往期活动</h3>
+                <ul>
+                    <li>
+                            <div class="left">
+                                <i>18年12月</i>
+                                <em>14日</em>
+                            </div>
+                            <div class="right">
+                                <a rel="nofollow" href="#">日本留学分享会—北京站</a>
+                            </div>
+                        </li><li>
+                            <div class="left">
+                                <i>18年03月</i>
+                                <em>20日</em>
+                            </div>
+                            <div class="right">
+                                <a rel="nofollow" href="#">申请中的这些小麻烦不能忽视！</a>
+                            </div>
+                        </li><li>
+                            <div class="left">
+                                <i>18年02月</i>
+                                <em>01日</em>
+                            </div>
+                            <div class="right">
+                                <a rel="nofollow" href="#">大话日留圈</a>
+                            </div>
+                        </li>                </ul>
+                <a href="#">查看更多<img src="skin/images/icon-arrow-r.png" alt="右箭头"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--活动列表 end-->
+<!--新闻资讯 start-->
+<div class="container-fluid jiemo-futurejap-news">
+    <div class="container">
+        <div class="row">
+            <h3 class="col-md-12">新闻资讯</h3>
+        </div>
+        <div class="row row2">
+            <div class="col-md-3">
+                    <a href="#">
+                        <div class="content">
+                            <div class="line-black"></div>
+                            <span>2019-04-30</span>
+                            <img src="skin/images/5c9449556e9c5.jpg" alt="新闻图">
+                            <h4>日本22年后重启公立夜校，外国人可无偿就学！</h4>
+                            <p></p>
+                            <em>阅读全文<img src="skin/images/icon-arrow-r.png" alt="右箭头"></em>
+                        </div>
+                    </a>
+                </div><div class="col-md-3">
+                    <a href="#">
+                        <div class="content">
+                            <div class="line-black"></div>
+                            <span>2019-04-30</span>
+                            <img src="skin/images/5cc7b56bd3f01.jpg" alt="新闻图">
+                            <h4>三本毕业/无英语/N2只有100+的他是怎么内诺日本前20国立大学的？</h4>
+                            <p>成功案例</p>
+                            <em>阅读全文<img src="skin/images/icon-arrow-r.png" alt="右箭头"></em>
+                        </div>
+                    </a>
+                </div><div class="col-md-3">
+                    <a href="#">
+                        <div class="content">
+                            <div class="line-black"></div>
+                            <span>2019-04-25</span>
+                            <img src="skin/images/5cac4fcf8078a.jpg" alt="新闻图">
+                            <h4>来自东大开学式的毒鸡汤：即使努力也没有公平回报的社会正等着你</h4>
+                            <p></p>
+                            <em>阅读全文<img src="skin/images/icon-arrow-r.png" alt="右箭头"></em>
+                        </div>
+                    </a>
+                </div><div class="col-md-3">
+                    <a href="#">
+                        <div class="content">
+                            <div class="line-black"></div>
+                            <span>2019-04-25</span>
+                            <img src="skin/images/5c2738b5e061b.jpg" alt="新闻图">
+                            <h4>最新消息| 日本众议院官宣！大学教育无偿化法案通过！</h4>
+                            <p></p>
+                            <em>阅读全文<img src="skin/images/icon-arrow-r.png" alt="右箭头"></em>
+                        </div>
+                    </a>
+                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 jm-tac">
+                <a href="news.html" class="btn-more">更多资讯<i>&#10140</i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 活动弹窗 -->
+<div class="utop_box">
+	<div class="utop">
+		<span class="close"></span>
+		<a href="#" class="info" target="_blank"></a>
+	</div>
+</div>
+<div class="htmleaf-content">
+    <canvas class="snow-canvas" speed="1" interaction="false" size="2" count="80" opacity="0.00001" start-color="rgba(253,252,251,1)" end-color="rgba(251,252,253,0.3)" wind-power="0" image="false" width="100%" height="667"></canvas>
+    <canvas class="snow-canvas" speed="3" interaction="true" size="6" count="10" start-color="rgba(253,252,251,1)" end-color="rgba(251,252,253,0.3)" opacity="0.00001" wind-power="2" image="false" width="100%" height="667"></canvas>
+    <canvas class="snow-canvas" speed="3" interaction="true" size="12" count="10" wind-power="-5" image="/Public/Home/images/snow.png" width="100%" height="667"></canvas>
+    <canvas class="snow-canvas" speed="3" interaction="true" size="30" count="10" wind-power="5" image="/Public/Home/images/old.png" width="100%" height="667"></canvas>
+    <canvas class="snow-canvas" speed="3" interaction="true" size="30" count="10" wind-power="-5" image="/Public/Home/images/old2.png" width="100%" height="667"></canvas>
+</div>
+<!--新闻资讯 end-->
+<!--二维码 start-->
+<!--
+<div class="container-fluid jiemo-futurejap-erweima">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-xs-6">
+                <img src="skin/images/icon-ewmwx.jpg" alt="樱花教育官方微信">
+                <h3>樱花教育官方微信</h3>
+            </div>
+            <div class="col-md-3 col-xs-6">
+                <img src="skin/images/icon-ewmwb.png" alt="樱花教育官方微信">
+                <h3>樱花教育官方微博</h3>
+            </div>
+            <div class="col-md-3 col-xs-6">
+                <img src="skin/images/icon-iosdownload.png" alt="樱花教育官方微信">
+                <h3>芥末留学IOS</h3>
+            </div>
+            <div class="col-md-3 col-xs-6">
+                <img src="skin/images/icon-androiddownload.png" alt="樱花教育官方微信">
+                <h3>芥末留学Android</h3>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+<!--二维码 end-->
+<!--右侧工具条 start-->
+<div style="display: none" id="qqinfo">
+<!--<script type="text/javascript" src="http://yun.jiemo.net/index.php/api/show_qiancheng_qq"></script>-->
+</div>
+<div class="common-right-aside">
+    <a target="_blank" id="qqlink" href="#" ><img src="skin/images/icon-qq.png" alt=""></a>
+    <a class="" id="tools-weixin">
+        <img src="skin/images/icon-wx.png" alt="">
+        <div class="teltips wxtips">
+            <img class="arrow-r" src="skin/images/icon-arrow-t.png" alt="">
+            <span><img class="i-erweima" src="skin/images/icon-ewmwx1.png" alt=""></span>
+        </div>
+    </a>
+    <!--<a class="hidden-xs">-->
+        <!--<img src="skin/images/icon-telr.png" alt="">-->
+        <!--<div class="teltips">-->
+            <!--<img class="arrow-r" src="skin/images/icon-arrow-t.png" alt="">-->
+            <!--<strong>400-666-2006</strong>-->
+        <!--</div>-->
+    <!--</a>-->
+    <a href="#" ><span>评估<br>定位</span></a>
+    <a href="#" target="_blank">
+        <!--<img src="skin/images/icon-ewmsq.png" alt="">--><span>咨询<br>客服</span>
+    </a>
+    <a class="jiemo-futurejap-defaultbt"><i class="glyphicon glyphicon-menu-up"></i></a>
+</div>
+<!--右侧工具条 end-->
+<!--底部 start-->
+<div class="container-fluid jiemo-futurejap-footer">
+    <div class="container">
+        <div class="row footer-row1">
+            <div class="col-md-4 left">
+                <ul>
+                    <li class="active" data-add="1"><span>北京</span></li>
+                    <li data-add="2"><span>上海</span></li>
+                    <li data-add="3"><span>广州</span></li>
+                    <li data-add="5"><span>沈阳</span></li>
+                    <li data-add="4"><span>大连</span></li>
+                    <li data-add="6"><span>东京</span></li>
+                </ul>
+                <div class="address active" data-address="1">
+                    北京市朝阳区霄云路霞光里15号霄云中心B座1801室<br>010-84463564&emsp;010-53653726
+                </div>
+                <div class="address" data-address="2">
+                    上海市杨浦区国宾路18号万达A座2103<br>021-55270776&emsp;021-55273177&emsp; 021-55273178
+                </div>
+                <div class="address" data-address="3">
+                    广州市天河区天河北路183号大都会广场26层2604室<br>020-22220895&emsp;020-22220896
+                </div>
+                <div class="address" data-address="4">
+                    大连市高新园区火炬路32号创业大厦B座12层<br>0411-84522270-817
+                </div>
+                <div class="address" data-address="5">
+                    沈阳市铁西区云峰北街62号东环国际大厦B座1205—1206<br>024-85611024&emsp;024-85611054
+                </div>
+                <div class="address" data-address="6">
+                    東京都新宿区市谷田町２ー１７八重洲市谷ビル<br>070-2820-5019
+                </div>
+            </div>
+            <div class="col-md-4 center">
+                <img src="skin/images/icon-logo-gray.png" alt="灰LOGO">
+            </div>
+            <div class="col-md-4 right hidden-xs">
+                <a href="#"><img src="skin/images/icon-link-1.png" alt="快捷图标1"></a>
+                <a><img src="skin/images/icon-link-8.png" alt="快捷图标8">
+                  <div class="footer-tips">
+                      <img src="skin/images/1514967096.png" alt="">
+                      <em></em>
+                  </div>
+                </a>
+                <a href="#" target="_blank"><img src="skin/images/icon-link-3.png" alt="快捷图标3"></a>
+                <a><img src="skin/images/icon-link-4.png" alt="快捷图标4">
+                  <div class="footer-tips">
+                      <img src="skin/images/icon-ewmwx.jpg" alt="">
+                      <em></em>
+                  </div>
+                </a>
+                <a href="#" target="_blank"><img src="skin/images/icon-link-5.png" alt="快捷图标5">
+                  <div class="footer-tips">
+                      <img src="skin/images/icon-ewmwb.png" alt="">
+                      <em></em>
+                  </div>
+                </a>
+                <a><img src="skin/images/icon-link-6.png" alt="快捷图标6">
+                  <div class="footer-tips">
+                      <span>qianchengriben@tuozhongedu.com</span>
+                      <em></em>
+                  </div>
+                </a>
+                <a><img src="skin/images/icon-link-7.png" alt="快捷图标7">
+                  <div class="footer-tips">
+                      <span>4006662006</span>
+                      <em></em>
+                  </div>
+                </a>
+            </div>
+            <div class="line-gray"></div>
+        </div>
+        <div class="row footer-row2">
+            <div class="left col-md-6">
+                ©&nbsp;2006-2019&nbsp;中原工学院对外教育中心 版权所有.&nbsp;豫ICP备12016402号-9
+            </div>
+            <div class="right col-md-6">
+                投诉邮箱：tousu@163.com&emsp;&emsp;豫公网安备 21020302000007号
+            </div>
+        </div>
+    </div>
+</div>
+<!--底部 end-->
+
+<!--登录注册 start-->
+<div class="jiemo-futurejap-loginbg"><!--显示增加active类-->
+    <div class="content-area">
+        <div class="left hidden-xs">
+            <img src="skin/images/img-login-1.jpg" alt="">
+        </div>
+        <div class="right">
+            <em class="close-window">×</em>
+            <input type="hidden" id="actionType" value="0">
+            <!--注册 start-->
+            <div class="reg-area login-tabarea">
+                <div class="title">
+                    <h3 id="actionName">注册</h3>
+                    <!--actionType 操作类型 1，注册 2，找回密码-->
+                </div>
+                <div class="form-area">
+                    <div class="line-area">
+                        <div class="input-area size-mini">
+                            <select id="areacode" name="areacode">
+                                <option value="0086">中国+0086</option><option value="0081">日本+0081</option><option value="001">美国+001</option><option value="0044">英国+0044</option><option value="0061">澳大利亚+0061</option><option value="001">加拿大+001</option><option value="00852">香港+00852</option><option value="00853">澳门+00853</option><option value="00886">台湾+00886</option><option value="0082">韩国+0082</option><option value="0064">新西兰+0064</option><option value="00353">爱尔兰+00353</option><option value="0065">新加坡+0065</option>                            </select>
+                        </div>
+                        <div class="input-area size-small">
+                            <input type="tel" placeholder="请输入你的手机号" id="reg_tel" name="reg_tel">
+                            <i>√</i><!--显示添加active类-->
+                            <em>!<span>号码格式错误！<font></font></span></em><!--显示添加active类-->
+                        </div>
+                    </div>
+                    <div class="line-area">
+                        <div class="input-area size-small">
+                            <input type="tel" placeholder="请输入验证码" id="reg_code" name="reg_code">
+                            <i>√</i>
+                            <em>!<span>验证码错误！<font></font></span></em>
+                        </div>
+                        <input type="button" value="获取验证码" class="btn-getyzm" >
+                    </div>
+                    <div class="line-area">
+                        <div class="input-area">
+                            <input type="password" placeholder="请输入6-16位密码" id="reg_pwd" name="reg_pwd">
+                            <i>√</i>
+                            <em>!<span>验证码错误！<font></font></span></em>
+                        </div>
+                    </div>
+                    <div class="bottom-area">
+                        <div class="checkbox-area pull-left">
+                            <input type="checkbox">
+                            <i>√</i>记住密码
+                        </div>
+                        <a class="btn-tab pull-right" data-v="1">去登录</a>
+                    </div>
+                    <input id="regBtn" class="btn-submit" type="button" value="注册" >
+                </div>
+            </div>
+            <!--注册 end-->
+            <!--登录 start-->
+            <div class="login-area login-tabarea">
+                <div class="title">
+                    <h3>登录</h3>
+                </div>
+                <div class="form-area">
+                    <div class="line-area">
+                        <div class="input-area">
+                            <input type="tel" placeholder="请输入你的手机号" id="login_tel" name="login_tel" value="">
+                            <i >√</i><!--显示添加active类-->
+                            <em >!<span>号码格式错误！<font></font></span></em><!--显示添加active类-->
+                        </div>
+                    </div>
+                    <div class="line-area">
+                        <div class="input-area">
+                            <input type="password" placeholder="请输入6-16位密码" id="login_pwd" name="login_pwd">
+                            <i >√</i><!--显示添加active类-->
+                            <em >!<span>号码格式错误！<font></font></span></em><!--显示添加active类-->
+                        </div>
+                    </div>
+                    <div class="bottom-area">
+                        <div class="checkbox-area pull-left">
+                            <input type="checkbox">
+                            <i>√</i>自动登录
+                        </div>
+                        <a class="pull-right" href="javascript:user_pwd();">忘记密码</a>
+                    </div>
+                    <input class="btn-submit" type="button" value="登录" onclick="qc_login()">
+                    <a class="btn-tab pull-right" data-v="2" id="goReg">去注册</a>
+                </div>
+            </div>
+            <!--登录 end-->
+        </div>
+    </div>
+</div>
+<!--登录注册 end-->
+
+</body>
+<!--共通js-->
+<script src="skin/js/jquery.min.js"></script>
+<script src="skin/js/bootstrap.min.js"></script>
+<script src="skin/js/jiemo-futurejap-common.js"></script>
+<script type="application/javascript">
+    var login_back_url = window.location.href;
+    $(function(){
+        if(null == sessionStorage.getItem("token")){
+            $("#login").hide();
+            $("#noLogin").show();
+        } else {
+            let user = sessionStorage.getItem("user");
+            user = JSON.parse(user)
+            $("#username").html('欢迎您，'+user.realName)
+            $("#login").show();
+            $("#noLogin").hide();
+        }
+        //输入框验证
+        $("#reg_tel").on('blur',function(){
+            var tel = $(this).val();
+            if (tel.length) {
+                check_tel(tel,'reg_tel');
+            }
+        });
+        $("#reg_code").on('blur',function(){
+            var code = $(this).val();
+            if (code.length) {
+                check_code(code);
+            }
+        });
+        $("#reg_pwd").on('blur',function(){
+            var pwd = $(this).val();
+            if (pwd.length) {
+                check_pwd(pwd,'reg_pwd');
+            }
+        });
+        $("#login_tel").on('blur',function(){
+            var tel = $(this).val();
+            if (tel.length) {
+                check_tel(tel,'login_tel');
+            }
+        });
+/*
+        $("#login_pwd").on('blur',function(){
+            var pwd = $(this).val();
+            if (pwd.length) {
+                check_pwd(pwd,'login_pwd');
+            }
+        });
+*/
+        $(document).on('click','#goReg',function(){
+            user_reg();
+        });
+    });
+    //登录框显示
+    function user_login(){
+        $("#login_tel").focus();
+        $('#actionType').val(0);
+        $(".jiemo-futurejap-loginbg").addClass('active');
+        $(".reg-area,.login-area").addClass('active');
+    }
+    //注册框显示
+    function user_reg(){
+        $('#actionName').html('注册');
+        $('#regBtn').val('注册');
+        $('#reg_pwd').attr('placeholder', '请输入6-16密码');
+        $('#actionType').val(1);
+        $(".jiemo-futurejap-loginbg").addClass('active');
+        $(".reg-area,.login-area").removeClass('active');
+    }
+    //找回密码框显示
+    function user_pwd()
+    {
+        $('#actionName').html('密码重置');
+        $('#regBtn').val('重置密码');
+        $('#reg_pwd').attr('placeholder', '请输入6-16位新密码');
+        $('#actionType').val(2);
+        $(".jiemo-futurejap-loginbg").addClass('active');
+        $(".reg-area,.login-area").removeClass('active');
+    }
+    //回车用户登录触发
+    $(window).keydown(function(event){
+        var actype = $('#actionType').val();
+        if (event.which == 13 && actype == 0) {
+            qc_login();
+        }
+    });
+    //用户登录
+    function qc_login()
+    {
+        var sendurl = '/api/user/session';
+        var tel = $("login_tel").val();
+        var pwd = $("login_pwd").val();
+        //电话号码格式判断
+        var tel = $("#login_tel").val();
+        if(!check_tel(tel,'login_tel')){
+            return false;
+        }
+        //密码长度判断
+        var pwd = $("#login_pwd").val();
+        if(!check_pwd(pwd,'login_pwd')){
+            return false;
+        }
+        $.ajax({
+            url:sendurl,
+            data:JSON.stringify({username:tel,password:pwd}),
+            type:'POST',
+            dataType:'json',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            success:function(data){
+                if(data.code == -1){
+                    setClass($("#login_tel"),1,data.msg);
+                }else if(data.code == -3){
+                    setClass($("#login_pwd"),1,data.msg);
+                }else{
+                    $("#noLogin").hide();
+                    $("#login").show();
+                    $("#username").html('欢迎您，'+data.data.user.realName)
+                    sessionStorage.setItem("token",data.data.token);
+                    sessionStorage.setItem("user",JSON.stringify(data.data.user));
+                    window.location.href = login_back_url;
+                    $(".jiemo-futurejap-loginbg").removeClass('active');
+                    $(".reg-area,.login-area").removeClass('active');
+                }
+            }
+        });
+    }
+    //用户登出
+    function qc_logout()
+    {
+        var sendurl = '/Member/logout.html';
+        $.ajax({
+            url:sendurl,
+            data:{rdm:Math.random()},
+            type:'POST',
+            dataType:'json',
+            success:function(data){
+                window.location.href = window.location.href;
+            }
+        });
+    }
+    //统一验证样式加载
+    function setClass(obj,val,msg)
+    {
+        if(val == 0){
+            $(obj).next().addClass('active');
+            $(obj).next().next().removeClass('active');
+        }else{
+            $(obj).next().removeClass('active');
+            $(obj).next().next().addClass('active').find('span:eq(0)').html(msg+"<font></font>");
+        }
+    }
+
+    //注册和找回密码切换
+    $(document).on('click','#regBtn',function(){
+        var actionType = $('#actionType').val();
+        if(actionType == 1){
+            checkReg();
+        }else if(actionType == 2){
+            find_pwd();
+        }
+    });
+
+    //用户注册
+    function checkReg()
+    {
+        //区号
+        var areacode = $('#areacode').val();
+        //电话号码格式判断
+        var tel = $("#reg_tel").val();
+        if(!check_tel(tel,'reg_tel')){
+            return false;
+        }
+        //4位数字验证码格式判断
+        var code = $("#reg_code").val();
+        if(!check_code(code)){
+            return false;
+        }
+        //密码长度判断
+        var pwd = $("#reg_pwd").val();
+        if(!check_pwd(pwd,'reg_pwd')){
+            return false;
+        }
+        var sendurl = '/Member/register.html';
+        $.ajax({
+            url:sendurl,
+            data:{areacode:areacode,tel:tel,code:code,pwd:pwd},
+            type:'POST',
+            dataType:'json',
+            success:function(data){
+                if(data.code == -1){
+                    setClass($("#reg_tel"),1,data.msg);
+                }else if(data.code == -2){
+                    setClass($("#reg_code"),1,data.msg);
+                }else if(data.code == -3){
+                    setClass($("#reg_pwd"),1,data.msg);
+                }else{
+                    alert(data.msg);
+                    window.location.href = window.location.href;
+                }
+            }
+        });
+    }
+
+    //找回密码
+    function find_pwd()
+    {
+        //区号
+        var areacode = $("#areacode").val();
+        //电话号码格式判断
+        var tel = $("#reg_tel").val();
+        if(!check_tel(tel,'reg_tel')){
+            return false;
+        }
+        //4位数字验证码格式判断
+        var code = $("#reg_code").val();
+        if(!check_code(code)){
+            return false;
+        }
+        //密码长度判断
+        var pwd = $("#reg_pwd").val();
+        if(!check_pwd(pwd,'reg_pwd')){
+            return false;
+        }
+        var sendurl = '/Member/find_password.html';
+        $.ajax({
+            url:sendurl,
+            data:{areacode:areacode,tel:tel,code:code,pwd:pwd},
+            type:'POST',
+            dataType:'json',
+            success:function(data){
+                if(data.code == -1){
+                    setClass($("#reg_tel"),1,data.msg);
+                }else if(data.code == -2){
+                    setClass($("#reg_code"),1,data.msg);
+                }else if(data.code == -3){
+                    setClass($("#reg_pwd"),1,data.msg);
+                }else if(data.code == -4){
+                    alert(data.msg);
+                }else{
+                    alert(data.msg);
+                    window.location.href = window.location.href;
+                }
+            }
+        });
+    }
+
+    //电话号码格式判断
+    function check_tel(tel,id)
+    {
+//        var myreg = /^1[34578]\d{9}$/;
+        var myreg = /^\d+$/;
+        if(myreg.test(tel))
+        {
+            setClass($("#"+id),0,'');
+            return true;
+        }
+        var actype = $('#actionType').val();
+        if(actype == 0){
+            $("#"+id).focus();
+        }
+        setClass($("#"+id),1,'手机格式错误');
+        return false;
+    }
+
+    //4位数字验证码格式判断
+    function check_code(code)
+    {
+        var myreg = /^\d{4}$/;
+        if(myreg.test(code))
+        {
+            setClass($("#reg_code"),0,'');
+            return true;
+        }
+        setClass($("#reg_code"),1,'验证码格式错误');
+        return false;
+    }
+
+    //密码长度判断
+    function check_pwd(pwd,id)
+    {
+        var myreg = /^.{6,16}$/;
+        if(myreg.test(pwd))
+        {
+            setClass($("#"+id),0,'');
+            return true;
+        }
+        var actype = $('#actionType').val();
+        if(actype == 0){
+            $("#"+id).focus();
+        }
+        setClass($("#"+id),1,'密码长度错误');
+        return false;
+    }
+
+    //发送验证码
+    $(document).on('click','.btn-getyzm',function(){
+        var sendurl = '/Member/send_tel.html';
+        var areacode = $('#areacode').val();
+        var tel = $("#reg_tel").val();
+        var actionType = $('#actionType').val();
+        if(!check_tel(tel)){
+            return false;
+        }
+        $.ajax({
+            url:sendurl,
+            async:false,
+            data:{areacode:areacode,tel:tel,actionType:actionType},
+            type:'POST',
+            dataType:'json',
+            success:function(data){
+                if(data.code == -1){
+                    setClass($("#reg_tel"),1,data.msg);
+                }else{
+                    var wait=60;
+                    timeOut();
+                    function timeOut(){
+                        if(wait===0){
+                            $('.btn-getyzm').removeAttr('disabled');
+                            $('.btn-getyzm').val("重发验证码");
+                        }else{
+                            $('.btn-getyzm').attr('disabled','disabled');
+                            setTimeout(function(){
+                                wait--;
+                                $('.btn-getyzm').val(wait+" S");
+                                timeOut();
+                            },1000);
+                        }
+                    };
+                }
+            }
+        });
+
+
+    });
+
+    //客户中心登录验证
+    function customer()
+    {
+        $uid = '';
+        if($uid == 0 ){
+            login_back_url = "http://www.qianchengriben.com/Customer";
+            user_login();
+        }else{
+            window.location.href = "http://www.qianchengriben.com/Customer";
+        }
+    }
+</script>
+
+<script type="application/javascript">
+    //前程QQ获取,改为固定QQ
+//    $(function(){
+//        var href = $("#qqinfo").find("a").eq(0).attr('href');
+//        $("#qqlink").attr('href',href);
+//    });
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?8c8311aaba0cf831a260dad4892ecae2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<script src="skin/js/fp2.min.js"></script>
+<script>
+    var domainName = "www.qianchengriben.com";
+    function urlEncode(text) {
+        var val = text.replace('http://','').replace('https://','');
+        return val;
+    }
+    (function(){
+        var dr = encodeURIComponent(urlEncode(document.referrer));
+        var turl = encodeURIComponent(urlEncode(window.location.href));
+        var fp = null;
+        function sendPageBI() {
+            $.ajax({
+                type: 'POST',
+                url: "//"+domainName+"/home/BI/page",
+                data: {
+                    url : turl,
+                    before_url : dr,
+                    fp: fp
+                },
+            });
+        }
+
+        if (typeof Fingerprint2 !== 'undefined') {
+            new Fingerprint2().get(function (result, components) {
+                fp = result;
+                sendPageBI();
+            });
+        } else {
+            sendPageBI();
+        }
+        $(document).on('click','[stats-link=true]',function(e){
+            var href_url = encodeURIComponent(urlEncode($(this).attr('stats-key')));
+            var page_url = encodeURIComponent(urlEncode(window.location.href));
+            $.ajax({
+                type: 'POST',
+                url: "//"+domainName+"/home/BI/button",
+                async: false,
+                data: {
+                    url : href_url,
+                    before_url : page_url,
+                    fp: fp
+                }
+            });
+        });
+    })();
+</script>
+</html>
+<!--当前页面js-->
+<script src="skin/js/video.js"></script>
+<script src="skin/js/jiemo-futurejap-index.js"></script>
+<script type="text/javascript">
+$(function(){
+	var mydate = new Date();
+	if (mydate.getMonth() == 11 && mydate.getDate()  >= 23 && mydate.getDate()  <= 25) {
+		$(".snow-canvas").snow();
+		setTimeout(function(){
+			$('.htmleaf-content').remove();
+		},20000)
+	} else {
+		$('.htmleaf-content').remove();
+	}
+})
+</script>

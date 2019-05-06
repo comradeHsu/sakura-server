@@ -1,0 +1,371 @@
+@charset "utf-8";
+* {
+    color: #333
+}
+
+.caret {
+    pointer-events: none
+}
+
+.jiemo-futurejap-crumb {
+    padding-bottom: 5rem
+}
+
+.jiemo-futurejap-newslist .content {
+    padding-bottom: 3rem
+}
+
+.jiemo-futurejap-newslist .news-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 0.25rem solid #333;
+    padding-bottom: 1rem
+}
+
+.jiemo-futurejap-newslist .content .col-md-3 {
+    margin: 1rem auto 2rem;
+    padding: 15px;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+.jiemo-futurejap-newslist .content .col-md-3:hover {
+    background-color: #f1f2f2
+}
+
+.jiemo-futurejap-newslist .content .col-md-3 a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    overflow: hidden;
+}
+
+.jiemo-futurejap-newslist .content p {
+    margin-bottom: 0.4rem;
+    width: 100%;
+    height: 180px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.jiemo-futurejap-newslist .content img {
+    height: 100%;
+}
+
+.jiemo-futurejap-newslist .content h3 {
+    border-top: 0.1rem solid #333;
+    font-size: 1.1rem;
+    font-weight: normal;
+    padding: 0.7rem 0;
+    line-height: 1.5rem;
+    height: 4.5rem;
+    overflow: hidden
+}
+
+.jiemo-futurejap-newslist .content span {
+    font-size: 0.8rem;
+    color: #666;
+    overflow: hidden
+}
+
+.jiemo-futurejap-newslist .content span i {
+    float: left
+}
+
+.jiemo-futurejap-newslist .content span i img {
+    width: auto;
+    height: 1.2rem;
+    border: none;
+    margin-right: 0.3rem;
+    position: relative;
+    top: 0.1rem
+}
+
+.jiemo-futurejap-newslist .content span em {
+    float: right
+}
+
+.bdsharebuttonbox {
+    float: right
+}
+
+.bds_weixin {
+    background: none !important;
+    background-image: url(../images/icon-sharebg.png) !important;
+    background-position: 0px 0px !important
+}
+
+.bds_tsina {
+    background: none !important;
+    background-image: url(../images/icon-sharebg.png) !important;
+    background-position: -41px 0px !important
+}
+
+.bds_qzone {
+    background: none !important;
+    background-image: url(../images/icon-sharebg.png) !important;
+    background-position: -83px 0px !important
+}
+
+.bds_more {
+    background: none !important;
+    background-image: url(../images/icon-sharebg.png) !important;
+    background-position: -168px 0px !important
+}
+
+.bd_weixin_popup {
+    padding: 10px 5px !important;
+    height: auto !important
+}
+
+.bdshare-button-style0-32 a {
+    width: 36px !important;
+    height: 34px !important;
+    margin: 0 !important;
+    margin-left: 10px !important;
+    background-size: auto 100% !important
+}
+
+.jiemo-futurejap-news {
+    background: #f7f7f9 url(../images/bg-school.png) no-repeat bottom center;
+    background-size: 40%
+}
+
+.jiemo-futurejap-news .left .content {
+    background-color: #fff;
+    padding: 2rem;
+    margin-bottom: 2rem
+}
+
+.jiemo-futurejap-news .left .content .header {
+    overflow: hidden;
+    border-bottom: 0.1rem solid #e6e6e6;
+    padding: 0 2rem 1rem 0;
+}
+
+.jiemo-futurejap-news .left .content .header h2 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    line-height: 2rem
+}
+
+.jiemo-futurejap-news .left .content .header em {
+    float: left;
+    font-size: 0.8rem;
+    line-height: 34px
+}
+
+.jiemo-futurejap-news .left .content .header i {
+    float: left;
+    font-size: 0.8rem;
+    line-height: 34px;
+    margin-left: 2rem
+}
+
+.jiemo-futurejap-news .left .content .header i img {
+    height: 0.8rem;
+    margin-right: 0.3rem;
+    position: relative;
+    top: -0.1rem
+}
+
+.jiemo-futurejap-news .left .content .text {
+    line-height: 1.8rem;
+    padding: 1.5rem 0
+}
+
+.jiemo-futurejap-news .left .content .text img {
+    max-width: 100%;
+}
+
+.jiemo-futurejap-news .left .content .footer {
+    border-top: 0.1rem solid #e6e6e6;
+    padding-top: 1.5rem;
+    font-size: 1rem
+}
+
+.jiemo-futurejap-news .left .content .footer span {
+    display: block;
+    line-height: 1.5rem
+}
+
+.jiemo-futurejap-news .left .content .footer em {
+    color: #999
+}
+
+.jiemo-futurejap-news .left .content .footer b {
+    font-weight: normal;
+    color: #a51a29
+}
+
+.jiemo-futurejap-news .left .content-rec {
+    background-color: #fff;
+    overflow: hidden;
+    padding: 1.5rem 1rem;
+    margin-bottom: 2rem
+}
+
+.jiemo-futurejap-news .left .content-rec .col-md-4 {
+    margin-top: 1.5rem
+}
+
+.jiemo-futurejap-news .left .content-rec a {
+    display: block;
+    color: #666
+}
+
+.jiemo-futurejap-news .left .content-rec h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 2rem;
+}
+
+.jiemo-futurejap-news .left .content-rec img {
+    width: 100%
+}
+
+.jiemo-futurejap-news .left .content-rec p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6rem;
+    height: 3.2rem;
+    overflow: hidden;
+    margin-top: 0.8rem
+}
+
+.jiemo-futurejap-news .right .right-areabg {
+    background-color: #fff;
+    position: relative;
+    margin-left: -15px;
+    margin-bottom: 15px
+}
+
+.jiemo-futurejap-news .right .right-areabg.margbot0 {
+    margin-bottom: 0
+}
+
+.jiemo-futurejap-news .right .right-areabg h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 1rem
+}
+
+.jiemo-futurejap-news .right .right-areabg .swiper-slide img {
+    width: 100%
+}
+
+.jiemo-futurejap-news .right .right-areabg .swiper-button-next, .jiemo-futurejap-news .right .right-areabg .swiper-button-prev {
+    top: 15px;
+    background: none;
+    width: auto;
+    height: auto;
+    margin: 0;
+    left: auto;
+    right: 1.5rem;
+    opacity: 0.5
+}
+
+.jiemo-futurejap-news .right .right-areabg .swiper-button-prev {
+    right: 3rem
+}
+
+.jiemo-futurejap-news .right .right-areabg ul {
+    padding: 0 0.8rem
+}
+
+.jiemo-futurejap-news .right .right-areabg li {
+    height: 2.6rem;
+    line-height: 2.6rem;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 12px
+}
+
+.jiemo-futurejap-news .right .right-areabg li:last-child {
+    border: none
+}
+
+.jiemo-futurejap-news .right .right-areabg li a {
+    color: #333;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.jiemo-futurejap-news .right .right-areabg li a i {
+    display: inline-block;
+    width: 15px;
+    height: 13px;
+    text-align: center;
+    line-height: 13px;
+    color: #fff;
+    background-color: #ccc;
+    margin-right: 8px
+}
+
+.jiemo-futurejap-news .right .right-areabg li:nth-child(-n+3) a {
+    color: #a51a29
+}
+
+.jiemo-futurejap-news .right .right-areabg li:nth-child(-n+3) i {
+    background-color: #a51a29
+}
+
+.jiemo-futurejap-news .right .shade-area {
+    display: block;
+    margin-left: -15px;
+    background-color: #fff;
+    text-decoration: none;
+    overflow: hidden;
+    margin-bottom: 15px
+}
+
+.jiemo-futurejap-news .right .shade-area .img-area {
+    position: relative;
+}
+
+.jiemo-futurejap-news .right .shade-area .img-area img {
+    width: 100%
+}
+
+.jiemo-futurejap-news .right .shade-area .img-area span {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: inline-block;
+    width: 90px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    background: rgba(165, 26, 41, .8);
+}
+
+.jiemo-futurejap-news .right .shade-area p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 20px;
+    height: 0;
+    overflow: hidden;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+.jiemo-futurejap-news .right .shade-area:hover p {
+    margin: 10px 14px;
+    height: 60px;
+}
+
+@media (max-width: 720px) {
+    .jiemo-futurejap-news .left .content .header h2 {
+        margin-bottom: 1rem
+    }
+
+    .jiemo-futurejap-news .left .content-rec h3 {
+        font-size: 1.4rem
+    }
+}
