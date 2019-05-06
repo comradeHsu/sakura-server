@@ -131,4 +131,14 @@ public class EmployeeController {
         return employeeService.getPageEmployee(employee.getId(),page);
     }
 
+    /**
+     * 管理员退出登录
+     * @return
+     */
+    @RequestMapping(value = "/session",method = RequestMethod.DELETE)
+    public ResponseResult login(@RequestHeader("Token") String token){
+        employeeCache.invalidate(token);
+        return ResponseResult.success("退出登录成功",null);
+    }
+
 }
