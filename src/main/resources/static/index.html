@@ -757,6 +757,35 @@
             }
         });
     }
+
+    function login(tel,pwd) {
+        const sendurl = '/api/user/session';
+        $.ajax({
+            url:sendurl,
+            data:JSON.stringify({username:tel,password:pwd}),
+            type:'POST',
+            dataType:'json',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            success:function(data){
+                if(data.code == -1){
+                    setClass($("#login_tel"),1,data.msg);
+                }else if(data.code == -3){
+                    setClass($("#login_pwd"),1,data.msg);
+                }else{
+                    $("#noLogin").hide();
+                    $("#login").show();
+                    $("#username").html('欢迎您，'+data.data.user.realName)
+                    sessionStorage.setItem("token",data.data.token);
+                    sessionStorage.setItem("user",JSON.stringify(data.data.user));
+                    window.location.href = login_back_url;
+                    $(".jiemo-futurejap-loginbg").removeClass('active');
+                    $(".reg-area,.login-area").removeClass('active');
+                }
+            }
+        });
+    }
     //用户登出
     function qc_logout()
     {
@@ -836,8 +865,10 @@
 //                    setClass($("#reg_pwd"),1,data.msg);
                     alert(data.message)
                 }else{
-                    alert(data.message);
+                    alert("注册成功");
                     window.location.href = window.location.href;
+                    login(tel,pwd)
+//                    window.location.reload();
                 }
             }
         });
