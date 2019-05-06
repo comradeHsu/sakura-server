@@ -91,8 +91,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 hidden-xs hidden-sm">
-                <img class="img-logo1" src="/Public/Home/images/icon-logo.png" alt="大logo" onclick="window.location='http://www.qianchengriben.com'" onmouseover="this.src='/Public/Home/images/icon-logo-active.png'" onmouseleave="this.src='/Public/Home/images/icon-logo.png'" style="cursor: pointer">
-                <img class="img-logo2" src="/Public/Home/images/icon-logo-s.png" alt="小logo" onclick="window.location='http://www.qianchengriben.com'" onmouseover="this.src='/Public/Home/images/icon-logo-s-active.png'" onmouseleave="this.src='/Public/Home/images/icon-logo-s.png'" style="cursor: pointer">
+                <img class="img-logo1" src="/Public/Home/images/icon-logo.png" alt="大logo" onclick="window.location='http://127.0.0.1'" onmouseover="this.src='/Public/Home/images/icon-logo-active.png'" onmouseleave="this.src='/Public/Home/images/icon-logo.png'" style="cursor: pointer">
+                <img class="img-logo2" src="/Public/Home/images/icon-logo-s.png" alt="小logo" onclick="window.location='http://127.0.0.1'" onmouseover="this.src='/Public/Home/images/icon-logo-s-active.png'" onmouseleave="this.src='/Public/Home/images/icon-logo-s.png'" style="cursor: pointer">
             </div>
         </div>
     </div>
@@ -979,10 +979,10 @@
     {
         $uid = '';
         if($uid == 0 ){
-            login_back_url = "http://www.qianchengriben.com/Customer";
+            login_back_url = "http://127.0.0.1/Customer";
             user_login();
         }else{
-            window.location.href = "http://www.qianchengriben.com/Customer";
+            window.location.href = "http://127.0.0.1/Customer";
         }
     }
 </script>
@@ -1005,7 +1005,7 @@
 </script>
 <script src="skin/js/fp2.min.js"></script>
 <script>
-    var domainName = "www.qianchengriben.com";
+    var domainName = "127.0.0.1";
     function urlEncode(text) {
         var val = text.replace('http://','').replace('https://','');
         return val;
