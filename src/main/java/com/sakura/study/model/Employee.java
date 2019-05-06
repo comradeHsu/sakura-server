@@ -8,6 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class Employee {
+
     private Integer id;
 
     private Integer departmentId;
@@ -23,4 +24,5 @@ public class Employee {
     private Date createTime;
 
     private Boolean deleted;
+
 }

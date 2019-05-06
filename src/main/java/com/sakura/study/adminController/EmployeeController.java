@@ -1,5 +1,6 @@
 package com.sakura.study.adminController;
 
+import com.google.common.cache.LoadingCache;
 import com.sakura.study.dto.ChangePassword;
 import com.sakura.study.dto.EmployeeDto;
 import com.sakura.study.dto.EmployeePageRequest;
@@ -9,14 +10,12 @@ import com.sakura.study.model.Function;
 import com.sakura.study.service.EmployeeService;
 import com.sakura.study.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/employee")
@@ -24,6 +23,10 @@ public class EmployeeController {
 
     @Autowired
     EmployeeService employeeService;
+
+    @Autowired
+    @Qualifier("employeeCache")
+    LoadingCache<String, Optional<Employee>> employeeCache;
 
     /**
      * 管理员登录
@@ -36,7 +39,7 @@ public class EmployeeController {
         Assert.notEmpty(employee.getPassword(),message);
         Employee record = employeeService.login(employee);
         String token = UUID.randomUUID().toString();
-        RedisUtil.set(token,record,60*30L);
+        employeeCache.put(token,Optional.ofNullable(record));
         Map<String,String> map = new HashMap<>();
         map.put("token",token);
         return ResponseResult.success(map);
@@ -49,7 +52,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/info",method = RequestMethod.GET)
     public ResponseResult getEmployeeInfo(@RequestHeader("Token")String token){
-        Employee employee = (Employee) RedisUtil.get(token);
+        Employee employee = employeeCache.getUnchecked(token).orElse(null);
         Assert.notNull(employee,"用户信息不存在");
         List<Function> functions;
         if(employee.getDepartmentId() == 0)
@@ -121,7 +124,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/employees",method = RequestMethod.GET)
     public ResponseResult getPageEmployees(@RequestHeader("Token") String token, EmployeePageRequest page){
-        Employee employee = (Employee) RedisUtil.get(token);
+        Employee employee = employeeCache.getUnchecked(token).orElse(null);
         if(StringUtils.isEmpty(page.getRealName())){
             page.setRealName(null);
         }

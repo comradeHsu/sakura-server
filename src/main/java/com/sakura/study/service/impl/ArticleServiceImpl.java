@@ -1,5 +1,6 @@
 package com.sakura.study.service.impl;
 
+import com.google.common.cache.LoadingCache;
 import com.sakura.study.dao.ArticleMapper;
 import com.sakura.study.dto.ArticleDto;
 import com.sakura.study.dto.ArticlePageRequest;
@@ -7,19 +8,22 @@ import com.sakura.study.model.Article;
 import com.sakura.study.model.Employee;
 import com.sakura.study.service.ArticleService;
 import com.sakura.study.utils.BusinessException;
-import com.sakura.study.utils.RedisUtil;
 import com.sakura.study.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArticleServiceImpl implements ArticleService{
 
     @Autowired
-    ArticleMapper articleMapper;
+    private ArticleMapper articleMapper;
 
+    @Resource(name = "employeeCache")
+    private LoadingCache<String, Optional<Employee>> employeeCache;
 
     /**
      * 获取文章列表
@@ -43,7 +47,7 @@ public class ArticleServiceImpl implements ArticleService{
      */
     @Override
     public Article add(String token, Article article) {
-        Employee employee = (Employee) RedisUtil.get(token);
+        Employee employee = employeeCache.getUnchecked(token).orElse(null);
         article.setCreateBy(employee.getId());
         article.setUpdateBy(employee.getId());
         articleMapper.insertSelective(article);

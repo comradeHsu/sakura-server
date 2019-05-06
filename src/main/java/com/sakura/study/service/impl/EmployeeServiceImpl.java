@@ -1,31 +1,35 @@
 package com.sakura.study.service.impl;
 
+import com.google.common.cache.LoadingCache;
 import com.sakura.study.dao.EmployeeMapper;
 import com.sakura.study.dao.FunctionMapper;
 import com.sakura.study.dto.ChangePassword;
 import com.sakura.study.dto.EmployeePageRequest;
-import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.Employee;
 import com.sakura.study.model.Function;
 import com.sakura.study.service.EmployeeService;
 import com.sakura.study.utils.BusinessException;
 import com.sakura.study.utils.MD5Util;
-import com.sakura.study.utils.RedisUtil;
 import com.sakura.study.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
-    EmployeeMapper employeeMapper;
+    private EmployeeMapper employeeMapper;
 
     @Autowired
-    FunctionMapper functionMapper;
+    private FunctionMapper functionMapper;
+
+    @Resource(name = "employeeCache")
+    private LoadingCache<String, Optional<Employee>> employeeCache;
 
     /**
      * 员工登录
@@ -103,14 +107,14 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public void editPwd(ChangePassword data,String token) {
-        Employee self = (Employee) RedisUtil.get(token);
+        Employee self = employeeCache.getUnchecked(token).orElse(null);
         if(data.getNewPassword() == null || data.getNewPassword().trim().isEmpty())
             throw new BusinessException(400,"密码格式不合法");
         if(!MD5Util.md5Encode(data.getOldPassword()).equals(self.getPassword()))
             throw new BusinessException(400,"原密码不正确");
         self.setPassword(MD5Util.md5Encode(data.getNewPassword()));
         employeeMapper.updateByPrimaryKeySelective(self);
-        RedisUtil.set(token,self,60*30L);
+        employeeCache.put(token,Optional.of(self));
     }
 
     /**
