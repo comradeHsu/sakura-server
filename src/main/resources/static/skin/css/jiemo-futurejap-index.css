@@ -1,0 +1,713 @@
+@charset "utf-8";
+*{
+	color:#333
+}
+.caret{
+	pointer-events: none
+}
+.dropdown-menu{
+	left: -0.1rem
+}
+
+.jiemo-futurejap-banner{
+	background-color: #a51c30;
+	padding: 4rem 15px
+}
+.jiemo-futurejap-header-3{
+	box-shadow: none
+}
+.jiemo-futurejap-banner .col-md-12{
+	padding-top: 30px;
+	padding-bottom: 30px;
+	background-color: #8d1829;
+	text-align: center
+}
+.jiemo-futurejap-banner h2{
+	margin-top: 5rem;
+	color: #fff;
+	font-size: 3.5rem
+}
+.jiemo-futurejap-banner .col-md-6:nth-child(2) span{
+	display: block;
+	width: 84%;
+	height: 4rem;
+	line-height: 3.8rem;
+	margin: 2rem auto 1.2rem;
+	color: #fff;
+	font-size: 1.8rem;
+	border: 0.1rem solid #fff;
+}
+.jiemo-futurejap-banner video{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.video-js .vjs-big-play-button {
+	position: absolute;
+	left: 50%;
+	top: 50%;;
+	margin-left:-1.5em;
+	margin-top: -0.75em;
+}
+.jiemo-futurejap-banner button span,.jiemo-futurejap-banner .vjs-remaining-time-display{
+	border: 0;
+	color: #fff;
+}
+.jiemo-futurejap_video_1-dimensions.vjs-fluid {
+	padding-top: 56%;
+}
+.jiemo-futurejap-banner em{
+	display: inline-block;
+	padding: 0.7rem 2rem;
+	color: #fff;
+	font-size: 1.6rem;
+	font-weight: lighter;
+	background-color: #821525;
+}
+.jiemo-futurejap-cloud{
+	padding: 2rem 0;
+	text-align: center;
+	background-color: #363636
+}
+.jiemo-futurejap-cloud h2{
+	font-size: 1.6rem;
+	color: #fff;
+	font-weight: bold
+}
+.jiemo-futurejap-cloud .form-area-pc .btn-group{
+	width: 100%;
+	height: 3rem;
+	line-height: 2.8rem;
+	padding: 0 1.2rem;
+	border: 0.1rem solid #fff;
+	text-align: left
+}
+.jiemo-futurejap-cloud .form-area-pc .btn-group button{
+	background: none;
+	border: none;
+	width: 100%;
+	color: #999;
+	font-size: 1.2rem;
+	text-align: left
+}
+.jiemo-futurejap-cloud .form-area-pc .btn-group button font{
+	color: #999
+}
+.jiemo-futurejap-cloud .form-area-pc .btn-group span{
+	color: #999;
+	border-width: 5px;
+	float: right;
+	margin-top: 1.4rem
+}
+.jiemo-futurejap-cloud .form-area-pc .btn-group.active font,.jiemo-futurejap-cloud .form-area-pc .btn-group.active span{
+	color: #fff;
+}
+.jiemo-futurejap-cloud .form-area-pc .input-group{
+	width: 100%;
+	height: 3rem;
+	line-height: 2.8rem;
+	border: 0.1rem solid #fff;
+}
+.jiemo-futurejap-cloud .form-area-pc .input-group input{
+	border: none;
+	background: none;
+	width: 100%;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	margin-top: 0.15rem;
+	font-size: 1.2rem;
+	color: #fff;
+	box-shadow: none
+}
+.jiemo-futurejap-cloud .cloud-submit{
+	display: block;
+	width: 100%;
+	height: 3rem;
+	background: none;
+	border: none;
+	background-color: #a51c30;
+	color: #fff;
+	font-weight: bold;
+	font-size: 1.2rem
+}
+.jiemo-futurejap-cloud .col-md-2,.jiemo-futurejap-cloud .col-md-3{
+	margin-top: 2rem
+}
+.jiemo-futurejap-text{
+	padding: 5rem 0;
+	background-color: #fff;
+	text-align: center
+}
+.jiemo-futurejap-text h3{
+	padding: 2rem 0;
+	font-size: 1.55rem;
+	font-weight: bold
+}
+.jiemo-futurejap-text p{
+	line-height: 1.8rem;
+	text-align: left;
+	font-size: 1.15rem
+}
+.jiemo-futurejap-function{
+	padding: 2rem 0;
+	background: #003262 url(../img/img-functionbg.png) no-repeat center;
+}
+.jiemo-futurejap-function .col-md-4{
+	margin: 1rem auto;
+}
+.jiemo-futurejap-function a{
+	display: block;
+	width: 100%;
+	height: 11.5rem;
+	background-color: #fff;
+	text-align: center;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+.jiemo-futurejap-function a img{
+	padding: 2.1rem 0;
+}
+.jiemo-futurejap-function a h3{
+	font-size: 1.4rem;
+	font-weight: bold;
+	color: #333;
+}
+.jiemo-futurejap-function a:hover{
+	text-decoration: none;
+	background-color: #efefef
+}
+.jiemo-futurejap-case{
+	padding: 4rem 0;
+	background-color: #fff
+}
+.jiemo-futurejap-case .col-md-2{
+	height: 3.4rem;
+	line-height: 3.4rem;
+	text-align: center;
+	border-left: 1px solid #ddd;
+	border-top:1px solid #ddd;
+	cursor: pointer
+}
+.jiemo-futurejap-case .col-md-2:last-child{
+	border-right:1px solid #ddd
+}
+.jiemo-futurejap-case .col-md-2 h4{
+	line-height: 3.4rem;
+	font-size: 1.2rem;
+	font-weight: bold
+}
+.jiemo-futurejap-case .col-md-2.current{
+	background-color: #a51a29;
+	border-color:#a51a29
+}
+.jiemo-futurejap-case .col-md-2.current h4{
+	color: #fff
+}
+.jiemo-futurejap-case .tab-content{
+	width: 100%;
+	position: relative;
+	z-index: 1;
+	display: none
+}
+.jiemo-futurejap-case .tab-content.current{
+	display: block
+}
+.jiemo-futurejap-case .tab-content img{
+	width: 100%
+}
+.jiemo-futurejap-case .tab-content .tab-tip{
+	width: 50%;
+	position: absolute;
+	bottom: 4rem;
+	left: 4rem;
+}
+.jiemo-futurejap-case .tab-content .tab-tip h5{
+	max-width: 100%;
+	display: inline-block;
+	padding: 1rem;
+	background-color: #a51a29;
+	color: #fff;
+	font-size: 1.2rem;
+	float: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.jiemo-futurejap-case .tab-content .tab-tip .text{
+	width: 100%;
+	line-height: 1.6rem;
+	padding: 1rem;
+	font-size: 1.1rem;
+	background-color: #fff;
+	float: left
+}
+.jiemo-futurejap-case .tab-content .tab-tip .text a{
+	display: block;
+	text-align: right;
+	font-size: 1rem;
+	color: #333;
+	text-decoration: underline;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+.jiemo-futurejap-case .tab-content .tab-tip .text a:hover{
+	color: #a51a29
+}
+.jiemo-futurejap-case .tab-content .tab-tip .text img{
+	width: auto;
+	margin-left: 0.7rem
+}
+.jiemo-futurejap-topactivity{
+	background-color: #fff
+}
+.jiemo-futurejap-topactivity .col-md-3{
+	padding: 0 0.4rem 0 0;
+}
+.jiemo-futurejap-topactivity .col-md-3:last-child{
+	padding: 0
+}
+.jiemo-futurejap-topactivity .col-md-3 img{
+	width: 100%
+}
+.jiemo-futurejap-topactivity .act-tip{
+	width: 78%;
+	position: absolute;
+	bottom: 0rem;
+	left: 1rem;
+	opacity: 0;
+	-webkit-transition: all 0.3s linear;
+	-moz-transition: all 0.3s linear;
+	transition: all 0.3s linear;
+}
+.jiemo-futurejap-topactivity .col-md-3:hover .act-tip{
+	opacity: 1;
+	bottom: 1rem
+}
+.jiemo-futurejap-topactivity .act-tip h5{
+	max-width: 100%;
+	display: inline-block;
+	padding: 1rem;
+	background-color: #c39106;
+	color: #fff;
+	font-size: 1.1rem;
+	float: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.jiemo-futurejap-topactivity .act-tip .text{
+	width: 100%;
+	padding: 1rem;
+	background-color: #fff;
+	float: left
+}
+.jiemo-futurejap-topactivity .act-tip .text h6{
+	font-size: 1.1rem;
+	font-weight: bold;
+	color: #333
+}
+.jiemo-futurejap-topactivity .act-tip .text span{
+	display: block;
+	font-size: 1rem;
+	line-height: 3rem
+}
+.jiemo-futurejap-topactivity .act-tip .text a{
+	display: inline-block;
+	line-height: 1.4rem;
+	padding: 0.3rem 1.8rem 0.4rem;
+	border: 1px solid #333;
+	color: #333;
+	text-decoration: none;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+.jiemo-futurejap-topactivity .act-tip .text a:hover{
+	color: #c39106;
+	border-color:#c39106
+}
+.jiemo-futurejap-topactivity .act-tip .text a:hover i{
+	color: #c39106;
+}
+.jiemo-futurejap-topactivity .act-tip .text a i{
+	margin-left: 0.7rem;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+.jiemo-futurejap-activity{
+	padding: 3rem 0;
+	background-color: #fff;
+}
+.jiemo-futurejap-activity h3{
+	width: 100%;
+	padding-bottom: 1rem;
+	margin-bottom: 1.5rem;
+	font-size: 1.6rem;
+	font-weight: bold;
+	color: #363636;
+	border-bottom: 0.25rem solid #363636
+}
+.jiemo-futurejap-activity .col-md-8 img{
+	width: 100%
+}
+.jiemo-futurejap-activity .col-md-8 .col-md-6:nth-child(2){
+	padding: 1rem
+}
+.jiemo-futurejap-activity .col-md-8 h4{
+	font-size: 1.6rem;
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.jiemo-futurejap-activity .col-md-8 span{
+	display: block;
+	line-height: 5rem;
+	font-size: 1.4rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.jiemo-futurejap-activity .col-md-8 p{
+	display: inline-block;
+	padding: 0.3rem 1.2rem;
+	font-size: 1.2rem;
+	background-color: #000;
+	color: #fdd52e;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.jiemo-futurejap-activity .col-md-8 a{
+	display: inline-block;
+	line-height: 1.4rem;
+	margin-top: 2.8rem;
+	padding: 0.3rem 1.8rem 0.4rem;
+	border: 1px solid #333;
+	color: #333;
+	text-decoration: none;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+.jiemo-futurejap-activity .col-md-8 a:hover{
+	color: #fdd52e;
+	border-color:#fdd52e
+}
+.jiemo-futurejap-activity .col-md-8 a:hover i{
+	color: #fdd52e;
+}
+.jiemo-futurejap-activity .col-md-8 a i{
+	margin-left: 0.7rem;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+.jiemo-futurejap-activity .col-md-4 ul li{
+	height: 4rem;
+	margin-bottom: 1.1rem;
+	display: inline-block;
+	overflow: hidden;
+	width: 100%
+}
+.jiemo-futurejap-activity .col-md-4 ul li .left{
+	width: 18%;
+	float: left;
+	text-align: center;
+	border-right: 1px solid #333;
+	overflow: hidden
+}
+.jiemo-futurejap-activity .col-md-4 ul li .left i{
+	display: block;
+	line-height: 1.6rem;
+	margin-top: 0.1rem;
+	font-size: 1rem;
+	font-weight: bold
+}
+.jiemo-futurejap-activity .col-md-4 ul li .left em{
+	display: block;
+	font-size: 1.5rem;
+	font-weight: bold
+}
+.jiemo-futurejap-activity .col-md-4 ul li .right{
+	width: 82%;
+	padding: 0 1.2rem;
+	float: left
+}
+.jiemo-futurejap-activity .col-md-4 ul li .right a{
+	display: inline-block;
+	max-height: 3.84rem;
+	overflow: hidden;
+	line-height: 1.92rem;
+	font-size: 1.2rem;
+	color: #333;
+}
+.jiemo-futurejap-activity .col-md-4>a{
+	display: block;
+	text-align: right;
+	color: #333;
+	text-decoration: underline;
+}
+.jiemo-futurejap-activity .col-md-4>a:hover{
+	color: #a51a29
+}
+.jiemo-futurejap-activity .col-md-4>a img{
+	margin-left: 0.7rem
+}
+.jiemo-futurejap-news{
+	background-color: #fff;
+}
+.jiemo-futurejap-news h3{
+	width: 100%;
+	padding-bottom: 0.2rem !important;
+	font-size: 1.6rem;
+	font-weight: bold;
+	color: #363636;
+}
+.jiemo-futurejap-news .col-md-3>a{
+	text-decoration: none
+}
+.jiemo-futurejap-news .content{
+	padding: 10px;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+.jiemo-futurejap-news .content:hover{
+	background-color: #f1f2f2
+}
+.jiemo-futurejap-news .content span{
+	display: inline-block;
+	color: #666;
+	font-size: 1rem;
+	margin-top: 1.3rem;
+	margin-bottom: 0.2rem
+}
+.jiemo-futurejap-news .content img{
+	width: 100%
+}
+.jiemo-futurejap-news .content h4{
+	padding-top: 1.2rem;
+	margin-top: 0.5rem;
+	font-size: 1.3rem;
+	border-top: 0.1rem solid #333;
+}
+.jiemo-futurejap-news .content p{
+	margin-top: 1rem;
+	line-height: 1.6rem;
+	font-size: 1rem;
+	max-height: 4.8rem;
+	overflow: hidden;
+	color: #666
+}
+.jiemo-futurejap-news .content em{
+	display: block;
+	margin-top: 1rem;
+	color: #666;
+	text-decoration: underline;
+	text-align: right
+}
+.jiemo-futurejap-news .content em img{
+	width: auto;
+	margin-left: 0.7rem;
+}
+.jiemo-futurejap-news .content em:hover{
+	color: #a51a29
+}
+.jiemo-futurejap-news .btn-more{
+	display: inline-block;
+	padding: 0.5rem 3rem;
+	margin: 4rem auto;
+	color: #333;
+	font-size: 1.3rem;
+	border: 1px solid #333;
+	text-decoration:none
+}
+.jiemo-futurejap-news .btn-more i{
+	font-weight: lighter;
+	margin-left: 1.3rem;
+}
+.jiemo-futurejap-news .btn-more:hover{
+	color: #a51a29;
+	border-color:#a51a29
+}
+.jiemo-futurejap-news .btn-more:hover i{
+	color: #a51a29;
+}
+.jiemo-futurejap-erweima{
+	padding: 2rem 0 3rem;
+	background: #fff url(../img/bg-erweima.png) no-repeat right bottom;
+	text-align: center
+}
+.jiemo-futurejap-erweima .container{
+	max-width: 1080px
+}
+.jiemo-futurejap-erweima .col-md-3{
+	padding: 2.8rem
+}
+.jiemo-futurejap-erweima img{
+	width: 100%;
+	padding: 1.1rem;
+	border:1px solid #eee;
+}
+.jiemo-futurejap-erweima h3{
+	margin-top: 2rem;
+	color: #444;
+	font-size: 1.2rem;
+	font-weight: bold
+}
+.utop_box{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background: rgba(0, 0, 0, 0.5);
+	left:0;
+	top: 0;
+	display: none;
+	z-index: 90;
+}
+.utop_box .utop{
+	width: 600px;
+	height: 659px;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	margin-left: -300px;
+	margin-top: -330px;
+	background: url(../img/pc_utop.png);
+	background-size: cover;
+}
+.utop_box .utop .close{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.utop_box .utop .info{
+	width: 270px;
+	height: 70px;
+	position: absolute;
+	left: 50%;
+	margin-left: -135px;
+	bottom: 0;
+}
+
+@media (max-width:720px) {
+	.jiemo-futurejap-banner h2{
+		margin-top: 2rem;
+		font-size: 2rem
+	}
+	.jiemo-futurejap-banner span{
+		height: 3rem;
+		line-height: 2.8rem;
+		margin: 1rem auto 0.7rem;
+		font-size: 1.2rem;
+	}
+	.jiemo-futurejap-banner em{
+		font-size: 1.1rem;
+	}
+	.jiemo-futurejap-function{
+		background: #003262;
+	}
+
+	.jiemo-futurejap-text{
+		padding: 1rem 0 3rem
+	}
+	.jiemo-futurejap-text img{
+		margin-top: 2rem
+	}
+	.jiemo-futurejap-case .col-md-2:nth-child(3){
+		border-right: 1px solid #ddd
+	}
+	.jiemo-futurejap-case .tab-content .tab-tip{
+		position:static;
+		left: auto;
+		bottom: auto;
+		width: 100%
+	}
+	.jiemo-futurejap-topactivity .col-md-3{
+		padding: 0
+	}
+	.jiemo-futurejap-topactivity .act-tip{
+		width: 94%;
+		opacity: 1;
+		bottom: 1rem;
+	}
+	.jiemo-futurejap-activity .col-md-8 span{
+		line-height: 2.4rem
+	}
+	.jiemo-futurejap-activity .col-md-8 a{
+		margin-top: 0.7rem
+	}
+	.jiemo-futurejap-activity .col-md-4 h3{
+		margin-top: 2rem
+	}
+	.jiemo-futurejap-activity .col-md-4 ul li{
+		margin-bottom: 0
+	}
+	.jiemo-futurejap-news .col-md-3,.jiemo-futurejap-news h3{
+		padding: 0
+	}
+	.jiemo-futurejap-news .btn-more{
+		margin: 1rem auto
+	}
+	.jiemo-futurejap-erweima .col-md-3{
+		padding: 1rem
+	}
+	.jiemo-futurejap-banner span {
+		height: 3rem;
+		line-height: 2.8rem;
+		margin: 1rem auto 0.7rem;
+		font-size: 2.2rem;
+	}
+	.jiemo-futurejap-banner .col-md-6:nth-child(2) span{
+		display: block;
+		width: 84%;
+		height: 4rem;
+		line-height: 3.8rem;
+		margin: 2rem auto 3.2rem;
+		color: #fff;
+		font-size: 1.8rem;
+		border: 0.1rem solid #fff;
+	}
+	.utop_box{
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		background: rgba(0, 0, 0, 0.5);
+		left:0;
+		top: 0;
+		display: none;
+		z-index: 90;
+	}
+	.utop_box .utop{
+		width: 28.5rem;
+		height: 31.25rem;
+		position: relative;
+		left: 50%;
+		top: 50%;
+		margin-left: -14.25rem;
+		margin-top: -15.625rem;
+		background: url(../img/wap_utop.png);
+		background-size: cover;
+	}
+	.utop_box .utop .close{
+		width: 2.14rem;
+		height: 2.14rem;;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.utop_box .utop .info{
+		width: 270px;
+		height: 70px;
+		position: absolute;
+		left: 50%;
+		margin-left: -135px;
+		bottom: 0;
+	}
+}
