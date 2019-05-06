@@ -1,6 +1,7 @@
 package com.sakura.study.service;
 
 import com.sakura.study.dto.PageRequest;
+import com.sakura.study.dto.UserDto;
 import com.sakura.study.model.User;
 import com.sakura.study.utils.ResponseResult;
 
@@ -41,4 +42,28 @@ public interface UserService {
      * @param id
      */
     void delete(String token, Integer id);
+
+    /**
+     * api
+     * 用户登录
+     * @param user
+     * @return
+     */
+    User login(User user);
+
+    /**
+     * api
+     * 获取用户详细信息
+     * @param userId
+     * @return
+     */
+    UserDto getUserInfo(Integer userId);
+
+    /**
+     * api
+     * 用户注册
+     * @param userDto
+     * @return
+     */
+    UserDto register(UserDto userDto);
 }

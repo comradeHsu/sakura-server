@@ -1,5 +1,6 @@
 package com.sakura.study.dao;
 
+import com.sakura.study.dto.UserDto;
 import com.sakura.study.model.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -46,4 +47,25 @@ public interface UserMapper {
      * @return
      */
     int resetParentId(Integer parentId);
+
+    /**
+     * 根据用户名查找用户
+     * @param username
+     * @return
+     */
+    User findByUsername(String username);
+
+    /**
+     * 获取用户详细信息
+     * @param id
+     * @return
+     */
+    UserDto getUserInfo(Integer id);
+
+    /**
+     * 根据用户名查找用户
+     * @param phone
+     * @return
+     */
+    User findByPhone(String phone);
 }

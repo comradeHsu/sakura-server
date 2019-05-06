@@ -191,4 +191,29 @@
     set parent_id = 0
     where parent_id = #{parentId}
   </update>
+
+  <select id="findByUsername" resultType="com.sakura.study.model.User">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where deleted = false and username = #{username} limit 1
+  </select>
+
+  <select id="getUserInfo" resultType="com.sakura.study.dto.UserDto">
+    select
+    u.id, u.parent_id, u.username, u.phone_number, u.age, u.icon, u.real_name, u.create_time,
+    p.username as parentUsername, p.phone_number as parentPhone
+    from user u
+    LEFT JOIN user p
+    ON p.id = u.parent_id
+    where u.deleted = false
+    and u.id = #{id}
+  </select>
+
+  <select id="findByPhone" resultType="com.sakura.study.model.User">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where deleted = false and phone_number = #{phone} limit 1
+  </select>
 </mapper>

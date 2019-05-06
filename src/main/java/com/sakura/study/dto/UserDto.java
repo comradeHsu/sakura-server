@@ -10,4 +10,6 @@ public class UserDto extends User{
 
     private String parentUsername;
 
+    private String parentPhone;
+
 }
