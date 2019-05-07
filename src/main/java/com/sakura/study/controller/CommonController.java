@@ -5,6 +5,7 @@ import com.sakura.study.service.RegionService;
 import com.sakura.study.utils.Qiniu;
 import com.sakura.study.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,8 @@ public class CommonController {
 
     @Autowired
     RegionService regionService;
+    @Autowired
+    Qiniu qiniu;
 
     /**
      * 获取父级地区地址
@@ -44,7 +47,7 @@ public class CommonController {
      */
     @RequestMapping(value = "/qiniu/token",method = RequestMethod.GET)
     public ResponseResult getQiniuToken(){
-        String token = Qiniu.getUploadToken();
+        String token = qiniu.getUploadToken();
         return ResponseResult.success(token);
     }
 }

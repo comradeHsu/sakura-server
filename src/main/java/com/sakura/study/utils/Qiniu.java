@@ -1,20 +1,25 @@
 package com.sakura.study.utils;
 
 import com.qiniu.util.Auth;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Qiniu {
 
-    private static final String accessKey = "";
+    @Value("qiniu.key")
+    private  String accessKey;
 
-    private static final String secretKey = "";
+    @Value("qiniu.")
+    private  String secretKey = "";
 
-    private static final String bucket = "sakura_picture";
+    private  String bucket = "sakura_picture";
 
     /**
      * 获取七牛上传凭证
      * @return
      */
-    public static String getUploadToken(){
+    public  String getUploadToken(){
         Auth auth = Auth.create(accessKey, secretKey);
         String upToken = auth.uploadToken(bucket);
         return upToken;
