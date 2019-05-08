@@ -36,6 +36,7 @@ public class InformationController {
     @RequestMapping(value = "/articles",method = RequestMethod.GET)
     public ResponseResult getPageArticles(ArticlePageRequest request){
         request.setStatus(1);
+        request.initSkip();
         return articleService.getArticles(request);
     }
 }

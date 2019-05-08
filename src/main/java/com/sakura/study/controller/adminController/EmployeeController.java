@@ -126,6 +126,7 @@ public class EmployeeController {
         if(StringUtils.isEmpty(page.getRealName())){
             page.setRealName(null);
         }
+        page.initSkip();
         return employeeService.getPageEmployee(employee.getId(),page);
     }
 

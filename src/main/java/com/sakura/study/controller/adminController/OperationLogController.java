@@ -23,6 +23,7 @@ public class OperationLogController {
      */
     @RequestMapping(value = "/logs",method = RequestMethod.GET)
     public ResponseResult getPageLogs(PageRequest page,Integer employeeId){
+        page.initSkip();
         return operationLogService.getPageLogs(page,employeeId);
     }
 }

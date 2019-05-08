@@ -27,6 +27,7 @@ public class ConsumerController {
         if(StringUtils.isEmpty(realName)){
             realName = null;
         }
+        page.initSkip();
         return userService.getPageUsers(page,realName);
     }
 

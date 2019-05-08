@@ -21,6 +21,7 @@ public class FinanceController {
      */
     @RequestMapping(value = "/finances",method = RequestMethod.GET)
     public ResponseResult getFinances(FinancePageRequest request){
+        request.initSkip();
         return financeService.getFinances(request);
     }
 

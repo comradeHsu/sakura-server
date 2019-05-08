@@ -25,6 +25,7 @@ public class UniversityController {
         if(schoolName != null && schoolName.trim().isEmpty()){
             schoolName = null;
         }
+        page.initSkip();
         return universityService.getPageSchools(page,schoolName);
     }
 

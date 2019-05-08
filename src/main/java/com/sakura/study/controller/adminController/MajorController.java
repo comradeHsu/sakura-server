@@ -24,6 +24,7 @@ public class MajorController {
      */
     @RequestMapping(value = "/university/{id}/majors",method = RequestMethod.GET)
     public ResponseResult getMajors(PageRequest page, @PathVariable("id") Integer id){
+        page.initSkip();
         return majorService.getPageMajors(page,id);
     }
 
