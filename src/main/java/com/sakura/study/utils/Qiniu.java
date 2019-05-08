@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class Qiniu {
 
-    @Value("qiniu.key")
+    @Value("${qiniu.key}")
     private  String accessKey;
 
-    @Value("qiniu.")
+    @Value("${qiniu.secret}")
     private  String secretKey = "";
 
     private  String bucket = "sakura_picture";
