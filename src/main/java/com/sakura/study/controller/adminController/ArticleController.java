@@ -22,6 +22,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/articles",method = RequestMethod.GET)
     public ResponseResult articles(ArticlePageRequest pageRequest){
+        pageRequest.initSkip();
         return articleService.getArticles(pageRequest);
     }
 

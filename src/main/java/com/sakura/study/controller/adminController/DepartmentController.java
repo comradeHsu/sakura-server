@@ -46,6 +46,7 @@ public class DepartmentController {
      */
     @RequestMapping(value = "/departments",method = RequestMethod.GET)
     public ResponseResult departments(PageRequest page){
+        page.initSkip();
         return departmentService.getPageDepartment(page);
     }
 
