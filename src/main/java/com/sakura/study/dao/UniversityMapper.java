@@ -1,5 +1,6 @@
 package com.sakura.study.dao;
 
+import com.sakura.study.dto.UniversityPageRequest;
 import com.sakura.study.model.University;
 import org.apache.ibatis.annotations.Param;
 
@@ -41,4 +42,18 @@ public interface UniversityMapper {
      * @return
      */
     University findBySchoolName(@Param("schoolName")String schoolName);
+
+    /**
+     * 搜索学校
+     * @param request
+     * @return
+     */
+    List<University> search(UniversityPageRequest request);
+
+    /**
+     * 搜索学校数量
+     * @param request
+     * @return
+     */
+    int searchCount(UniversityPageRequest request);
 }

@@ -1,6 +1,7 @@
 package com.sakura.study.service;
 
 import com.sakura.study.dto.PageRequest;
+import com.sakura.study.dto.UniversityPageRequest;
 import com.sakura.study.model.University;
 import com.sakura.study.utils.ResponseResult;
 
@@ -41,4 +42,12 @@ public interface UniversityService {
      * @return
      */
     University getUniversityById(Integer id);
+
+    /**
+     * api
+     * 学校搜索
+     * @param request
+     * @return
+     */
+    ResponseResult search(UniversityPageRequest request);
 }

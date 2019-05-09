@@ -13,4 +13,11 @@ public class UniversityPageRequest extends PageRequest{
 
     private String city;
 
+    private Integer rankingTop;
+
+    private Integer rankingBottom;
+
+    private Integer parentId;
+
+    private Integer subId;
 }

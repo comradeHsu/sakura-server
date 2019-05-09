@@ -214,4 +214,50 @@
     where deleted = FALSE
     and school_name = #{schoolName} limit 1
   </select>
+
+  <select id="search" resultMap="BaseResultMap" parameterType="com.sakura.study.dto.UniversityPageRequest">
+    select
+    <include refid="Base_Column_List" />
+    from university
+    where deleted = FALSE
+    <if test="name != null">
+      and (school_name like concat('%',#{name},'%') or english_name like concat('%',#{name},'%'))
+    </if>
+    <if test="province != null">
+      and province = #{province}
+    </if>
+    <if test="city != null">
+      and city = #{city}
+    </if>
+    <if test="rankingTop != null">
+      and national_ranking &lt; rankingTop
+    </if>
+    <if test="rankingBottom != null">
+      and national_ranking &gt; rankingBottom
+    </if>
+    order by world_ranking asc
+    limit #{skip}, #{pageCount}
+  </select>
+
+  <select id="searchCount" resultType="java.lang.Integer" parameterType="com.sakura.study.dto.UniversityPageRequest">
+    select
+    count(*)
+    from university
+    where deleted = FALSE
+    <if test="name != null">
+      and (school_name like concat('%',#{name},'%') or english_name like concat('%',#{name},'%'))
+    </if>
+    <if test="province != null">
+      and province = #{province}
+    </if>
+    <if test="city != null">
+      and city = #{city}
+    </if>
+    <if test="rankingTop != null">
+      and national_ranking &lt; rankingTop
+    </if>
+    <if test="rankingBottom != null">
+      and national_ranking &gt; rankingBottom
+    </if>
+  </select>
 </mapper>

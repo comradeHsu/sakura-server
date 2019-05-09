@@ -4,6 +4,7 @@ import com.sakura.study.dto.UniversityPageRequest;
 import com.sakura.study.service.UniversityService;
 import com.sakura.study.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,9 @@ public class SchoolController {
      */
     @RequestMapping(value = "/search",method = RequestMethod.GET)
     public ResponseResult search(UniversityPageRequest request){
-        return null;
+        request.initSkip();
+        if(StringUtils.isEmpty(request.getName()))
+            request.setName(null);
+        return universityService.search(request);
     }
 }

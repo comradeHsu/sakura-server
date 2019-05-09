@@ -146,6 +146,7 @@ public class UserServiceImpl implements UserService {
         }
         User user = userMapper.findByPhone(userDto.getPhoneNumber());
         if(user != null) throw new BusinessException(400,"此手机号已被使用");
+        if(StringUtils.isEmpty(userDto.getRealName())) userDto.setRealName("用户"+Math.random() * 100000);
         userDto.setPassword(MD5Util.md5Encode(userDto.getPassword()));
         userMapper.insertSelective(userDto);
         return userDto;
