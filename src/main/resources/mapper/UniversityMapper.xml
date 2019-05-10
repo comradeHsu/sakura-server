@@ -230,10 +230,10 @@
       and city = #{city}
     </if>
     <if test="rankingTop != null">
-      and national_ranking &lt; rankingTop
+      and national_ranking &gt;= #{rankingTop}
     </if>
     <if test="rankingBottom != null">
-      and national_ranking &gt; rankingBottom
+      and national_ranking &lt;= #{rankingBottom}
     </if>
     order by world_ranking asc
     limit #{skip}, #{pageCount}
@@ -254,10 +254,10 @@
       and city = #{city}
     </if>
     <if test="rankingTop != null">
-      and national_ranking &lt; rankingTop
+      and national_ranking &gt;= #{rankingTop}
     </if>
     <if test="rankingBottom != null">
-      and national_ranking &gt; rankingBottom
+      and national_ranking &lt;= #{rankingBottom}
     </if>
   </select>
 </mapper>
