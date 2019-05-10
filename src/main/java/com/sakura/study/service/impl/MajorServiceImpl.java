@@ -1,6 +1,7 @@
 package com.sakura.study.service.impl;
 
 import com.sakura.study.dao.MajorMapper;
+import com.sakura.study.dto.MajorPageRequest;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.Major;
 import com.sakura.study.service.MajorService;
@@ -30,10 +31,11 @@ public class MajorServiceImpl implements MajorService{
      * @return
      */
     @Override
-    public ResponseResult getPageMajors(PageRequest page, Integer universityId) {
+    public ResponseResult getPageMajors(MajorPageRequest page, Integer universityId) {
         universityService.getUniversityById(universityId);
-        List<Major> data = majorMapper.getPageMajors(universityId,page.getSkip(),page.getPageCount());
-        int dataCount = majorMapper.getPageMajorsCount(universityId);
+        page.setUniversityId(universityId);
+        List<Major> data = majorMapper.getPageMajors(page);
+        int dataCount = majorMapper.getPageMajorsCount(page);
         return ResponseResult.pageResult(data,dataCount);
     }
 

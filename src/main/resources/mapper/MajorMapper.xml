@@ -5,12 +5,13 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="university_id" property="universityId" jdbcType="INTEGER" />
     <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+    <result column="major_desc" property="majorDesc" jdbcType="VARCHAR" />
     <result column="degree_type" property="degreeType" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="deleted" property="deleted" jdbcType="BIT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, university_id, major_name, degree_type, create_time, deleted
+    id, university_id, major_name, major_desc, degree_type, create_time, deleted
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -105,20 +106,32 @@
   </update>
 
 
-  <select id="getPageMajors" resultMap="BaseResultMap">
+  <select id="getPageMajors" resultMap="BaseResultMap" parameterType="com.sakura.study.dto.MajorPageRequest">
     select
     <include refid="Base_Column_List" />
     from major
     where university_id = #{universityId} and deleted = FALSE
+    <if test="majorName != null">
+      and major_name like concat('%',#{majorName},'%')
+    </if>
+    <if test="degreeType != null">
+      and degree_type = #{degreeType}
+    </if>
     order by id DESC
-    limit #{start},#{pageCount}
+    limit #{skip},#{pageCount}
   </select>
 
-  <select id="getPageMajorsCount" resultType="java.lang.Integer">
+  <select id="getPageMajorsCount" resultType="java.lang.Integer" parameterType="com.sakura.study.dto.MajorPageRequest">
     select
     count(*)
     from major
     where university_id = #{universityId} and deleted = FALSE
+    <if test="majorName != null">
+      and major_name like concat('%',#{majorName},'%')
+    </if>
+    <if test="degreeType != null">
+      and degree_type = #{degreeType}
+    </if>
   </select>
 
   <select id="findByUniversityIdAndName" resultMap="BaseResultMap">

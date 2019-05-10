@@ -16,6 +16,8 @@ public class Major {
 
     private String degreeType;
 
+    private String majorDesc;
+
     private Date createTime;
 
     private Boolean deleted;
