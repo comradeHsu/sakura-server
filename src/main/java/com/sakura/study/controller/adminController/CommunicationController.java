@@ -1,22 +1,27 @@
-package com.sakura.study.controller.apiController;
+package com.sakura.study.controller.adminController;
 
+import com.google.common.cache.LoadingCache;
 import com.sakura.study.dao.CommunicationRecordMapper;
 import com.sakura.study.dto.ArticlePageRequest;
 import com.sakura.study.dto.CommunicationRequest;
 import com.sakura.study.model.Article;
 import com.sakura.study.model.CommunicationRecord;
+import com.sakura.study.model.Employee;
 import com.sakura.study.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/communication")
 public class CommunicationController {
     @Autowired
     CommunicationRecordMapper communicationRecordMapper;
+    @Resource(name = "employeeCache")
+    private LoadingCache<String, Optional<Employee>> employeeCache;
 
     /**
      * 保存聊天数据
@@ -24,7 +29,8 @@ public class CommunicationController {
      * @return
      */
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    public ResponseResult saveRecord(CommunicationRecord request) {
+    public ResponseResult saveRecord( @RequestBody CommunicationRecord request) {
+        request.setCreateTime(new Date());
         communicationRecordMapper.insert(request);
         return ResponseResult.success("添加成功",null);
     }
@@ -34,10 +40,13 @@ public class CommunicationController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/articles",method = RequestMethod.GET)
+    @RequestMapping(value = "/",method = RequestMethod.GET)
     public ResponseResult getPageArticles(CommunicationRequest request){
         //request.setStatus(1);
         request.initSkip();
-        return ResponseResult.success(request);
+        return ResponseResult.pageResult(
+                communicationRecordMapper.getPages(request),
+                communicationRecordMapper.count(request));
+
     }
 }

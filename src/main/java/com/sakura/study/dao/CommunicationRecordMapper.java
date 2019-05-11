@@ -1,6 +1,12 @@
 package com.sakura.study.dao;
 
+import com.sakura.study.dto.CommunicationRequest;
 import com.sakura.study.model.CommunicationRecord;
+import com.sakura.study.utils.ResponseResult;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.util.List;
 
 
 public interface CommunicationRecordMapper {
@@ -15,4 +21,10 @@ public interface CommunicationRecordMapper {
     int updateByPrimaryKeySelective(CommunicationRecord record);
 
     int updateByPrimaryKey(CommunicationRecord record);
+
+    @Select("select * from communication_record limit #{skip}, #{pageCount}")
+    List<CommunicationRecord> getPages(CommunicationRequest request);
+
+    @Select("select count(1) from communication_record")
+    Integer count(CommunicationRequest request);
 }
