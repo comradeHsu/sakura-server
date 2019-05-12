@@ -8,6 +8,7 @@ import com.sakura.study.model.CommunicationRecord;
 import com.sakura.study.utils.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -18,6 +19,7 @@ import java.util.Date;
 
 @ServerEndpoint("/conversation/{userId}")
 @Component
+@Lazy
 public class UserWebSocketHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(UserWebSocketHandler.class);

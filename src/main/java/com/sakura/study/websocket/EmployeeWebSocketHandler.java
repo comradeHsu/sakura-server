@@ -8,6 +8,7 @@ import com.sakura.study.model.CommunicationRecord;
 import com.sakura.study.utils.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -17,6 +18,7 @@ import java.io.IOException;
 
 @ServerEndpoint("/reply/{userId}")
 @Component
+@Lazy
 public class EmployeeWebSocketHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(EmployeeWebSocketHandler.class);
@@ -48,6 +50,13 @@ public class EmployeeWebSocketHandler {
     @OnOpen
     public void onOpen(Session session, @PathParam("userId") Integer userId) {
         EmployeeSession es = new EmployeeSession(userId,session);
+        if(sessionContext.getEmployeeQueue().isEmpty() && !sessionContext.getUserWaitQueue().isEmpty()){
+            Session userSession = sessionContext.getUserWaitQueue().poll();
+            while(userSession != null){
+                sessionContext.getUserForEmployee().put(userSession,es);
+                userSession = sessionContext.getUserWaitQueue().poll();
+            }
+        }
         sessionContext.getEmployeeQueue().add(es);
     }
 
