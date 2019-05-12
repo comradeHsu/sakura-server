@@ -38,7 +38,7 @@ public class InterceptorHttp  extends HandlerInterceptorAdapter {
         }
         Employee employee = employeeCache.getUnchecked(token).orElse(null);
         if(employee == null) {
-            //return true;
+            return true;
         }
         operationLog = new OperationLog();
         operationLog.setEmployeeId(employee.getId());
