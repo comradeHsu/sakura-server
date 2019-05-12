@@ -1,6 +1,7 @@
 package com.sakura.study.websocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Multimap;
 import com.sakura.study.dao.CommunicationRecordMapper;
 import com.sakura.study.dto.EmployeeSession;
 import com.sakura.study.dto.Message;
@@ -15,6 +16,8 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @ServerEndpoint("/reply/{userId}")
 @Component
@@ -48,12 +51,13 @@ public class EmployeeWebSocketHandler {
     }
 
     @OnOpen
-    public void onOpen(Session session, @PathParam("userId") Integer userId) {
-        EmployeeSession es = new EmployeeSession(userId,session);
+    public void onOpen(Session session, @PathParam("userId") Integer employeeId) {
+        EmployeeSession es = new EmployeeSession(employeeId,session);
         if(sessionContext.getEmployeeQueue().isEmpty() && !sessionContext.getUserWaitQueue().isEmpty()){
             Session userSession = sessionContext.getUserWaitQueue().poll();
             while(userSession != null){
                 sessionContext.getUserForEmployee().put(userSession,es);
+                sessionContext.getEmployeeForUsers().put(employeeId,userSession);
                 userSession = sessionContext.getUserWaitQueue().poll();
             }
         }
@@ -64,6 +68,11 @@ public class EmployeeWebSocketHandler {
     public void onClose(Session session,@PathParam("userId") Integer userId) {
         EmployeeSession es = new EmployeeSession(userId,session);
         sessionContext.getEmployeeQueue().remove(es);
+        Multimap<Integer,Session> users = sessionContext.getEmployeeForUsers();
+        List<Session> userSessions = new ArrayList<>(users.get(userId));
+        for (Session userSession : userSessions) {
+            sessionContext.getUserWaitQueue().add(userSession);
+        }
     }
 
     @OnError
