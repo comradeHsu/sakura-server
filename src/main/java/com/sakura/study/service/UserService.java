@@ -2,6 +2,7 @@ package com.sakura.study.service;
 
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.dto.UserDto;
+import com.sakura.study.model.Assessment;
 import com.sakura.study.model.User;
 import com.sakura.study.utils.ResponseResult;
 
@@ -66,4 +67,27 @@ public interface UserService {
      * @return
      */
     UserDto register(UserDto userDto);
+
+    /**
+     * api
+     * 用户修改自己的信息
+     * @param user
+     * @return
+     */
+    void editInfo(User user);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    User getUserById(Integer id);
+
+    /**
+     * api
+     * 用户评估
+     * @param assessment
+     * @param userId
+     */
+    void assessment(Assessment assessment,Integer userId);
 }

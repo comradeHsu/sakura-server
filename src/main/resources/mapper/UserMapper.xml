@@ -37,7 +37,7 @@
       #{icon,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.sakura.study.model.User" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.sakura.study.model.User" useGeneratedKeys="true">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

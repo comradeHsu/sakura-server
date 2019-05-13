@@ -44,13 +44,6 @@ public class UserWebSocketHandler {
             CommunicationRecord cr = buildModel(message,userId,session.getEmployeeId());
             dao.insertSelective(cr);
         }
-        Message data = new Message();
-        data.setContent("然后呢");
-        data.setTime(new Date());
-        data.setType(1);
-        data.setUserId(userId);
-        String msg = mapper.writeValueAsString(data);
-        userSession.getBasicRemote().sendText(msg);
     }
 
     @OnOpen
@@ -58,6 +51,7 @@ public class UserWebSocketHandler {
         if(sessionContext.getEmployeeQueue().size() != 0){
             EmployeeSession employeeSession = sessionContext.getEmployeeQueue().poll();
             sessionContext.getUserForEmployee().put(session,employeeSession);
+            sessionContext.getEmployeeForUsers().put(employeeSession.getEmployeeId(),session);
             sessionContext.getEmployeeQueue().add(employeeSession);
         } else {
             sessionContext.getUserWaitQueue().add(session);
@@ -69,6 +63,8 @@ public class UserWebSocketHandler {
     public void onClose(Session session,@PathParam("userId") Integer userId){
         logger.info("连接已经被关闭");
         sessionContext.getUserWaitQueue().remove(session);
+        EmployeeSession es = sessionContext.getUserForEmployee().get(session);
+        sessionContext.getEmployeeForUsers().remove(es.getEmployeeId(),session);
         sessionContext.getUserForEmployee().remove(session);
         sessionContext.getUserSession().remove(userId);
     }
