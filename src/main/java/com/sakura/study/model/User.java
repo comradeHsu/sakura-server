@@ -26,7 +26,7 @@ public class User {
 
     private Date createTime;
 
-    private Byte userType;
+    private int userType;
 
     private Boolean deleted;
 }
