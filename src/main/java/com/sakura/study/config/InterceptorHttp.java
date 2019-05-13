@@ -20,15 +20,18 @@ import java.util.Optional;
 
 @Component
 public class InterceptorHttp  extends HandlerInterceptorAdapter {
+
     @Autowired
     @Qualifier("employeeCache")
     LoadingCache<String, Optional<Employee>> employeeCache;
+
     @Autowired
     OperationLogMapper operationLogMapper;
 
     OperationLog operationLog = null;
 
     Employee employee = null;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {

@@ -174,4 +174,9 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <delete id="deleteByUserId" parameterType="java.lang.Integer" >
+    delete from assessment
+    where user_id = #{userId}
+  </delete>
 </mapper>

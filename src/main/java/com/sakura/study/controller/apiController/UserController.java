@@ -134,6 +134,8 @@ public class UserController {
      */
     @RequestMapping(value = "/user/assessment",method = RequestMethod.POST)
     public ResponseResult assessment(@RequestBody Assessment assessment, @RequestHeader("Token") String token){
-        return null;
+        User cacheUser = userCache.getUnchecked(token).orElse(null);
+        userService.assessment(assessment,cacheUser.getId());
+        return ResponseResult.success("评估成功",null);
     }
 }

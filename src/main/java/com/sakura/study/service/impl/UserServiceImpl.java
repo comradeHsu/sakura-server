@@ -267,6 +267,7 @@ public class UserServiceImpl implements UserService {
         }
         assessment.setTotalScore(totalScore);
         assessment.setUserId(userId);
+        assessmentMapper.deleteByUserId(userId);
         assessmentMapper.insertSelective(assessment);
     }
 

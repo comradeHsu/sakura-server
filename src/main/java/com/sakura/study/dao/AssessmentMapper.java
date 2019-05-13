@@ -14,4 +14,11 @@ public interface AssessmentMapper {
     int updateByPrimaryKeySelective(Assessment record);
 
     int updateByPrimaryKey(Assessment record);
+
+    /**
+     * 根据userId删除记录
+     * @param userId
+     * @return
+     */
+    int deleteByUserId(Integer userId);
 }
