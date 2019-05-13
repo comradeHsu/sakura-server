@@ -1,8 +1,10 @@
 package com.sakura.study.service.impl;
 
+import com.sakura.study.dao.AssessmentMapper;
 import com.sakura.study.dao.UserMapper;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.dto.UserDto;
+import com.sakura.study.model.Assessment;
 import com.sakura.study.model.User;
 import com.sakura.study.service.UserService;
 import com.sakura.study.utils.BusinessException;
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    AssessmentMapper assessmentMapper;
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -153,13 +158,116 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * api
+     * 用户修改自己的信息
+     *
+     * @param user
+     * @return
+     */
+    @Override
+    public void editInfo(User user) {
+        getUserById(user.getId());
+        userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    /**
      * 没有则抛出异常
      * @param id
      */
-    private User getUserById(Integer id) {
+    @Override
+    public User getUserById(Integer id) {
         User record = userMapper.selectByPrimaryKey(id);
         if(record == null || record.getDeleted()) throw new BusinessException(404,"此用户不存在或已删除");
         return record;
+    }
+
+    /**
+     * api
+     * 用户评估
+     *
+     * @param assessment
+     * @param userId
+     */
+    @Override
+    public void assessment(Assessment assessment, Integer userId) {
+        int totalScore = 0;
+        switch (assessment.getSchoolType()){
+            case 0:
+                totalScore += 40;
+                break;
+            case 1:
+                totalScore += 32;
+                break;
+            case 2:
+                totalScore += 24;
+                break;
+        }
+        int toefl = assessment.getToefl();
+        if(110 <= toefl && toefl <= 120){
+            totalScore = totalScore + 20;
+        } else if(100 <= toefl && toefl <= 109){
+            totalScore = totalScore + 16;
+        } else if(90 <= toefl && toefl <= 99){
+            totalScore = totalScore + 12;
+        } else if(toefl < 90){
+            totalScore = totalScore + 8;
+        }
+        int japeneseLevel = assessment.getJapaneseLevel();
+        if(japeneseLevel == 1){
+            totalScore += 20;
+        } else if(japeneseLevel == 2){
+            totalScore += 14;
+        }
+        int gpa = assessment.getGpa();
+        if(assessment.getSchoolGpa() == 5){
+            switch (gpa){
+                case 5:
+                    totalScore += 10;
+                    break;
+                case 4:
+                    totalScore += 8;
+                    break;
+                case 3:
+                    totalScore += 8;
+                    break;
+                case 2:
+                    totalScore += 5;
+                    break;
+                case 1:
+                    totalScore += 5;
+                    break;
+            }
+        } else if(assessment.getSchoolGpa() == 4){
+            switch (gpa){
+                case 4:
+                    totalScore += 10;
+                    break;
+                case 3:
+                    totalScore += 8;
+                    break;
+                case 2:
+                    totalScore += 5;
+                    break;
+                case 1:
+                    totalScore += 5;
+                    break;
+            }
+        }
+        int score = assessment.getScore();
+        switch (score){
+            case 1:
+                totalScore += 10;
+                break;
+            case 2:
+                totalScore += 6;
+                break;
+            case 3:
+                totalScore += 4;
+                break;
+        }
+        assessment.setTotalScore(totalScore);
+        assessment.setUserId(userId);
+        assessmentMapper.insertSelective(assessment);
     }
 
     /**

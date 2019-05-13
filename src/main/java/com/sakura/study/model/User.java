@@ -8,9 +8,6 @@ import java.util.Date;
 @Getter
 @Setter
 public class User {
-
-    public static final User empty = new User();
-
     private Integer id;
 
     private Integer parentId;
@@ -28,6 +25,8 @@ public class User {
     private String realName;
 
     private Date createTime;
+
+    private Byte userType;
 
     private Boolean deleted;
 }

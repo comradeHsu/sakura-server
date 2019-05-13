@@ -44,13 +44,6 @@ public class UserWebSocketHandler {
             CommunicationRecord cr = buildModel(message,userId,session.getEmployeeId());
             dao.insertSelective(cr);
         }
-        Message data = new Message();
-        data.setContent("然后呢");
-        data.setTime(new Date());
-        data.setType(1);
-        data.setUserId(userId);
-        String msg = mapper.writeValueAsString(data);
-        userSession.getBasicRemote().sendText(msg);
     }
 
     @OnOpen

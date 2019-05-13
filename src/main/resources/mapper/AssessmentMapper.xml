@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sakura.study.dao.AssessmentMapper" >
+  <resultMap id="BaseResultMap" type="com.sakura.study.model.Assessment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="school_type" property="schoolType" jdbcType="INTEGER" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="toefl" property="toefl" jdbcType="INTEGER" />
+    <result column="japanese_level" property="japaneseLevel" jdbcType="INTEGER" />
+    <result column="school_GPA" property="schoolGpa" jdbcType="INTEGER" />
+    <result column="GPA" property="gpa" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="total_score" property="totalScore" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, school, school_type, major, toefl, japanese_level, school_GPA, GPA, 
+    score, total_score, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from assessment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from assessment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sakura.study.model.Assessment" >
+    insert into assessment (id, user_id, school, 
+      school_type, major, toefl, 
+      japanese_level, school_GPA, GPA, 
+      score, total_score, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{school,jdbcType=VARCHAR}, 
+      #{schoolType,jdbcType=INTEGER}, #{major,jdbcType=VARCHAR}, #{toefl,jdbcType=INTEGER}, 
+      #{japaneseLevel,jdbcType=INTEGER}, #{schoolGpa,jdbcType=INTEGER}, #{gpa,jdbcType=INTEGER}, 
+      #{score,jdbcType=INTEGER}, #{totalScore,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sakura.study.model.Assessment" >
+    insert into assessment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="schoolType != null" >
+        school_type,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="toefl != null" >
+        toefl,
+      </if>
+      <if test="japaneseLevel != null" >
+        japanese_level,
+      </if>
+      <if test="schoolGpa != null" >
+        school_GPA,
+      </if>
+      <if test="gpa != null" >
+        GPA,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="totalScore != null" >
+        total_score,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolType != null" >
+        #{schoolType,jdbcType=INTEGER},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="toefl != null" >
+        #{toefl,jdbcType=INTEGER},
+      </if>
+      <if test="japaneseLevel != null" >
+        #{japaneseLevel,jdbcType=INTEGER},
+      </if>
+      <if test="schoolGpa != null" >
+        #{schoolGpa,jdbcType=INTEGER},
+      </if>
+      <if test="gpa != null" >
+        #{gpa,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null" >
+        #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sakura.study.model.Assessment" >
+    update assessment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolType != null" >
+        school_type = #{schoolType,jdbcType=INTEGER},
+      </if>
+      <if test="major != null" >
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="toefl != null" >
+        toefl = #{toefl,jdbcType=INTEGER},
+      </if>
+      <if test="japaneseLevel != null" >
+        japanese_level = #{japaneseLevel,jdbcType=INTEGER},
+      </if>
+      <if test="schoolGpa != null" >
+        school_GPA = #{schoolGpa,jdbcType=INTEGER},
+      </if>
+      <if test="gpa != null" >
+        GPA = #{gpa,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null" >
+        total_score = #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sakura.study.model.Assessment" >
+    update assessment
+    set user_id = #{userId,jdbcType=INTEGER},
+      school = #{school,jdbcType=VARCHAR},
+      school_type = #{schoolType,jdbcType=INTEGER},
+      major = #{major,jdbcType=VARCHAR},
+      toefl = #{toefl,jdbcType=INTEGER},
+      japanese_level = #{japaneseLevel,jdbcType=INTEGER},
+      school_GPA = #{schoolGpa,jdbcType=INTEGER},
+      GPA = #{gpa,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
+      total_score = #{totalScore,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
