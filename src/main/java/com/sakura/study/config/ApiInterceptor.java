@@ -19,12 +19,13 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
     LoadingCache<String, Optional<User>> userCache;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String token = request.getHeader("Token");
         if(StringUtils.isEmpty(token)) {
             return true;
         }
+        response.setContentType("application/json;charset=utf-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
         User cacheUser = userCache.getUnchecked(token).orElse(null);
         if(cacheUser == null){
             throw new BusinessException(403,"登陆已过期");

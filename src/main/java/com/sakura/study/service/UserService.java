@@ -50,7 +50,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    User login(User user);
+    UserDto login(User user);
 
     /**
      * api

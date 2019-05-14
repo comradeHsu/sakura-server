@@ -21,4 +21,11 @@ public interface AssessmentMapper {
      * @return
      */
     int deleteByUserId(Integer userId);
+
+    /**
+     * 获取评分
+     * @param userId
+     * @return
+     */
+    Assessment selectByUserId(Integer userId);
 }

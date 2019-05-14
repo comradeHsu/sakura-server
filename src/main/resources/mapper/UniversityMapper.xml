@@ -260,4 +260,24 @@
       and national_ranking &lt;= #{rankingBottom}
     </if>
   </select>
+
+  <select id="getRecommend" resultMap="BaseResultMap" parameterType="com.sakura.study.dto.UniversityPageRequest">
+    select
+    <include refid="Base_Column_List" />
+    from university
+    where deleted = FALSE
+      and score_top &gt;= #{score}
+      and score_buttom &lt;= #{score}
+    order by world_ranking asc
+    limit #{skip}, #{pageCount}
+  </select>
+
+  <select id="getRecommendCount" resultType="java.lang.Integer" parameterType="com.sakura.study.dto.UniversityPageRequest">
+    select
+    count(*)
+    from university
+    where deleted = FALSE
+    and score_top &gt;= #{score}
+    and score_buttom &lt;= #{score}
+  </select>
 </mapper>

@@ -12,6 +12,7 @@ import com.sakura.study.utils.MD5Util;
 import com.sakura.study.utils.ResponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,13 +108,17 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public User login(User user) {
+    public UserDto login(User user) {
         User record = userMapper.findByUsername(user.getUsername());
         if(record == null)
             throw new BusinessException(404,"用户不存在");
         if(!MD5Util.md5Encode(user.getPassword()).equals(record.getPassword()))
             throw new BusinessException(400,"用户名或密码错误");
-        return record;
+        UserDto data = new UserDto();
+        BeanUtils.copyProperties(record,data);
+        Assessment assessment = assessmentMapper.selectByUserId(record.getId());
+        if(assessment != null) data.setAssessed(true);
+        return data;
     }
 
     /**
@@ -127,6 +132,8 @@ public class UserServiceImpl implements UserService {
     public UserDto getUserInfo(Integer userId) {
         UserDto user = userMapper.getUserInfo(userId);
         if(user == null) throw new BusinessException(404,"此用户不存在或已删除");
+        Assessment assessment = assessmentMapper.selectByUserId(userId);
+        if(assessment != null) user.setAssessed(true);
         return user;
     }
 

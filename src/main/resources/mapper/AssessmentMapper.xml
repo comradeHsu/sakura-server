@@ -179,4 +179,11 @@
     delete from assessment
     where user_id = #{userId}
   </delete>
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from assessment
+    where user_id = #{userId} order by id desc limit 1
+  </select>
 </mapper>

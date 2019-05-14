@@ -1,17 +1,23 @@
 package com.sakura.study.service.impl;
 
+import com.google.common.cache.LoadingCache;
+import com.sakura.study.dao.AssessmentMapper;
 import com.sakura.study.dao.RegionMapper;
 import com.sakura.study.dao.UniversityMapper;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.dto.UniversityPageRequest;
+import com.sakura.study.model.Assessment;
 import com.sakura.study.model.Region;
 import com.sakura.study.model.University;
+import com.sakura.study.model.User;
 import com.sakura.study.service.UniversityService;
+import com.sakura.study.utils.Assert;
 import com.sakura.study.utils.BusinessException;
 import com.sakura.study.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,6 +30,12 @@ public class UniversityServiceImpl implements UniversityService{
 
     @Autowired
     private RegionMapper regionMapper;
+
+    @Resource(name = "userCache")
+    private LoadingCache<String, Optional<User>> userCache;
+
+    @Autowired
+    private AssessmentMapper assessmentMapper;
 
     /**
      * 获取分页学校信息
@@ -110,6 +122,24 @@ public class UniversityServiceImpl implements UniversityService{
         }
         List<University> data = universityMapper.search(request);
         int dataCount = universityMapper.searchCount(request);
+        return ResponseResult.pageResult(data,dataCount);
+    }
+
+    /**
+     * 推荐学校
+     *
+     * @param token
+     * @param page
+     * @return
+     */
+    @Override
+    public ResponseResult recommend(String token, UniversityPageRequest page) {
+        User user = userCache.getUnchecked(token).orElse(null);
+        Assessment assessment = assessmentMapper.selectByUserId(user.getId());
+        Assert.notNull(assessment,"您还未评估");
+        page.setScore(assessment.getTotalScore());
+        List<University> data = universityMapper.getRecommend(page);
+        int dataCount = universityMapper.getRecommendCount(page);
         return ResponseResult.pageResult(data,dataCount);
     }
 }

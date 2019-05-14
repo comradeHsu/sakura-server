@@ -57,7 +57,7 @@ public class UserController {
         String message = "用户名或密码不能为空";
         Assert.notEmpty(user.getUsername(),message);
         Assert.notEmpty(user.getPassword(),message);
-        User record = userService.login(user);
+        UserDto record = userService.login(user);
         String token = UUID.randomUUID().toString();
         userCache.put(token,Optional.of(record));
         Map<String,Object> map = new HashMap<>();
