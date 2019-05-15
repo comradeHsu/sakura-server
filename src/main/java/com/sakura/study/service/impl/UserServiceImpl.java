@@ -1,13 +1,16 @@
 package com.sakura.study.service.impl;
 
 import com.sakura.study.dao.AssessmentMapper;
+import com.sakura.study.dao.UserAgreementMapper;
 import com.sakura.study.dao.UserMapper;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.dto.UserDto;
 import com.sakura.study.model.Assessment;
 import com.sakura.study.model.User;
+import com.sakura.study.model.UserAgreement;
 import com.sakura.study.service.UserService;
 import com.sakura.study.utils.BusinessException;
+import com.sakura.study.utils.CopyUtils;
 import com.sakura.study.utils.MD5Util;
 import com.sakura.study.utils.ResponseResult;
 import org.slf4j.Logger;
@@ -28,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     AssessmentMapper assessmentMapper;
+
+    @Autowired
+    UserAgreementMapper userAgreementMapper;
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -276,6 +282,55 @@ public class UserServiceImpl implements UserService {
         assessment.setUserId(userId);
         assessmentMapper.deleteByUserId(userId);
         assessmentMapper.insertSelective(assessment);
+    }
+
+    /**
+     * 用户上传协议
+     *
+     * @param agreement
+     * @param user
+     */
+    @Override
+    public void uploadAgreement(UserAgreement agreement, User user) {
+        UserAgreement data = userAgreementMapper.selectByUserId(agreement.getUserId());
+        User dataUser = userMapper.selectByPrimaryKey(agreement.getUserId());
+        if(dataUser == null || dataUser.getDeleted()) throw new BusinessException(404,"用户不存在");
+        if(dataUser.getUserType() == 1 && dataUser.getAge() < 18){
+            if(user.getId().equals(agreement.getUserId())){
+                throw new BusinessException(405,"你还未成年不能签署协议");
+            }
+            if(!user.getId().equals(dataUser.getParentId())){
+                throw new BusinessException(405,"您不是对方家长不能签署协议");
+            }
+            saveOrUpdate(agreement, data);
+            return;
+        }
+        saveOrUpdate(agreement,data);
+    }
+
+    /**
+     * 获取孩子列表
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<User> getChildren(Integer userId) {
+        return null;
+    }
+
+    /**
+     * 插入或修改
+     * @param agreement
+     * @param data
+     */
+    private void saveOrUpdate(UserAgreement agreement, UserAgreement data) {
+        if(data == null){
+            userAgreementMapper.insertSelective(agreement);
+        } else {
+            CopyUtils.copyProperties(agreement,data);
+            userAgreementMapper.updateByPrimaryKeySelective(data);
+        }
     }
 
     /**

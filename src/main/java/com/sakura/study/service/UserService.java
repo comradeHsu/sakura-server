@@ -4,6 +4,7 @@ import com.sakura.study.dto.PageRequest;
 import com.sakura.study.dto.UserDto;
 import com.sakura.study.model.Assessment;
 import com.sakura.study.model.User;
+import com.sakura.study.model.UserAgreement;
 import com.sakura.study.utils.ResponseResult;
 
 import java.util.List;
@@ -90,4 +91,18 @@ public interface UserService {
      * @param userId
      */
     void assessment(Assessment assessment,Integer userId);
+
+    /**
+     * 用户上传协议
+     * @param agreement
+     * @param user
+     */
+    void uploadAgreement(UserAgreement agreement,User user);
+
+    /**
+     * 获取孩子列表
+     * @param userId
+     * @return
+     */
+    List<User> getChildren(Integer userId);
 }

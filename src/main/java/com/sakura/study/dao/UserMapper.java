@@ -68,4 +68,11 @@ public interface UserMapper {
      * @return
      */
     User findByPhone(String phone);
+
+    /**
+     * 获取孩子列表
+     * @param userId
+     * @return
+     */
+    List<User> getChildren(Integer userId);
 }

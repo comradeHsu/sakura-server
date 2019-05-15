@@ -5,6 +5,7 @@ import com.sakura.study.dto.ChangePassword;
 import com.sakura.study.dto.UserDto;
 import com.sakura.study.model.Assessment;
 import com.sakura.study.model.User;
+import com.sakura.study.model.UserAgreement;
 import com.sakura.study.service.UserService;
 import com.sakura.study.utils.Assert;
 import com.sakura.study.utils.BusinessException;
@@ -17,10 +18,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -137,5 +135,45 @@ public class UserController {
         User cacheUser = userCache.getUnchecked(token).orElse(null);
         userService.assessment(assessment,cacheUser.getId());
         return ResponseResult.success("评估成功",null);
+    }
+
+    /**
+     * 用户上传签署协议
+     * @param data
+     * @param token
+     * @return
+     */
+    @RequestMapping(value = "/user/agreement",method = RequestMethod.POST)
+    public ResponseResult uploadAgreement(@RequestBody UserAgreement data,@RequestHeader("Token") String token){
+        User cacheUser = userCache.getUnchecked(token).orElse(null);
+        Assert.notNull(cacheUser,"登录已失效");
+        userService.uploadAgreement(data,cacheUser);
+        return ResponseResult.success("上传成功",null);
+    }
+
+    /**
+     * 获取家长列表，可搜索
+     * @param username
+     * @return
+     */
+    @RequestMapping(value = "/user/parents",method = RequestMethod.GET)
+    public ResponseResult getParents(String username){
+        if(username != null && username.trim().isEmpty())
+            username = null;
+        List<User> parents = userService.getParents(username);
+        return ResponseResult.success(parents);
+    }
+
+    /**
+     * 获取家长列表，可搜索
+     * @param username
+     * @return
+     */
+    @RequestMapping(value = "/user/children",method = RequestMethod.GET)
+    public ResponseResult getChildren(String username){
+        if(username != null && username.trim().isEmpty())
+            username = null;
+        List<User> parents = userService.getParents(username);
+        return ResponseResult.success(parents);
     }
 }

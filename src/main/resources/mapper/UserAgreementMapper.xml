@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sakura.study.dao.UserAgreementMapper" >
+  <resultMap id="BaseResultMap" type="com.sakura.study.model.UserAgreement" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="apply" property="apply" jdbcType="VARCHAR" />
+    <result column="train" property="train" jdbcType="VARCHAR" />
+    <result column="visa" property="visa" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, apply, train, visa, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_agreement
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_agreement
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sakura.study.model.UserAgreement" >
+    insert into user_agreement (id, user_id, apply, 
+      train, visa, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{apply,jdbcType=VARCHAR}, 
+      #{train,jdbcType=VARCHAR}, #{visa,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sakura.study.model.UserAgreement" >
+    insert into user_agreement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="apply != null" >
+        apply,
+      </if>
+      <if test="train != null" >
+        train,
+      </if>
+      <if test="visa != null" >
+        visa,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="apply != null" >
+        #{apply,jdbcType=VARCHAR},
+      </if>
+      <if test="train != null" >
+        #{train,jdbcType=VARCHAR},
+      </if>
+      <if test="visa != null" >
+        #{visa,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sakura.study.model.UserAgreement" >
+    update user_agreement
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="apply != null" >
+        apply = #{apply,jdbcType=VARCHAR},
+      </if>
+      <if test="train != null" >
+        train = #{train,jdbcType=VARCHAR},
+      </if>
+      <if test="visa != null" >
+        visa = #{visa,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sakura.study.model.UserAgreement" >
+    update user_agreement
+    set user_id = #{userId,jdbcType=INTEGER},
+      apply = #{apply,jdbcType=VARCHAR},
+      train = #{train,jdbcType=VARCHAR},
+      visa = #{visa,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from user_agreement
+    where user_id = #{userId} limit 1
+  </select>
+</mapper>
