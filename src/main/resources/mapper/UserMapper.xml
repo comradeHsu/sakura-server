@@ -228,4 +228,12 @@
     from user
     where deleted = false and phone_number = #{phone} limit 1
   </select>
+
+  <select id="getChildrens" resultType="com.sakura.study.model.User">
+    select
+    u.id, u.parent_id, u.username,u.real_name
+    from user u
+    where u.deleted = false and u.user_type = 1
+    and u.parent_id = #{userId}
+  </select>
 </mapper>

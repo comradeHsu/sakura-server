@@ -74,5 +74,5 @@ public interface UserMapper {
      * @param userId
      * @return
      */
-    List<User> getChildren(Integer userId);
+    List<User> getChildrens(Integer userId);
 }

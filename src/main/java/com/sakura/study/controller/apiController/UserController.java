@@ -166,14 +166,14 @@ public class UserController {
 
     /**
      * 获取家长列表，可搜索
-     * @param username
+     * @param token
      * @return
      */
     @RequestMapping(value = "/user/children",method = RequestMethod.GET)
-    public ResponseResult getChildren(String username){
-        if(username != null && username.trim().isEmpty())
-            username = null;
-        List<User> parents = userService.getParents(username);
-        return ResponseResult.success(parents);
+    public ResponseResult getChildren(@RequestHeader("Token") String token){
+        User cacheUser = userCache.getUnchecked(token).orElse(null);
+        Assert.notNull(cacheUser,"登录已失效");
+        List<User> childs = userService.getChildren(cacheUser.getId());
+        return ResponseResult.success(childs);
     }
 }

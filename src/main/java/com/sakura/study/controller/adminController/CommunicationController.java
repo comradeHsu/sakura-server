@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/communication")
+@RequestMapping("/communication")
 public class CommunicationController {
     @Autowired
     CommunicationRecordMapper communicationRecordMapper;

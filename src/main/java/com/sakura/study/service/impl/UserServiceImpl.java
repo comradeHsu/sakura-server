@@ -316,7 +316,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> getChildren(Integer userId) {
-        return null;
+        return userMapper.getChildrens(userId);
     }
 
     /**
