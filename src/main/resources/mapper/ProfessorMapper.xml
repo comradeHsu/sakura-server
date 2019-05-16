@@ -35,7 +35,7 @@
       #{emailAddress,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.sakura.study.model.Professor" >
+  <insert id="insertSelective" parameterType="com.sakura.study.model.Professor" keyProperty="id" useGeneratedKeys="true">
     insert into professor
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -138,4 +138,26 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="getPageProfessor" parameterType="com.sakura.study.dto.PageRequest" resultType="com.sakura.study.dto.ProfessorDto">
+    select
+    p.id, p.major_id, p.name, p.age, p.introduction, p.head_icon, p.email_address, p.create_time,
+    m.major_name,u.school_name,u.id as universityId
+    from professor p
+    left join major m
+    on p.major_id = m.id
+    left join university u
+    on m.university_id = u.id
+    where p.deleted = false
+    order by p.id desc
+    limit #{skip},#{pageCount}
+  </select>
+
+  <select id="getPageProfessorCount" resultType="java.lang.Integer">
+    select
+    count(*)
+    from professor p
+    where p.deleted = false
+  </select>
 </mapper>
