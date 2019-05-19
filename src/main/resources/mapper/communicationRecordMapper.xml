@@ -114,4 +114,16 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getPages" resultType="com.sakura.study.dto.CommunicationRecordDto" parameterType="com.sakura.study.dto.CommunicationRequest">
+    select
+      c.id, c.user_id, c.employee_id, c.content, c.sender_type, c.create_time,u.username as userUsername,e.username as employeeUsername
+    from communication_record c
+      inner join user u
+      on u.id = c.user_id
+      inner join employee e
+      on e.id = c.employee_id
+    where c.deleted = false
+    limit #{skip}, #{pageCount}
+  </select>
 </mapper>

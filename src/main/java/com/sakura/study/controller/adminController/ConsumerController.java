@@ -86,4 +86,27 @@ public class ConsumerController {
         userService.delete(token,id);
         return ResponseResult.success("删除成功",null);
     }
+
+    /**
+     * 用户协议
+     * @param page
+     * @return
+     */
+    @RequestMapping(value = "/agreement",method = RequestMethod.GET)
+    public ResponseResult agreements(PageRequest page){
+        page.initSkip();
+        return userService.getAgreements(page);
+    }
+
+    /**
+     * 修改用户连接
+     * @param token
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/process",method = RequestMethod.PUT)
+    public ResponseResult process(@RequestHeader("Token") String token,@RequestBody User user){
+        userService.editProcess(token,user);
+        return ResponseResult.success("修改成功",null);
+    }
 }

@@ -23,7 +23,7 @@ public class DepartmentController {
      * @return
      */
     @RequestMapping(value = "/department",method = RequestMethod.POST)
-    public ResponseResult add(@RequestBody Department department){
+    public ResponseResult add(@RequestBody DepartmentDto department){
         departmentService.add(department);
         return ResponseResult.success("添加成功",null);
     }

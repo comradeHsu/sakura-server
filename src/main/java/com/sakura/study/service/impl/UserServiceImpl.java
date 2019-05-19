@@ -1,18 +1,16 @@
 package com.sakura.study.service.impl;
 
+import com.google.common.cache.LoadingCache;
 import com.sakura.study.dao.AssessmentMapper;
+import com.sakura.study.dao.OperationLogMapper;
 import com.sakura.study.dao.UserAgreementMapper;
 import com.sakura.study.dao.UserMapper;
 import com.sakura.study.dto.PageRequest;
+import com.sakura.study.dto.UserAgreementDto;
 import com.sakura.study.dto.UserDto;
-import com.sakura.study.model.Assessment;
-import com.sakura.study.model.User;
-import com.sakura.study.model.UserAgreement;
+import com.sakura.study.model.*;
 import com.sakura.study.service.UserService;
-import com.sakura.study.utils.BusinessException;
-import com.sakura.study.utils.CopyUtils;
-import com.sakura.study.utils.MD5Util;
-import com.sakura.study.utils.ResponseResult;
+import com.sakura.study.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -33,7 +33,13 @@ public class UserServiceImpl implements UserService {
     AssessmentMapper assessmentMapper;
 
     @Autowired
-    UserAgreementMapper userAgreementMapper;
+    private UserAgreementMapper userAgreementMapper;
+
+    @Resource(name = "employeeCache")
+    private LoadingCache<String, Optional<Employee>> employeeCache;
+
+    @Autowired
+    private OperationLogMapper operationLogMapper;
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -69,10 +75,14 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
+    @Transactional
     public User add(String token, User user) {
         getParentByParentId(user);
         user.setPassword(MD5Util.md5Encode(user.getPassword()));
         userMapper.insertSelective(user);
+        Employee self = employeeCache.getUnchecked(token).orElse(null);
+        OperationLog operationLog = buildLog(user,Operation.ADD,self);
+        operationLogMapper.insertSelective(operationLog);
         return user;
     }
 
@@ -83,10 +93,14 @@ public class UserServiceImpl implements UserService {
      * @param user
      */
     @Override
+    @Transactional
     public void edit(String token, User user) {
-        getUserById(user.getId());
+        User record = getUserById(user.getId());
         getParentByParentId(user);
         userMapper.updateByPrimaryKeySelective(user);
+        Employee self = employeeCache.getUnchecked(token).orElse(null);
+        OperationLog operationLog = buildLog(record,Operation.EDIT,self);
+        operationLogMapper.insertSelective(operationLog);
     }
 
     /**
@@ -104,6 +118,38 @@ public class UserServiceImpl implements UserService {
             int count = userMapper.resetParentId(user.getParentId());
             logger.info("重置了{}为用户的家长信息",count);
         }
+        Employee self = employeeCache.getUnchecked(token).orElse(null);
+        OperationLog operationLog = buildLog(user,Operation.DELETE,self);
+        operationLogMapper.insertSelective(operationLog);
+    }
+
+    /**
+     * 获取分页的协议
+     *
+     * @param page
+     * @return
+     */
+    @Override
+    public ResponseResult getAgreements(PageRequest page) {
+        List<UserAgreementDto> data = userAgreementMapper.getAgreements(page);
+        int dataCount = userAgreementMapper.getAgreementCount();
+        return ResponseResult.pageResult(data,dataCount);
+    }
+
+    /**
+     * 修改用户流程
+     *
+     * @param token
+     * @param user
+     */
+    @Override
+    @Transactional
+    public void editProcess(String token, User user) {
+        User record = getUserById(user.getId());
+        userMapper.updateByPrimaryKeySelective(user);
+        Employee self = employeeCache.getUnchecked(token).orElse(null);
+        OperationLog operationLog = buildLog(record,Operation.EDIT,self);
+        operationLogMapper.insertSelective(operationLog);
     }
 
     /**
@@ -345,5 +391,17 @@ public class UserServiceImpl implements UserService {
                 throw new BusinessException(404,"家长账号不存在或已删除");
             }
         }
+    }
+
+    private OperationLog buildLog(User record, Operation operation, Employee employee){
+        OperationLog operationLog = new OperationLog();
+        operationLog.setOperation(operation.getValue());
+        operationLog.setContent(buildContent(record,operation.getDesc()));
+        operationLog.setEmployeeId(employee.getId());
+        return operationLog;
+    }
+
+    private String buildContent(User record, String method){
+        return method +"用户"+ record.getUsername();
     }
 }

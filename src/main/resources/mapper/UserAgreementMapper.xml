@@ -110,4 +110,26 @@
     from user_agreement
     where user_id = #{userId} limit 1
   </select>
+
+  <select id="getAgreements" resultType="com.sakura.study.dto.UserAgreementDto" parameterType="com.sakura.study.dto.PageRequest" >
+    select
+      ua.id, ua.user_id, ua.apply, ua.train, ua.visa, ua.create_time, u.username,u.real_name,p.process,u.user_process
+    from user_agreement ua
+      inner join user u
+        ON ua.user_id = u.id
+      left join `process` p
+    on u.user_process = p.id
+    where u.deleted = FALSE
+    order by ua.id
+    limit #{skip},#{pageCount}
+  </select>
+
+  <select id="getAgreementCount" resultType="java.lang.Integer" >
+    select
+    count(*)
+    from user_agreement ua
+    inner join user u
+    ON ua.user_id = u.id
+    where u.deleted = FALSE
+  </select>
 </mapper>

@@ -4,6 +4,7 @@ import com.google.common.cache.LoadingCache;
 import com.sakura.study.dao.OperationLogMapper;
 import com.sakura.study.model.Employee;
 import com.sakura.study.model.OperationLog;
+import com.sakura.study.utils.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.Nullable;
@@ -13,6 +14,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
@@ -21,69 +23,26 @@ import java.util.Optional;
 @Component
 public class InterceptorHttp  extends HandlerInterceptorAdapter {
 
-    @Autowired
-    @Qualifier("employeeCache")
+    @Resource(name = "employeeCache")
     LoadingCache<String, Optional<Employee>> employeeCache;
 
-    @Autowired
-    OperationLogMapper operationLogMapper;
-
-    OperationLog operationLog = null;
-
-    Employee employee = null;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         String token = request.getHeader("Token");
         if(StringUtils.isEmpty(token)) {
-            return true;
+            throw new BusinessException(403,"登陆已过期");
         }
         Employee employee = employeeCache.getUnchecked(token).orElse(null);
         if(employee == null) {
-            return true;
+            throw new BusinessException(403,"登陆已过期");
         }
-        operationLog = new OperationLog();
-        operationLog.setEmployeeId(employee.getId());
-        operationLog.setContent(request.getRequestURI()+ ":" + request.getMethod());
-
-        switch (request.getMethod()) {
-            case "GET":
-                operationLog.setOperation(0);
-                break;
-            case "POST":
-                operationLog.setOperation(1);
-                break;
-            case "DELETE":
-                operationLog.setOperation(3);
-                break;
-            case "PUT":
-                operationLog.setOperation(2);
-                break;
-
-        }
-
         return true;
     }
 
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-                           @Nullable ModelAndView modelAndView) throws Exception {
-        if(operationLog != null) {
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            operationLog.setCreateTime(new Date());
-            operationLog.setContent(operationLog.getContent() + ":" + handlerMethod.getMethod().getName());
-            operationLogMapper.insert(operationLog);
-            this.reset();
-        }
-
-    }
-
-    private void reset() {
-        operationLog = null;
-        employee = null;
-    }
-
-
+                           @Nullable ModelAndView modelAndView) throws Exception { }
 }

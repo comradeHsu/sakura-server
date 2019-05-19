@@ -46,6 +46,20 @@ public interface UserService {
     void delete(String token, Integer id);
 
     /**
+     * 获取分页的协议
+     * @param page
+     * @return
+     */
+    ResponseResult getAgreements(PageRequest page);
+
+    /**
+     * 修改用户流程
+     * @param token
+     * @param user
+     */
+    void editProcess(String token, User user);
+
+    /**
      * api
      * 用户登录
      * @param user
@@ -105,4 +119,5 @@ public interface UserService {
      * @return
      */
     List<User> getChildren(Integer userId);
+
 }

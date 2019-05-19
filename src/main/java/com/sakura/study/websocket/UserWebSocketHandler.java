@@ -64,7 +64,9 @@ public class UserWebSocketHandler {
         logger.info("连接已经被关闭");
         sessionContext.getUserWaitQueue().remove(session);
         EmployeeSession es = sessionContext.getUserForEmployee().get(session);
-        sessionContext.getEmployeeForUsers().remove(es.getEmployeeId(),session);
+        if(es != null) {
+            sessionContext.getEmployeeForUsers().remove(es.getEmployeeId(), session);
+        }
         sessionContext.getUserForEmployee().remove(session);
         sessionContext.getUserSession().remove(userId);
     }

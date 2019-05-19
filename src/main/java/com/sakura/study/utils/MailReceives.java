@@ -87,7 +87,10 @@ public class MailReceives {
             email.setTo(getReceiveAddress(msg, null));
             StringBuffer content = new StringBuffer(30);
             getMailTextContent(msg, content);
-            email.setContent(content.toString());
+            int index = content.indexOf("!DOCTYPE html>");
+            index = index == -1 ? -1 : index-1;
+            email.setContent(content.substring(index));
+            email.setDate(getSentDate(msg,null));
             emailList.add(email);
 
             System.out.println("------------------解析第" + msg.getMessageNumber() + "封邮件-------------------- ");

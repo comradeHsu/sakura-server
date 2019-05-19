@@ -1,5 +1,6 @@
 package com.sakura.study.dao;
 
+import com.sakura.study.dto.CommunicationRecordDto;
 import com.sakura.study.dto.CommunicationRequest;
 import com.sakura.study.model.CommunicationRecord;
 import com.sakura.study.utils.ResponseResult;
@@ -22,8 +23,7 @@ public interface CommunicationRecordMapper {
 
     int updateByPrimaryKey(CommunicationRecord record);
 
-    @Select("select * from communication_record limit #{skip}, #{pageCount}")
-    List<CommunicationRecord> getPages(CommunicationRequest request);
+    List<CommunicationRecordDto> getPages(CommunicationRequest request);
 
     @Select("select count(1) from communication_record")
     Integer count(CommunicationRequest request);

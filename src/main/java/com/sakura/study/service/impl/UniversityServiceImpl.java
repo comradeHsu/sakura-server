@@ -2,17 +2,16 @@ package com.sakura.study.service.impl;
 
 import com.google.common.cache.LoadingCache;
 import com.sakura.study.dao.AssessmentMapper;
+import com.sakura.study.dao.OperationLogMapper;
 import com.sakura.study.dao.RegionMapper;
 import com.sakura.study.dao.UniversityMapper;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.dto.UniversityPageRequest;
-import com.sakura.study.model.Assessment;
-import com.sakura.study.model.Region;
-import com.sakura.study.model.University;
-import com.sakura.study.model.User;
+import com.sakura.study.model.*;
 import com.sakura.study.service.UniversityService;
 import com.sakura.study.utils.Assert;
 import com.sakura.study.utils.BusinessException;
+import com.sakura.study.utils.Operation;
 import com.sakura.study.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +35,12 @@ public class UniversityServiceImpl implements UniversityService{
 
     @Autowired
     private AssessmentMapper assessmentMapper;
+
+    @Resource(name = "employeeCache")
+    private LoadingCache<String, Optional<Employee>> employeeCache;
+
+    @Autowired
+    private OperationLogMapper operationLogMapper;
 
     /**
      * 获取分页学校信息
@@ -62,6 +67,9 @@ public class UniversityServiceImpl implements UniversityService{
         University unirecord = universityMapper.findBySchoolName(university.getSchoolName());
         if(unirecord != null) throw new BusinessException(400,"学校名称不能重复");
         universityMapper.insertSelective(university);
+        Employee self = employeeCache.getUnchecked(token).orElse(null);
+        OperationLog operationLog = buildLog(university,Operation.ADD,self);
+        operationLogMapper.insertSelective(operationLog);
     }
 
     /**
@@ -73,10 +81,13 @@ public class UniversityServiceImpl implements UniversityService{
      */
     @Override
     public void editUniversity(String token, University university, Integer id) {
-        getUniversityById(id);
+        University record = getUniversityById(id);
         University unirecord = universityMapper.findBySchoolName(university.getSchoolName());
         if(unirecord != null && !Objects.equals(unirecord.getId(), id)) throw new BusinessException(400,"学校名称不能重复");
         universityMapper.updateByPrimaryKeySelective(university);
+        Employee self = employeeCache.getUnchecked(token).orElse(null);
+        OperationLog operationLog = buildLog(record,Operation.EDIT,self);
+        operationLogMapper.insertSelective(operationLog);
     }
 
     /**
@@ -90,6 +101,9 @@ public class UniversityServiceImpl implements UniversityService{
         University university = getUniversityById(id);
         university.setDeleted(true);
         universityMapper.updateByPrimaryKeySelective(university);
+        Employee self = employeeCache.getUnchecked(token).orElse(null);
+        OperationLog operationLog = buildLog(university,Operation.DELETE,self);
+        operationLogMapper.insertSelective(operationLog);
     }
 
     /**
@@ -141,5 +155,17 @@ public class UniversityServiceImpl implements UniversityService{
         List<University> data = universityMapper.getRecommend(page);
         int dataCount = universityMapper.getRecommendCount(page);
         return ResponseResult.pageResult(data,dataCount);
+    }
+
+    private OperationLog buildLog(University record, Operation operation, Employee employee){
+        OperationLog operationLog = new OperationLog();
+        operationLog.setOperation(operation.getValue());
+        operationLog.setContent(buildContent(record,operation.getDesc()));
+        operationLog.setEmployeeId(employee.getId());
+        return operationLog;
+    }
+
+    private String buildContent(University record, String method){
+        return method +"学校"+ record.getSchoolName();
     }
 }

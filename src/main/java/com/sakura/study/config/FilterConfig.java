@@ -14,12 +14,10 @@ public class FilterConfig  implements WebMvcConfigurer {
     @Autowired
     ApiInterceptor apiInterceptor;
 
-    private String[] apiExcludes = new String[]{"/api/user/session"};
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 可添加多个
-        registry.addInterceptor(interceptorHttp).addPathPatterns("/**");
+//        registry.addInterceptor(interceptorHttp).addPathPatterns("/**").excludePathPatterns("/api/**","/employee/login","/swagger**/**","/webjars/**");
         registry.addInterceptor(apiInterceptor).addPathPatterns("/api/**");
     }
 }

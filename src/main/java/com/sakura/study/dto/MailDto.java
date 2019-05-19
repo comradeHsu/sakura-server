@@ -9,4 +9,5 @@ public class MailDto {
     String to;
     String receiveAddress;
     String content;
+    String date;
 }
