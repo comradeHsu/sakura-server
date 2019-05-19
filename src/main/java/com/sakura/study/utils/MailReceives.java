@@ -20,7 +20,7 @@ public class MailReceives {
 
 //    public static void main(String[] args) throws Exception {
 //        // 定义连接POP3服务器的属性信息
-//        List<MailDto> list = getEmail("test6@sakura.com","admin123_");
+//        List<MailDto> list = getEmail("test1@sakura.com","admin123_");
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        System.out.println(objectMapper.writeValueAsString(list));
 //    }
@@ -51,14 +51,25 @@ public class MailReceives {
             store.connect(Host, username, password); // POP3服务器的登陆认证
 
             // 通过POP3协议获得Store对象调用这个方法时，邮件夹名称只能指定为"INBOX"
-            Folder folder = store.getFolder("INBOX");// 获得用户的邮件帐户
-            folder.open(Folder.READ_WRITE); // 设置对邮件帐户的访问权限
+//            Folder folder = store.getFolder("INBOX");// 获得用户的邮件帐户
+//            folder.open(Folder.READ_WRITE); // 设置对邮件帐户的访问权限
+//
+//            Message[] messages = folder.getMessages();// 得到邮箱帐户中的所有邮件
 
-            Message[] messages = folder.getMessages();// 得到邮箱帐户中的所有邮件
 
+            Folder defaultFolder = store.getDefaultFolder();
+            Folder[] allFolder = defaultFolder.list();
+            for (Folder folder : allFolder ) {
+                Folder realyFolder = store.getFolder(folder.getName());
+                realyFolder.open(Folder.READ_WRITE);
+                Message[] messages = realyFolder.getMessages();
+                if(messages.length == 0) {
+                    continue;
+                }
+                list.addAll(parseMessage(messages));
+                realyFolder.close(false);
 
-            list = parseMessage(messages);
-            folder.close(false);// 关闭邮件夹对象
+            }
             store.close(); // 关闭连接对象
         } catch (Exception e) {
             e.printStackTrace();
