@@ -248,6 +248,7 @@ public class UserServiceImpl implements UserService {
      * @param userId
      */
     @Override
+    @Transactional
     public void assessment(Assessment assessment, Integer userId) {
         int totalScore = 0;
         switch (assessment.getSchoolType()){
@@ -328,6 +329,9 @@ public class UserServiceImpl implements UserService {
         assessment.setUserId(userId);
         assessmentMapper.deleteByUserId(userId);
         assessmentMapper.insertSelective(assessment);
+        User user = userMapper.selectByPrimaryKey(userId);
+        user.setUserProcess(user.getUserProcess()+ 1);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     /**
