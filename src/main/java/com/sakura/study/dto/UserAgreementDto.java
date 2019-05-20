@@ -13,4 +13,6 @@ public class UserAgreementDto extends UserAgreement{
     private String process;
 
     private Integer userProcess;
+
+    private String otherFile;
 }

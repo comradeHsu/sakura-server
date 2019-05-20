@@ -1,10 +1,7 @@
 package com.sakura.study.service.impl;
 
 import com.google.common.cache.LoadingCache;
-import com.sakura.study.dao.AssessmentMapper;
-import com.sakura.study.dao.OperationLogMapper;
-import com.sakura.study.dao.UserAgreementMapper;
-import com.sakura.study.dao.UserMapper;
+import com.sakura.study.dao.*;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.dto.UserAgreementDto;
 import com.sakura.study.dto.UserDto;
@@ -40,6 +37,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private OperationLogMapper operationLogMapper;
+
+    @Autowired
+    private UploadFileMapper uploadFileMapper;
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -363,6 +363,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getChildren(Integer userId) {
         return userMapper.getChildrens(userId);
+    }
+
+    /**
+     * 获取用户上传的协议
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public UserAgreementDto getUserAgreement(Integer userId) {
+        UserAgreement userAgreement = userAgreementMapper.selectByUserId(userId);
+        UserAgreementDto data = new UserAgreementDto();
+        CopyUtils.copyProperties(userAgreement,data);
+        data.setOtherFile(Optional.ofNullable(uploadFileMapper.selectByUserId(userId)).orElse(new UploadFile()).getFileUrl());
+        return data;
+    }
+
+    /**
+     * api
+     * 用户评估
+     *
+     * @param userId
+     */
+    @Override
+    public Assessment getAssessment(Integer userId) {
+        return assessmentMapper.selectByUserId(userId);
     }
 
     /**

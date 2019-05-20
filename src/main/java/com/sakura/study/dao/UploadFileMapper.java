@@ -19,6 +19,10 @@ public interface UploadFileMapper {
     int updateByPrimaryKeySelective(UploadFile record);
 
     int updateByPrimaryKey(UploadFile record);
+
     List<UploadFile> getPage(FileReq fileReq);
+
     int getCount(FileReq fileReq);
+
+    UploadFile selectByUserId(Integer userId);
 }

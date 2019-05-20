@@ -2,6 +2,7 @@ package com.sakura.study.controller.apiController;
 
 import com.google.common.cache.LoadingCache;
 import com.sakura.study.dto.ChangePassword;
+import com.sakura.study.dto.UserAgreementDto;
 import com.sakura.study.dto.UserDto;
 import com.sakura.study.model.Assessment;
 import com.sakura.study.model.User;
@@ -175,5 +176,31 @@ public class UserController {
         Assert.notNull(cacheUser,"登录已失效");
         List<User> childs = userService.getChildren(cacheUser.getId());
         return ResponseResult.success(childs);
+    }
+
+    /**
+     * 用户上传签署协议
+     * @param token
+     * @return
+     */
+    @RequestMapping(value = "/user/agreement",method = RequestMethod.GET)
+    public ResponseResult getAgreement(@RequestHeader("Token") String token){
+        User cacheUser = userCache.getUnchecked(token).orElse(null);
+        Assert.notNull(cacheUser,"登录已失效");
+        UserAgreementDto data = userService.getUserAgreement(cacheUser.getId());
+        return ResponseResult.success(data);
+    }
+
+    /**
+     * get用户的评估
+     * @param token
+     * @return
+     */
+    @RequestMapping(value = "/user/assessment",method = RequestMethod.GET)
+    public ResponseResult assessment(@RequestHeader("Token") String token){
+        User cacheUser = userCache.getUnchecked(token).orElse(null);
+        Assert.notNull(cacheUser,"登录已失效");
+        Assessment assessment = userService.getAssessment(cacheUser.getId());
+        return ResponseResult.success(assessment);
     }
 }

@@ -1,6 +1,7 @@
 package com.sakura.study.service;
 
 import com.sakura.study.dto.PageRequest;
+import com.sakura.study.dto.UserAgreementDto;
 import com.sakura.study.dto.UserDto;
 import com.sakura.study.model.Assessment;
 import com.sakura.study.model.User;
@@ -119,5 +120,19 @@ public interface UserService {
      * @return
      */
     List<User> getChildren(Integer userId);
+
+    /**
+     * 获取用户上传的协议
+     * @param userId
+     * @return
+     */
+    UserAgreementDto getUserAgreement(Integer userId);
+
+    /**
+     * api
+     * 用户评估
+     * @param userId
+     */
+    Assessment getAssessment(Integer userId);
 
 }
