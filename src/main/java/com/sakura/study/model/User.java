@@ -27,6 +27,8 @@ public class User {
 
     private Integer userProcess;
 
+    private Integer applySchool;
+
     private Boolean deleted;
 
     public Integer getId() {
@@ -123,6 +125,14 @@ public class User {
 
     public void setUserProcess(Integer userProcess) {
         this.userProcess = userProcess;
+    }
+
+    public Integer getApplySchool() {
+        return applySchool;
+    }
+
+    public void setApplySchool(Integer applySchool) {
+        this.applySchool = applySchool;
     }
 
     public Boolean getDeleted() {

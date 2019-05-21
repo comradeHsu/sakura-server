@@ -14,11 +14,12 @@
     <result column="user_type" jdbcType="TINYINT" property="userType" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="user_process" jdbcType="INTEGER" property="userProcess" />
+    <result column="apply_school" jdbcType="INTEGER" property="applySchool" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
     id, parent_id, username, password, phone_number, age, icon, real_name, create_time, 
-    user_type, email, user_process, deleted
+    user_type, email, user_process, apply_school, deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -35,12 +36,12 @@
       password, phone_number, age, 
       icon, real_name, create_time, 
       user_type, email, user_process, 
-      deleted)
+      apply_school, deleted)
     values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
       #{icon,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{userType,jdbcType=TINYINT}, #{email,jdbcType=VARCHAR}, #{userProcess,jdbcType=INTEGER}, 
-      #{deleted,jdbcType=BIT})
+      #{applySchool,jdbcType=INTEGER}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.sakura.study.model.User">
     insert into user
@@ -80,6 +81,9 @@
       </if>
       <if test="userProcess != null">
         user_process,
+      </if>
+      <if test="applySchool != null">
+        apply_school,
       </if>
       <if test="deleted != null">
         deleted,
@@ -122,6 +126,9 @@
       <if test="userProcess != null">
         #{userProcess,jdbcType=INTEGER},
       </if>
+      <if test="applySchool != null">
+        #{applySchool,jdbcType=INTEGER},
+      </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
       </if>
@@ -163,6 +170,9 @@
       <if test="userProcess != null">
         user_process = #{userProcess,jdbcType=INTEGER},
       </if>
+      <if test="applySchool != null">
+        apply_school = #{applySchool,jdbcType=INTEGER},
+      </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
       </if>
@@ -182,6 +192,7 @@
       user_type = #{userType,jdbcType=TINYINT},
       email = #{email,jdbcType=VARCHAR},
       user_process = #{userProcess,jdbcType=INTEGER},
+      apply_school = #{applySchool,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -237,7 +248,7 @@
   <select id="getUserInfo" resultType="com.sakura.study.dto.UserDto">
     select
     u.id, u.parent_id, u.username, u.phone_number, u.age, u.icon, u.real_name, u.create_time,
-    u.user_type,u.email,
+    u.user_type,u.email,u.user_process, u.apply_school,
     p.username as parentUsername, p.phone_number as parentPhone
     from user u
     LEFT JOIN user p

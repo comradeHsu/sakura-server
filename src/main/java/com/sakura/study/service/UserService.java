@@ -4,6 +4,7 @@ import com.sakura.study.dto.PageRequest;
 import com.sakura.study.dto.UserAgreementDto;
 import com.sakura.study.dto.UserDto;
 import com.sakura.study.model.Assessment;
+import com.sakura.study.model.University;
 import com.sakura.study.model.User;
 import com.sakura.study.model.UserAgreement;
 import com.sakura.study.utils.ResponseResult;
@@ -140,5 +141,12 @@ public interface UserService {
      * 用户申请院校
      * @param userId
      */
-    void apply(Integer userId);
+    void apply(Integer userId, Integer applySchoolId);
+
+    /**
+     * 获取所申请的院校
+     * @param userId
+     * @return
+     */
+    University getApply(Integer userId);
 }

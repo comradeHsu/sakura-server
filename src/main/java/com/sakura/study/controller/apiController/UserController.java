@@ -5,6 +5,7 @@ import com.sakura.study.dto.ChangePassword;
 import com.sakura.study.dto.UserAgreementDto;
 import com.sakura.study.dto.UserDto;
 import com.sakura.study.model.Assessment;
+import com.sakura.study.model.University;
 import com.sakura.study.model.User;
 import com.sakura.study.model.UserAgreement;
 import com.sakura.study.service.UserService;
@@ -210,10 +211,23 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/apply/school",method = RequestMethod.POST)
+    public ResponseResult apply(@RequestHeader("Token") String token,@RequestBody User user){
+        User cacheUser = userCache.getUnchecked(token).orElse(null);
+        Assert.notNull(cacheUser,"登录已失效");
+        userService.apply(cacheUser.getId(),user.getApplySchool());
+        return ResponseResult.success("申请成功",null);
+    }
+
+    /**
+     * 申请院校
+     * @param token
+     * @return
+     */
+    @RequestMapping(value = "/apply/school",method = RequestMethod.GET)
     public ResponseResult apply(@RequestHeader("Token") String token){
         User cacheUser = userCache.getUnchecked(token).orElse(null);
         Assert.notNull(cacheUser,"登录已失效");
-        userService.apply(cacheUser.getId());
-        return ResponseResult.success("申请成功",null);
+        University university = userService.getApply(cacheUser.getId());
+        return ResponseResult.success(university);
     }
 }

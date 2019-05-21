@@ -41,6 +41,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UploadFileMapper uploadFileMapper;
 
+    @Autowired
+    private UniversityMapper universityMapper;
+
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     /**
@@ -330,8 +333,10 @@ public class UserServiceImpl implements UserService {
         assessmentMapper.deleteByUserId(userId);
         assessmentMapper.insertSelective(assessment);
         User user = userMapper.selectByPrimaryKey(userId);
-        user.setUserProcess(user.getUserProcess()+ 1);
-        userMapper.updateByPrimaryKeySelective(user);
+        if(user.getUserProcess() < 2) {
+            user.setUserProcess(user.getUserProcess() + 1);
+            userMapper.updateByPrimaryKeySelective(user);
+        }
     }
 
     /**
@@ -341,6 +346,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      */
     @Override
+    @Transactional
     public void uploadAgreement(UserAgreement agreement, User user) {
         UserAgreement data = userAgreementMapper.selectByUserId(agreement.getUserId());
         User dataUser = userMapper.selectByPrimaryKey(agreement.getUserId());
@@ -356,6 +362,10 @@ public class UserServiceImpl implements UserService {
             return;
         }
         saveOrUpdate(agreement,data);
+        if(dataUser.getUserProcess() < 4) {
+            dataUser.setUserProcess(6);
+            userMapper.updateByPrimaryKeySelective(dataUser);
+        }
     }
 
     /**
@@ -402,13 +412,26 @@ public class UserServiceImpl implements UserService {
      * @param userId
      */
     @Override
-    public void apply(Integer userId) {
+    public void apply(Integer userId, Integer applySchoolId) {
         User user = getUserById(userId);
         if(user.getUserProcess() >= 3) {
             return;
         }
         user.setUserProcess(3);
+        user.setApplySchool(applySchoolId);
         userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    /**
+     * 获取所申请的院校
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public University getApply(Integer userId) {
+        User user = getUserById(userId);
+        return universityMapper.selectByPrimaryKey(user.getApplySchool());
     }
 
     /**
