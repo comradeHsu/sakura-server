@@ -396,6 +396,22 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * api
+     * 用户申请院校
+     *
+     * @param userId
+     */
+    @Override
+    public void apply(Integer userId) {
+        User user = getUserById(userId);
+        if(user.getUserProcess() >= 3) {
+            return;
+        }
+        user.setUserProcess(3);
+        userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    /**
      * 插入或修改
      * @param agreement
      * @param data

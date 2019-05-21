@@ -135,4 +135,10 @@ public interface UserService {
      */
     Assessment getAssessment(Integer userId);
 
+    /**
+     * api
+     * 用户申请院校
+     * @param userId
+     */
+    void apply(Integer userId);
 }

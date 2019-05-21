@@ -203,4 +203,17 @@ public class UserController {
         Assessment assessment = userService.getAssessment(cacheUser.getId());
         return ResponseResult.success(assessment);
     }
+
+    /**
+     * 申请院校
+     * @param token
+     * @return
+     */
+    @RequestMapping(value = "/apply/school",method = RequestMethod.POST)
+    public ResponseResult apply(@RequestHeader("Token") String token){
+        User cacheUser = userCache.getUnchecked(token).orElse(null);
+        Assert.notNull(cacheUser,"登录已失效");
+        userService.apply(cacheUser.getId());
+        return ResponseResult.success("申请成功",null);
+    }
 }
