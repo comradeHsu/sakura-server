@@ -39,7 +39,7 @@
     values (#{id,jdbcType=INTEGER}, #{department,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.sakura.study.model.Department" >
+  <insert id="insertSelective" parameterType="com.sakura.study.model.Department" keyProperty="id" useGeneratedKeys="true">
     insert into department
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

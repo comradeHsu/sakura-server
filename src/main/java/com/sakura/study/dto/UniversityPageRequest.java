@@ -20,4 +20,6 @@ public class UniversityPageRequest extends PageRequest{
     private Integer parentId;
 
     private Integer subId;
+
+    private Integer score;
 }

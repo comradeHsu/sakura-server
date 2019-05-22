@@ -1,5 +1,6 @@
 package com.sakura.study.dao;
 
+import com.sakura.study.dto.MajorPageRequest;
 import com.sakura.study.model.Major;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,20 +21,17 @@ public interface MajorMapper {
 
     /**
      * 查找学校的专业信息，分页
-     * @param universityId
-     * @param start
-     * @param pageCount
+     * @param request
      * @return
      */
-    List<Major> getPageMajors(@Param("universityId") Integer universityId, @Param("start")Integer start,
-                              @Param("pageCount")Integer pageCount);
+    List<Major> getPageMajors(MajorPageRequest request);
 
     /**
      * 学校的专业数量
-     * @param universityId
+     * @param request
      * @return
      */
-    int getPageMajorsCount(Integer universityId);
+    int getPageMajorsCount(MajorPageRequest request);
 
     /**
      * 根据学校id和专业名字查找

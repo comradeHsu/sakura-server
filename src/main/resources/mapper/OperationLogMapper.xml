@@ -27,7 +27,7 @@
       content, create_time, deleted
       )
     values (#{id,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{operation,jdbcType=INTEGER}, 
-      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
+      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 0
       )
   </insert>
   <insert id="insertSelective" parameterType="com.sakura.study.model.OperationLog">

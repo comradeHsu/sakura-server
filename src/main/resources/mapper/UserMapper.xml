@@ -11,11 +11,15 @@
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="user_process" jdbcType="INTEGER" property="userProcess" />
+    <result column="apply_school" jdbcType="INTEGER" property="applySchool" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
     id, parent_id, username, password, phone_number, age, icon, real_name, create_time, 
-    deleted
+    user_type, email, user_process, apply_school, deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -31,13 +35,15 @@
     insert into user (id, parent_id, username, 
       password, phone_number, age, 
       icon, real_name, create_time, 
-      deleted)
+      user_type, email, user_process, 
+      apply_school, deleted)
     values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
       #{icon,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{deleted,jdbcType=BIT})
+      #{userType,jdbcType=TINYINT}, #{email,jdbcType=VARCHAR}, #{userProcess,jdbcType=INTEGER}, 
+      #{applySchool,jdbcType=INTEGER}, #{deleted,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.sakura.study.model.User" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.sakura.study.model.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -66,6 +72,18 @@
       </if>
       <if test="createTime != null">
         create_time,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="userProcess != null">
+        user_process,
+      </if>
+      <if test="applySchool != null">
+        apply_school,
       </if>
       <if test="deleted != null">
         deleted,
@@ -99,6 +117,18 @@
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="userType != null">
+        #{userType,jdbcType=TINYINT},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userProcess != null">
+        #{userProcess,jdbcType=INTEGER},
+      </if>
+      <if test="applySchool != null">
+        #{applySchool,jdbcType=INTEGER},
+      </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
       </if>
@@ -131,6 +161,18 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=TINYINT},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userProcess != null">
+        user_process = #{userProcess,jdbcType=INTEGER},
+      </if>
+      <if test="applySchool != null">
+        apply_school = #{applySchool,jdbcType=INTEGER},
+      </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
       </if>
@@ -147,6 +189,10 @@
       icon = #{icon,jdbcType=VARCHAR},
       real_name = #{realName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_type = #{userType,jdbcType=TINYINT},
+      email = #{email,jdbcType=VARCHAR},
+      user_process = #{userProcess,jdbcType=INTEGER},
+      apply_school = #{applySchool,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -154,7 +200,7 @@
 
   <select id="getPageUser" resultType="com.sakura.study.dto.UserDto">
     select
-      u.id, u.parent_id, u.username, u.phone_number, u.age, u.icon, u.real_name, u.create_time,
+      u.id, u.parent_id, u.username, u.phone_number, u.age, u.icon, u.real_name, u.create_time, u.user_type,u.email,
       p.username as parentUsername
     from user u
       LEFT JOIN user p
@@ -178,9 +224,9 @@
 
   <select id="getParents" resultType="com.sakura.study.model.User">
     select
-    u.id, u.parent_id, u.username
+    u.id, u.parent_id, u.username,u.phone_number
     from user u
-    where u.deleted = false and u.parent_id = 0
+    where u.deleted = false and u.user_type = 2
     <if test="username != null">
       and u.username like concat('%',#{username},'%')
     </if>
@@ -202,6 +248,7 @@
   <select id="getUserInfo" resultType="com.sakura.study.dto.UserDto">
     select
     u.id, u.parent_id, u.username, u.phone_number, u.age, u.icon, u.real_name, u.create_time,
+    u.user_type,u.email,u.user_process, u.apply_school,
     p.username as parentUsername, p.phone_number as parentPhone
     from user u
     LEFT JOIN user p
@@ -215,5 +262,13 @@
     <include refid="Base_Column_List" />
     from user
     where deleted = false and phone_number = #{phone} limit 1
+  </select>
+
+  <select id="getChildrens" resultType="com.sakura.study.model.User">
+    select
+    u.id, u.parent_id, u.username,u.real_name
+    from user u
+    where u.deleted = false and u.user_type = 1
+    and u.parent_id = #{userId}
   </select>
 </mapper>

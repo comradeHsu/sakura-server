@@ -37,10 +37,18 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @param department
      */
     @Override
-    public void add(Department department) {
+    public void add(DepartmentDto department) {
         Department record = departmentMapper.findByName(department.getDepartment());
         if(record != null) throw new BusinessException(400,"部门名称已存在");
         departmentMapper.insertSelective(department);
+        if(!CollectionUtils.isEmpty(department.getFunctions())){
+            for(Function function : department.getFunctions()){
+                DepartmentFunction df = new DepartmentFunction();
+                df.setDepartmentId(department.getId());
+                df.setFunctionId(function.getId());
+                departmentFunctionMapper.insertSelective(df);
+            }
+        }
     }
 
     /**

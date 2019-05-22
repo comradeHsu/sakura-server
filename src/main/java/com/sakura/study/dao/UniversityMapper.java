@@ -56,4 +56,18 @@ public interface UniversityMapper {
      * @return
      */
     int searchCount(UniversityPageRequest request);
+
+    /**
+     * 分页推荐学校
+     * @param request
+     * @return
+     */
+    List<University> getRecommend(UniversityPageRequest request);
+
+    /**
+     * 分页推荐学校总数
+     * @param request
+     * @return
+     */
+    int getRecommendCount(UniversityPageRequest request);
 }

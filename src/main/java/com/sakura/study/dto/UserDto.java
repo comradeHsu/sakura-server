@@ -12,4 +12,6 @@ public class UserDto extends User{
 
     private String parentPhone;
 
+    private boolean assessed;
+
 }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.study.dao.CommunicationRecordMapper">
+  <resultMap id="BaseResultMap" type="com.sakura.study.model.CommunicationRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="sender_type" jdbcType="INTEGER" property="senderType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, employee_id, content, sender_type, create_time, deleted
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from communication_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from communication_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sakura.study.model.CommunicationRecord">
+    insert into communication_record (id, user_id, employee_id, 
+      content, sender_type, create_time, 
+      deleted)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{senderType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sakura.study.model.CommunicationRecord">
+    insert into communication_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="senderType != null">
+        sender_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="senderType != null">
+        #{senderType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sakura.study.model.CommunicationRecord">
+    update communication_record
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="senderType != null">
+        sender_type = #{senderType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sakura.study.model.CommunicationRecord">
+    update communication_record
+    set user_id = #{userId,jdbcType=INTEGER},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      sender_type = #{senderType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getPages" resultType="com.sakura.study.dto.CommunicationRecordDto" parameterType="com.sakura.study.dto.CommunicationRequest">
+    select
+      c.id, c.user_id, c.employee_id, c.content, c.sender_type, c.create_time,u.username as userUsername,e.username as employeeUsername
+    from communication_record c
+      inner join user u
+      on u.id = c.user_id
+      inner join employee e
+      on e.id = c.employee_id
+    where c.deleted = false
+    limit #{skip}, #{pageCount}
+  </select>
+</mapper>

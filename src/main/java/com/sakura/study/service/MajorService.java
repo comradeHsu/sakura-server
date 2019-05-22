@@ -1,5 +1,6 @@
 package com.sakura.study.service;
 
+import com.sakura.study.dto.MajorPageRequest;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.Major;
 import com.sakura.study.utils.ResponseResult;
@@ -11,7 +12,7 @@ public interface MajorService {
      * @param universityId
      * @return
      */
-    ResponseResult getPageMajors(PageRequest page, Integer universityId);
+    ResponseResult getPageMajors(MajorPageRequest page, Integer universityId);
 
     /**
      * 修改专业信息

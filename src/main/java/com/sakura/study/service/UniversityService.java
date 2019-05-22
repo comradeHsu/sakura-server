@@ -50,4 +50,12 @@ public interface UniversityService {
      * @return
      */
     ResponseResult search(UniversityPageRequest request);
+
+    /**
+     * 推荐学校
+     * @param token
+     * @param page
+     * @return
+     */
+    ResponseResult recommend(String token, UniversityPageRequest page);
 }

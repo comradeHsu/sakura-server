@@ -3,16 +3,21 @@ package com.sakura.study.service.impl;
 import com.google.common.cache.LoadingCache;
 import com.sakura.study.dao.EmployeeMapper;
 import com.sakura.study.dao.FunctionMapper;
+import com.sakura.study.dao.OperationLogMapper;
 import com.sakura.study.dto.ChangePassword;
 import com.sakura.study.dto.EmployeePageRequest;
+import com.sakura.study.model.Article;
 import com.sakura.study.model.Employee;
 import com.sakura.study.model.Function;
+import com.sakura.study.model.OperationLog;
 import com.sakura.study.service.EmployeeService;
 import com.sakura.study.utils.BusinessException;
 import com.sakura.study.utils.MD5Util;
+import com.sakura.study.utils.Operation;
 import com.sakura.study.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,6 +35,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Resource(name = "employeeCache")
     private LoadingCache<String, Optional<Employee>> employeeCache;
+
+    @Autowired
+    private OperationLogMapper operationLogMapper;
 
     /**
      * 员工登录
@@ -63,11 +71,15 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employee
      */
     @Override
+    @Transactional
     public void add(Employee employee,String token) {
         Employee record = employeeMapper.findByUsername(employee.getUsername());
         if(record != null) throw new BusinessException(400,"用户名已存在");
+        Employee self = employeeCache.getUnchecked(token).orElse(null);
         employee.setPassword(MD5Util.md5Encode(employee.getPassword()));
         employeeMapper.insertSelective(employee);
+        OperationLog operationLog = buildLog(employee,Operation.ADD,self);
+        operationLogMapper.insertSelective(operationLog);
     }
 
     /**
@@ -78,13 +90,17 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param token
      */
     @Override
+    @Transactional
     public void edit(Employee employee, Integer id, String token) {
         getEmployeeById(id);
         Employee byUsername = employeeMapper.findByUsername(employee.getUsername());
         if(byUsername != null && !Objects.equals(byUsername.getId(), id)) throw new BusinessException(400,"用户名已存在");
+        Employee self = employeeCache.getUnchecked(token).orElse(null);
         employee.setId(id);
         employee.setPassword(null);
         employeeMapper.updateByPrimaryKeySelective(employee);
+        OperationLog operationLog = buildLog(employee,Operation.EDIT,self);
+        operationLogMapper.insertSelective(operationLog);
     }
 
     /**
@@ -95,9 +111,13 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return
      */
     @Override
+    @Transactional
     public void deleted(Integer id, String token) {
         Employee employee = getEmployeeById(id);
         employeeMapper.deletedById(id);
+        Employee self = employeeCache.getUnchecked(token).orElse(null);
+        OperationLog operationLog = buildLog(employee,Operation.EDIT,self);
+        operationLogMapper.insertSelective(operationLog);
     }
 
     /**
@@ -140,5 +160,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee record = employeeMapper.selectByPrimaryKey(id);
         if(record == null || record.getDeleted()) throw new BusinessException(404,"此工作人员不存在或已删除");
         return record;
+    }
+
+    private OperationLog buildLog(Employee record, Operation operation, Employee employee){
+        OperationLog operationLog = new OperationLog();
+        operationLog.setOperation(operation.getValue());
+        operationLog.setContent(buildContent(record,operation.getDesc()));
+        operationLog.setEmployeeId(employee.getId());
+        return operationLog;
+    }
+
+    private String buildContent(Employee record, String method){
+        return method +"工作人员"+ record.getUsername();
     }
 }

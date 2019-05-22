@@ -12,13 +12,15 @@
     <result column="website" jdbcType="VARCHAR" property="website" />
     <result column="world_ranking" jdbcType="INTEGER" property="worldRanking" />
     <result column="national_ranking" jdbcType="INTEGER" property="nationalRanking" />
+    <result column="score_top" jdbcType="INTEGER" property="scoreTop" />
+    <result column="score_buttom" jdbcType="INTEGER" property="scoreButtom" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
     id, school_name, english_name, school_icon, province, city, address, website, world_ranking, 
-    national_ranking, description, create_time, deleted
+    national_ranking, score_top, score_buttom, description, create_time, deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -34,13 +36,15 @@
     insert into university (id, school_name, english_name, 
       school_icon, province, city, 
       address, website, world_ranking, 
-      national_ranking, description, create_time, 
-      deleted)
+      national_ranking, score_top, score_buttom, 
+      description, create_time, deleted
+      )
     values (#{id,jdbcType=INTEGER}, #{schoolName,jdbcType=VARCHAR}, #{englishName,jdbcType=VARCHAR}, 
       #{schoolIcon,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, #{worldRanking,jdbcType=INTEGER}, 
-      #{nationalRanking,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{deleted,jdbcType=BIT})
+      #{nationalRanking,jdbcType=INTEGER}, #{scoreTop,jdbcType=INTEGER}, #{scoreButtom,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.sakura.study.model.University">
     insert into university
@@ -74,6 +78,12 @@
       </if>
       <if test="nationalRanking != null">
         national_ranking,
+      </if>
+      <if test="scoreTop != null">
+        score_top,
+      </if>
+      <if test="scoreButtom != null">
+        score_buttom,
       </if>
       <if test="description != null">
         description,
@@ -116,6 +126,12 @@
       <if test="nationalRanking != null">
         #{nationalRanking,jdbcType=INTEGER},
       </if>
+      <if test="scoreTop != null">
+        #{scoreTop,jdbcType=INTEGER},
+      </if>
+      <if test="scoreButtom != null">
+        #{scoreButtom,jdbcType=INTEGER},
+      </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
@@ -157,6 +173,12 @@
       <if test="nationalRanking != null">
         national_ranking = #{nationalRanking,jdbcType=INTEGER},
       </if>
+      <if test="scoreTop != null">
+        score_top = #{scoreTop,jdbcType=INTEGER},
+      </if>
+      <if test="scoreButtom != null">
+        score_buttom = #{scoreButtom,jdbcType=INTEGER},
+      </if>
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
       </if>
@@ -180,6 +202,8 @@
       website = #{website,jdbcType=VARCHAR},
       world_ranking = #{worldRanking,jdbcType=INTEGER},
       national_ranking = #{nationalRanking,jdbcType=INTEGER},
+      score_top = #{scoreTop,jdbcType=INTEGER},
+      score_buttom = #{scoreButtom,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}
@@ -215,7 +239,7 @@
     and school_name = #{schoolName} limit 1
   </select>
 
-  <select id="search" resultMap="BaseResultMap" parameterType="com.sakura.study.dto.UniversityPageRequest">
+  <select id="search" parameterType="com.sakura.study.dto.UniversityPageRequest" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from university
@@ -239,7 +263,7 @@
     limit #{skip}, #{pageCount}
   </select>
 
-  <select id="searchCount" resultType="java.lang.Integer" parameterType="com.sakura.study.dto.UniversityPageRequest">
+  <select id="searchCount" parameterType="com.sakura.study.dto.UniversityPageRequest" resultType="java.lang.Integer">
     select
     count(*)
     from university
@@ -259,5 +283,25 @@
     <if test="rankingBottom != null">
       and national_ranking &lt;= #{rankingBottom}
     </if>
+  </select>
+
+  <select id="getRecommend" parameterType="com.sakura.study.dto.UniversityPageRequest" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from university
+    where deleted = FALSE
+      and score_top &gt;= #{score}
+      and score_buttom &lt;= #{score}
+    order by world_ranking asc
+    limit #{skip}, #{pageCount}
+  </select>
+
+  <select id="getRecommendCount" parameterType="com.sakura.study.dto.UniversityPageRequest" resultType="java.lang.Integer">
+    select
+    count(*)
+    from university
+    where deleted = FALSE
+    and score_top &gt;= #{score}
+    and score_buttom &lt;= #{score}
   </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.sakura.study.controller.adminController;
 
+import com.sakura.study.dto.MajorPageRequest;
 import com.sakura.study.dto.PageRequest;
 import com.sakura.study.model.Major;
 import com.sakura.study.service.MajorService;
@@ -23,7 +24,7 @@ public class MajorController {
      * @return
      */
     @RequestMapping(value = "/university/{id}/majors",method = RequestMethod.GET)
-    public ResponseResult getMajors(PageRequest page, @PathVariable("id") Integer id){
+    public ResponseResult getMajors(MajorPageRequest page, @PathVariable("id") Integer id){
         page.initSkip();
         return majorService.getPageMajors(page,id);
     }

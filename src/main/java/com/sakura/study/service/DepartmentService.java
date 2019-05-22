@@ -12,7 +12,7 @@ public interface DepartmentService {
      * 添加部门
      * @param department
      */
-    void add(Department department);
+    void add(DepartmentDto department);
 
     /**
      * 删除部门
