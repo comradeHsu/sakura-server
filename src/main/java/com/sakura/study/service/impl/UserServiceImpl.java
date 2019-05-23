@@ -359,12 +359,16 @@ public class UserServiceImpl implements UserService {
                 throw new BusinessException(405,"您不是对方家长不能签署协议");
             }
             saveOrUpdate(agreement, data);
-            return;
-        }
-        saveOrUpdate(agreement,data);
-        if(dataUser.getUserProcess() < 4) {
-            dataUser.setUserProcess(6);
-            userMapper.updateByPrimaryKeySelective(dataUser);
+            if (dataUser.getUserProcess() < 4) {
+                dataUser.setUserProcess(6);
+                userMapper.updateByPrimaryKeySelective(dataUser);
+            }
+        } else {
+            saveOrUpdate(agreement, data);
+            if (dataUser.getUserProcess() < 4) {
+                dataUser.setUserProcess(6);
+                userMapper.updateByPrimaryKeySelective(dataUser);
+            }
         }
     }
 
