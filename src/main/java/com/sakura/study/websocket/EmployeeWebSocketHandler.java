@@ -17,7 +17,9 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @ServerEndpoint("/reply/{userId}")
 @Component
@@ -62,6 +64,7 @@ public class EmployeeWebSocketHandler {
             }
         }
         sessionContext.getEmployeeQueue().add(es);
+        logger.info("当前共有{}个客服", sessionContext.getEmployeeQueue().size());
     }
 
     @OnClose
@@ -73,6 +76,12 @@ public class EmployeeWebSocketHandler {
         for (Session userSession : userSessions) {
             sessionContext.getUserWaitQueue().add(userSession);
         }
+        users.removeAll(userId);
+        Map<Session,EmployeeSession> userForEmployee = sessionContext.getUserForEmployee();
+        Collection<EmployeeSession> values = userForEmployee.values();
+        values.remove(es);
+        logger.info("id={}连接已经被关闭", userId);
+        logger.info("当前共有{}个客服", sessionContext.getEmployeeQueue().size());
     }
 
     @OnError
