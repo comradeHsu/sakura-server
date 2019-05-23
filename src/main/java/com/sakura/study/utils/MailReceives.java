@@ -57,8 +57,9 @@ public class MailReceives {
 //            Message[] messages = folder.getMessages();// 得到邮箱帐户中的所有邮件
 
 
-            Folder defaultFolder = store.getDefaultFolder();
+            Folder defaultFolder = store.getDefaultFolder();//拿到邮件的文件夹对象
             Folder[] allFolder = defaultFolder.list();
+            //遍历文件夹中邮件 全部取出
             for (Folder folder : allFolder ) {
                 Folder realyFolder = store.getFolder(folder.getName());
                 realyFolder.open(Folder.READ_WRITE);

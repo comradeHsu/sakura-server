@@ -17,11 +17,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @Getter
 public class SessionContext {
 
-    private Queue<Session> userWaitQueue = new ConcurrentLinkedQueue<>();
+    private Queue<Session> userWaitQueue = new ConcurrentLinkedQueue<>();//用户等待队列
 
-    private Queue<EmployeeSession> employeeQueue = new ConcurrentLinkedQueue<>();
+    private Queue<EmployeeSession> employeeQueue = new ConcurrentLinkedQueue<>();//客服队列
 
-    private Map<Session,EmployeeSession> userForEmployee =  new ConcurrentHashMap<>();
+    private Map<Session,EmployeeSession> userForEmployee =  new ConcurrentHashMap<>();//建立连接，第一个客服到队尾
 
     private Map<Integer,Session> userSession =  new ConcurrentHashMap<>();
 

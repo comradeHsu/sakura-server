@@ -136,7 +136,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/session",method = RequestMethod.DELETE)
     public ResponseResult login(@RequestHeader("Token") String token){
-        employeeCache.invalidate(token);
+    	employeeCache.invalidate(token);//invaliadate()注销方法
         return ResponseResult.success("退出登录成功",null);
     }
 

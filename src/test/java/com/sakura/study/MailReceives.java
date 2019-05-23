@@ -1,3 +1,5 @@
+package com.sakura.study;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sakura.study.dto.MailDto;
 import org.json.JSONObject;

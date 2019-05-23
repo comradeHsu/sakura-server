@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@ServerEndpoint("/reply/{userId}")
+@ServerEndpoint("/reply/{userId}")//定义连接的url
 @Component
 @Lazy
 public class EmployeeWebSocketHandler {
@@ -37,11 +37,11 @@ public class EmployeeWebSocketHandler {
         Message data;
         try {
             data = mapper.readValue(message,Message.class);
-            Session userSession = sessionContext.getUserSession().get(data.getUserId());
+            Session userSession = sessionContext.getUserSession().get(data.getUserId());//根据用户id拿到用户session
             if(userSession != null){
-                data.setType(1);
-                userSession.getAsyncRemote().sendText(message);
-                CommunicationRecord cr = buildModel(data.getContent(),data.getUserId(),employeeId);
+                data.setType(1);//
+                userSession.getAsyncRemote().sendText(message);//异步发送消息
+                CommunicationRecord cr = buildModel(data.getContent(),data.getUserId(),employeeId);//数据库保存消息
                 dao.insertSelective(cr);
             }
         } catch (IOException e) {
@@ -51,10 +51,15 @@ public class EmployeeWebSocketHandler {
     }
 
     @OnOpen
+    /**
+     * 建立连接
+     * @param session
+     * @param employeeId
+     */
     public void onOpen(Session session, @PathParam("userId") Integer employeeId) {
         EmployeeSession es = new EmployeeSession(employeeId,session);
         if(sessionContext.getEmployeeQueue().isEmpty() && !sessionContext.getUserWaitQueue().isEmpty()){
-            Session userSession = sessionContext.getUserWaitQueue().poll();
+            Session userSession = sessionContext.getUserWaitQueue().poll();//去除并删除等待队列中的头部元素
             while(userSession != null){
                 sessionContext.getUserForEmployee().put(userSession,es);
                 sessionContext.getEmployeeForUsers().put(employeeId,userSession);

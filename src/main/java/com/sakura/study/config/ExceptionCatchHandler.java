@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
 public class ExceptionCatchHandler {
-
+/**
+ * 全局异常捕捉处理
+ * @param be
+ * @return
+ */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
     public ResponseResult exceptionHandler(BusinessException be){

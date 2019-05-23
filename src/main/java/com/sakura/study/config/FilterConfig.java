@@ -17,7 +17,7 @@ public class FilterConfig  implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 可添加多个
-//        registry.addInterceptor(interceptorHttp).addPathPatterns("/**").excludePathPatterns("/api/**","/employee/login","/region/**","/qiniu/**");
+        registry.addInterceptor(interceptorHttp).addPathPatterns("/**").excludePathPatterns("/api/**","/employee/login","/region/**","/qiniu/**");
         registry.addInterceptor(apiInterceptor).addPathPatterns("/api/**");
     }
 }

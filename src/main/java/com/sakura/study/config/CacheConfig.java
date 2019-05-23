@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class CacheConfig {
-
+//用户信息缓存，类似session
     @Bean(name = "employeeCache")
     public LoadingCache<String, Optional<Employee>> buildCache(){
         return CacheBuilder.newBuilder()
